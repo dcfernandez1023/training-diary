@@ -278,7 +278,7 @@ class Graph extends Component {
 	
 	createStringFilters = (graphData) => {
 		if(graphData === null || graphData === undefined || graphData.length === 0) {
-			return <p> <i> No filters for this graph </i> </p>;
+			return <div> </div>;
 		}
 		var filters = [];
 		var filterData = [];
@@ -291,7 +291,7 @@ class Graph extends Component {
 			}
 		}
 		if(filters.length < 1) {
-			return <p> <i> No filters for this graph </i> </p>;
+			return <div> </div>;
 		}
 		for(i = 0; i < filters.length; i++) {
 			var filter = filters[i];
@@ -305,31 +305,29 @@ class Graph extends Component {
 			}
 		}
 		if(filterData === null || filterData === undefined || filterData.length === 0) {
-			return <p> <i> No filters for this graph </i> </p>;
+			return <div> </div>;
 		}
-		return <Accordion>
-					<Card>
-						<Card.Header> 
-							<Accordion.Toggle as = {Button} variant = "link" eventKey = "1">
-								Show By Field
-							</Accordion.Toggle>
-						</Card.Header>
-						<Card.Body>
-							{filterData.length === 1
-								?
-									<Form.Check type = "checkbox" label = {filterData[0]} onClick = {this.onSelectFilter.bind(this, filterData[0])}/> 
-								:
-									<div>
-										{filterData.map((data) => {
-											return (
-												<Form.Check type = "checkbox" label = {data} onClick = {this.onSelectFilter.bind(this, data)}/> 
-											)
-										})}
-									</div>
-							}
-						</Card.Body>
-					</Card>
-			</Accordion>
+		return (
+				<Card>
+					<Card.Body>
+						<Card.Title> 
+							Show By 
+						</Card.Title>
+						{filterData.length === 1
+							?
+								<Form.Check type = "checkbox" label = {filterData[0]} onClick = {this.onSelectFilter.bind(this, filterData[0])}/> 
+							:
+								<div>
+									{filterData.map((data) => {
+										return (
+											<Form.Check type = "checkbox" label = {data} onClick = {this.onSelectFilter.bind(this, data)}/> 
+										)
+									})}
+								</div>
+						}
+					</Card.Body>
+				</Card>
+		)
 	}
 	
 	createNumFilters = (graphData) => {
@@ -410,6 +408,12 @@ class Graph extends Component {
 	}
 	
 	render() {
+		const startPicker = <Form.Control
+								type = "input"
+							/>
+		const endPicker = <Form.Control
+								type = "input"
+							/>
 		const dropdownOption = this.createOptionDropdown();
 		var graphData = this.getGraphData();
 		const stringFilters = this.createStringFilters(graphData);
@@ -420,59 +424,71 @@ class Graph extends Component {
 		var maxValue;
 		if(filteredGraphData !== null) {
 			lines = this.createLines(filteredGraphData);
-			legendPayload = this.getLegendData(filteredGraphData);
+			//legendPayload = this.getLegendData(filteredGraphData);
 			maxValue = this.getMaxValue(filteredGraphData);
 			graphData = filteredGraphData;
 		}
 		else {
 			lines = this.createLines(graphData);
-			legendPayload = this.getLegendData(graphData);
+			//legendPayload = this.getLegendData(graphData);
 			maxValue = this.getMaxValue(graphData);
 		}
 		
 		return (
 			<Container fluid> 
 				<Row>
-					<Col sm = {1}>
+					<Col sm = {2}>
 						<Row>
-							{dropdownOption}
+							<Col>
+								{dropdownOption}
+							</Col>
 						</Row>
 						<br/>
 						<Row>
-							<Col sm = {6}>
+							<Col>
 								<Row>
-									<p> <u> Start Date </u> </p>
+									<Col>
+										<p> <u> Start Date </u> </p>
+									</Col>
 								</Row>
 								<Row>
-									<div>
+									<Col>
 										<DatePicker
 											selected = {this.state.startDate}
 											onChange = {this.onSelectStartDate}
+											customInput = {startPicker}
+											placeholderText = "mm/dd/yyyy"
 										/>
-									</div>
-								</Row>
-							</Col>
-						</Row>
-						<Row>
-							<Col sm = {6}>
-								<Row>
-									<p> <u> End Date </u> </p>	
-								</Row>
-								<Row>
-									<DatePicker
-										selected = {this.state.endDate}
-										onChange = {this.onSelectEndDate}
-									/>
+									</Col>
 								</Row>
 							</Col>
 						</Row>
 						<br/>
 						<Row>
-							<h4> Filters </h4>	
-						</Row> 
-						<Row>
-							{stringFilters}
+							<Col>
+								<Row>
+									<Col>
+										<p> <u> End Date </u> </p>	
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<DatePicker
+											selected = {this.state.endDate}
+											onChange = {this.onSelectEndDate}
+											customInput = {endPicker}
+											placeholderText = "mm/dd/yyyy"
+										/>
+									</Col>
+								</Row>
+							</Col>
 						</Row>
+						<br/>
+						<Row>
+							<Col>
+								{stringFilters}
+							</Col>
+						</Row> 
 						<br/>
 						<Row>
 						{/*
@@ -495,7 +511,7 @@ class Graph extends Component {
 						*/}
 						</Row>
 					</Col>
-					<Col sm = {11}>
+					<Col sm = {10}>
 						<div className = "graph-container">
 						{graphData === null ?
 							<h3> <i> Graph Title </i> </h3>
@@ -510,7 +526,7 @@ class Graph extends Component {
 									<YAxis type = "number" domain = {[0, maxValue]}/>
 									 <CartesianGrid strokeDasharray="3 3" />
 									<Tooltip/>
-									<Legend payload = {legendPayload}/>
+									<Legend />
 									{lines}
 								</LineChart>
 							</ResponsiveContainer>

@@ -565,12 +565,22 @@ class Goals extends Component {
 							<Card.Body>
 							{category !== "Diet" && category !== "Body"
 							?
-								<Card.Title> 
-									{category} Goals 
-									<Button variant = "primary" style = {{float: "right"}} onClick = {this.openAddModal.bind(this, category)}>
-										+
-									</Button>
-								</Card.Title>
+								<Row>
+									<Col>
+										<Card.Title> 
+											<Row>
+												<Col>
+													{category} Goals 
+												</Col>
+												<Col>
+													<Button variant = "primary" style = {{float: "right"}} onClick = {this.openAddModal.bind(this, category)}>
+														+
+													</Button>
+												</Col>
+											</Row>
+										</Card.Title>
+									</Col>
+								</Row>
 							:
 								<Card.Title> 
 									{category} Goals 

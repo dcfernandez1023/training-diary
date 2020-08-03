@@ -44,8 +44,6 @@ class Authentication:
     #returns false to indicate user does not have access to apis
     def isApiUser(self, app, token):
         decoded_token = self.__decode_api_token(app, token)
-        print(decoded_token)
-        print(token)
         if decoded_token == self.__username:
             return True
         return False

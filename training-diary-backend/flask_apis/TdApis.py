@@ -62,11 +62,8 @@ def get_all_data(username):
 #obtains username from url parameter, token from request header, and data from request body
 @app.route("/postData/<username>", methods = ["POST"])
 def post_data(username):
-    print(username)
     token = request.headers.get("token")
-    print(token)
     request_body = request.get_json()
-    print(request_body)
     user = User.User(username, app)
     return user.post_data(token, request_body)
 

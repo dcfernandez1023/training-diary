@@ -218,11 +218,18 @@ class Calendar extends Component {
 	}
 	
 	goalAchieved = (entry) => {
+		var numKey = "Amount";
+		for(var key in entry) {
+			if(!isNaN(entry[key]) && entry[key].toString().trim().length !== 0) {
+				numKey = key;
+				console.log(numKey);
+			}
+		}
 		for(var i = 0; i < this.props.data.goals.length; i++) {
 			var goal = this.props.data.goals[i];
 			if(goal["Goal Type"] === entry.Category) {
 				if(!goal.deletable) {
-					if(Number(goal.Fields[entry.Type]) === Number(entry[entry.Type])) {
+					if(Number(goal.Fields[entry.Type]) === Number(entry[numKey])) {
 						return true;
 					}
 				}
@@ -443,11 +450,11 @@ class Calendar extends Component {
 						?
 						<div className = "calendar-container">
 							<Row>
-								<Col sm = {1}>
-									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
-								</Col>
 								<Col sm = {11}>
 									<h2 className = "date-string"> {this.state.selectedDateString} </h2>
+								</Col>
+								<Col sm = {1}>
+									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
 								</Col>
 							</Row>
 							<Row>
@@ -459,11 +466,11 @@ class Calendar extends Component {
 						:
 						<div className = "calendar-container">
 							<Row>
-								<Col sm = {1}>
-									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
-								</Col>
 								<Col sm = {11}>
 									<h2 className = "date-string"> {this.state.selectedDateString} </h2>
+								</Col>
+								<Col sm = {1}>
+									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
 								</Col>
 							</Row>
 							<br/>

@@ -85,6 +85,41 @@ class DataList extends Component {
 		this.forceUpdate();
 	}
 	
+	goalAchieved = (entry) => {
+		var numKey = "Amount";
+		for(var key in entry) {
+			if(!isNaN(entry[key]) && entry[key].toString().trim().length !== 0) {
+				numKey = key;
+				console.log(numKey);
+			}
+		}
+		for(var i = 0; i < this.props.data.goals.length; i++) {
+			var goal = this.props.data.goals[i];
+			if(goal["Goal Type"] === entry.Category) {
+				if(!goal.deletable) {
+					if(Number(goal.Fields[entry.Type]) === Number(entry[numKey])) {
+						return true;
+					}
+				}
+				else {
+					var isAchieved = false;
+					for(var key in goal.Fields) {
+						if(goal.Fields[key] === entry[key]) {
+							isAchieved = true;
+						}
+						else {
+							isAchieved = false;
+						}
+					}
+					if(isAchieved) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	createOptionDropdown = () => {
 		if(this.props.data === null || this.props.data === undefined) {
 			return null;
@@ -101,7 +136,7 @@ class DataList extends Component {
 								<Form.Check 
 								type = "checkbox"
 								label = "All"
-								checked = {false}
+								checked = {true}
 								disabled = {true}
 								onChange = {this.onSelectOption.bind(this, "All")}
 								/>
@@ -310,6 +345,41 @@ class DataList extends Component {
 								if(this.state.listFilters.length === 0) {
 									if(new Date(entry.Date).getTime() === new Date(date).getTime()) {
 										totalList.push(entry);
+										if(this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body") {
+											return (
+												<div>
+													<div> Goal Achieved 🏆 </div>
+													<br/>
+													{entry.displayOrder.map((key) => {
+														if(key !== "Notes") {
+															return (
+																<ListGroup horizontal key = {uuid()}>
+																	<ListGroup.Item style = {{width: "40%"}}> <strong> {key} </strong> </ListGroup.Item>
+																	<ListGroup.Item style = {{width: "60%"}}> {entry[key]} </ListGroup.Item>
+																</ListGroup>
+															)
+														}
+														const popover = (
+															<Popover>
+																<Popover.Title as = "h3"> {key} </Popover.Title>
+																<Popover.Content> {entry[key]} </Popover.Content>
+															</Popover>
+														);
+														return (
+															<div key = {uuid()}>
+																<br/>
+																<OverlayTrigger trigger = "click" placement = "right" overlay = {popover} rootClose = {true}>
+																	<Button variant = "success"> {key} </Button>
+																</OverlayTrigger>
+																<Button variant = "light" className = "deleteEditButtons" onClick = {this.deleteEntry.bind(this, index)}> 🗑️ </Button>
+																<Button variant = "light" className = "deleteEditButtons" onClick = {this.onClickEdit.bind(this, index, date)}> ✏️ </Button>
+																<hr style = {{border: "1px solid black"}} />
+															</div>
+														)
+													})}
+												</div>
+											)
+										}
 										return (
 											entry.displayOrder.map((key) => {
 												if(key !== "Notes") {
@@ -344,6 +414,41 @@ class DataList extends Component {
 								else {
 									if(new Date(entry.Date).getTime() === new Date(date).getTime() && this.state.listFilters.includes(entry.Type)) {
 										totalList.push(entry);
+										if(this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body") {
+											return (
+												<div>
+													<div> Goal Achieved 🏆 </div>
+													<br/>
+													{entry.displayOrder.map((key) => {
+														if(key !== "Notes") {
+															return (
+																<ListGroup horizontal key = {uuid()}>
+																	<ListGroup.Item style = {{width: "40%"}}> <strong> {key} </strong> </ListGroup.Item>
+																	<ListGroup.Item style = {{width: "60%"}}> {entry[key]} </ListGroup.Item>
+																</ListGroup>
+															)
+														}
+														const popover = (
+															<Popover>
+																<Popover.Title as = "h3"> {key} </Popover.Title>
+																<Popover.Content> {entry[key]} </Popover.Content>
+															</Popover>
+														);
+														return (
+															<div key = {uuid()}>
+																<br/>
+																<OverlayTrigger trigger = "click" placement = "right" overlay = {popover} rootClose = {true}>
+																	<Button variant = "success"> {key} </Button>
+																</OverlayTrigger>
+																<Button variant = "light" className = "deleteEditButtons" onClick = {this.deleteEntry.bind(this, index)}> 🗑️ </Button>
+																<Button variant = "light" className = "deleteEditButtons" onClick = {this.onClickEdit.bind(this, index, date)}> ✏️ </Button>
+																<hr style = {{border: "1px solid black"}} />
+															</div>
+														)
+													})}
+												</div>
+											)
+										}
 										return (
 											entry.displayOrder.map((key) => {
 												if(key !== "Notes") {
@@ -378,6 +483,24 @@ class DataList extends Component {
 							})}
 							<div>
 								{this.calculateTotals(totalList).map((total) => {
+									console.log(total);
+									if(this.goalAchieved(total)) {
+										return (
+											<div>
+												<div> Goal Achieved 🏆 </div>
+												<br/>
+												<ListGroup horizontal key = {uuid()}>
+													{total.calculationType === "Add"
+													?
+														<ListGroup.Item style = {{width: "50%"}}> <strong> Total {total.Type}: </strong> </ListGroup.Item>
+													:
+														<ListGroup.Item style = {{width: "50%"}}> <strong> {total.calculationType} {total.Type}: </strong> </ListGroup.Item>
+													}
+													<ListGroup.Item style = {{width: "50%"}}> {total.Amount} </ListGroup.Item>
+												</ListGroup>
+											</div>
+										)
+									}
 									return (
 										<ListGroup horizontal key = {uuid()}>
 											{total.calculationType === "Add"
@@ -404,6 +527,12 @@ class DataList extends Component {
 	}
 	
 	render() {
+		const startPicker = <Form.Control
+								type = "input"
+							/>
+		const endPicker = <Form.Control
+								type = "input"
+							/>
 		const optionDropdown = this.createOptionDropdown();
 		const listData = this.getListData();
 		const displayData = this.displayData(listData);
@@ -445,43 +574,53 @@ class DataList extends Component {
 				<Row>
 					<Col sm = {2}>
 						<Row>
-							<Col sm = {0}>
+							<Col>
 								{optionDropdown}
 							</Col>
 						</Row>
 						<br/>
 						<Row>
-							<Col sm = {6}>
+							<Col>
 								<Row>
-									<p> <u> Start Date </u> </p>
+									<Col>
+										<p> <u> Start Date </u> </p>
+									</Col>
 								</Row>
 								<Row>
-									<div>
+									<Col>
 										<DatePicker
 											selected = {this.state.startDate}
 											onChange = {this.onSelectStartDate}
+											customInput = {startPicker}
+											placeholderText = "mm/dd/yyyy"
 										/>
-									</div>
+									</Col>
 								</Row>
 							</Col>
 						</Row>
 						<br/>
 						<Row>
-							<Col sm = {6} style = {{marginBottom: "1%"}}>
+							<Col style = {{marginBottom: "1%"}}>
 								<Row>
-									<p> <u> End Date </u> </p>	
+									<Col>
+										<p> <u> End Date </u> </p>	
+									</Col>
 								</Row>
 								<Row>
-									<DatePicker
-										selected = {this.state.endDate}
-										onChange = {this.onSelectEndDate}
-									/>
+									<Col>
+										<DatePicker
+											selected = {this.state.endDate}
+											onChange = {this.onSelectEndDate}
+											customInput = {endPicker}
+											placeholderText = "mm/dd/yyyy"
+										/>
+									</Col>
 								</Row>
 							</Col>
 						</Row>
 						<br/>
 						<Row>
-							<Col sm = {0}>
+							<Col>
 							{this.state.allChecked 
 								?
 									<Card>

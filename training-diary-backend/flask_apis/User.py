@@ -49,7 +49,6 @@ class User:
     def verify_api_token(self, token):
         try:
             isVerified = self.__auth.isApiUser(self.__app, token)
-            print(isVerified)
             if isVerified:
                 response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
                 return make_response({}, 200, response_header)

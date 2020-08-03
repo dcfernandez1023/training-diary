@@ -1,0 +1,15 @@
+.container {
+	border: 1px solid black;
+	height: 75vh;
+	overflow-y: auto;
+}
+.track-button {
+	margin-top: 1%;
+	margin-right: 1%;
+	float: right;
+}
+.info-button {
+	margin-top: 1%;
+	margin-right: 1%;
+	float: right;
+}

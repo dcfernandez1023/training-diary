@@ -1,0 +1,20 @@
+.modal-header-tag {
+	margin: 0px;
+	padding: 0px;
+}
+
+.loader-container {
+	float: left;
+}
+
+.input-spacing {
+	margin-top: 15px;
+}
+
+.error-alert {
+	float: left;
+}
+
+.alert-container {
+	text-align: left;
+}

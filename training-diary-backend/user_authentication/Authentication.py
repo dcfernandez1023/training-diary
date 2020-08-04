@@ -23,7 +23,7 @@ class Authentication:
     #returns true if user can register with the given username
     #returns false if the username is taken
     def validate_registration(self):
-        return not self.__dbAccess.is_existing_user()
+        return not self.__dbAccess.is_existing_user(self.__username)
 
     #returns the DbAccess object
     def get_db_access(self):

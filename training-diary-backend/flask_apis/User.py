@@ -10,13 +10,14 @@ import traceback
 
 class User:
     def __init__(self, username, app):
-        self.__FAIL_MSG = {"status": -1}
-        self.__SUCCESS_MSG = {"status": 0}
-        self.__INVALID_MSG = {"status": 1}
         self.__username = username
         self.__app = app
         self.__auth = self.__create_auth(username)
 
+    #used to reset user data members after new account information (username) is updated
+    def reset_user_attributes(self, new_username):
+        self.__username = new_username
+        self.__auth = self.__create_auth(new_username)
     ## USER AUTHENTICATION METHODS ##
 
     #validates login and returns token (if valid)
@@ -57,6 +58,23 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
+    def update_username_and_email(self, token, new_username, new_email):
+        try:
+            isVerified = self.__auth.isApiUser(self.__app, token)
+            if isVerified:
+                update_body = {"_id": new_username, "email": new_email}
+                db_access = self.__auth.get_db_access()
+                if db_access.is_existing_user(new_username):
+                    return make_response({}, 409)
+                db_access.update_username_and_email(update_body)
+                self.reset_user_attributes(new_username)
+                response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                return make_response({}, 200, response_header)
+            return make_response({}, 401)
+        except Exception:
+            self.__log_error(traceback.format_exc())
+            return make_response({}, 500)
+
     ## GET METHODS ##
 
     #gets entire user's document from database
@@ -86,13 +104,6 @@ class User:
 
 
     ## PRIVATE METHODS ##
-
-    #generates success response for GET, PUT, POST, and DELETE apis
-    def __generate_success_response(self, data):
-        response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
-        response_header.update(self.__SUCCESS_MSG)
-        msg = make_response((data, response_header))
-        return msg
 
     # simple function for returning consistent token messages
     def __token_msg(self, token):

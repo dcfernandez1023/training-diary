@@ -71,7 +71,7 @@ class App extends Component {
 			}
 		}
 		catch(error) {
-			alert("An unexpected error occurred -- redirecting to login page");
+			//alert("An unexpected error occurred -- redirecting to login page");
 			this.logout();
 		}
 	}
@@ -128,12 +128,40 @@ class App extends Component {
 			}
 		}
 		catch(error) {
-			alert("An unexpected error occurred -- redirecting to login page");
+			//alert("An unexpected error occurred -- redirecting to login page");
 			this.logout();
 		}
 	}
 	
-	/* LOGIN + REGISTRATION METHODS */ 
+	/* AUTH METHODS */ 
+	
+	changeUsernameAndEmail = (reqBody, newData, token) => {
+		axios.post("/postAccountInfo", reqBody, {headers: {"token": token}})
+			.catch(function(error) {
+				if(error.response.status === 409) {
+					alert("Username already exists. Please choose another one");
+					return;
+				}
+				alert("Error -- could not update username & email -- redirecting to login page");
+			})
+			.then(res => this.handleChangeResponse(res, newData));
+	}
+	
+	handleChangeResponse = (response, newData) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				alert("Changed successfully");
+				localStorage.setItem("token", response.headers.token);
+				localStorage.setItem("username", newData._id);
+				this.setState({token: response.headers.token});
+				this.setState({data: newData});
+			}
+		}
+		catch(error) {
+			return;
+		}
+	}
 	
 	//method passed in as props to Login.js
 	//grants access to apis by setting App.js state and redirecting to TrainingDiary.js
@@ -196,7 +224,7 @@ class App extends Component {
 							/>
 						</Route>
 						<Route exact path = "/profile">
-							<Profile data = {this.state.data}/>
+							<Profile data = {this.state.data} token = {this.state.token} changeUsernameAndEmail = {this.changeUsernameAndEmail}/>
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

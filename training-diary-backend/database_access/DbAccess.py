@@ -10,9 +10,13 @@ class DbAccess:
         self.__db = self.__get_db()
         self.__document = self.__get_document(username)
 
+    #setter for document
+    def set_document(self, document):
+        self.__document = document
+
     #determines if the user exists
-    def is_existing_user(self):
-        if self.__document is None:
+    def is_existing_user(self, username):
+        if self.__get_document(username) is None:
             return False
         return True
 
@@ -34,17 +38,27 @@ class DbAccess:
         data.pop(key)
         return data
 
+    #takes in dictionary request body sent from client and updates only _id and email key-value pairs of the document
+    def update_username_and_email(self, update_body):
+        if self.__document is None:
+            raise Exception("Null document")
+        self.__document.update(update_body)
+        new_document = self.__document
+        self.delete_document()
+        self.set_document(new_document)
+        self.__save_document()
+
     #takes in a dictionary request body sent from the client and updates corresponding key-value pairs of the document
     def update_document(self, data):
         if self.__document is None:
-            return
+            raise Exception("Null document")
         self.__document.update(data)
         self.__save_document()
 
     #creates a new document and saves it to the database
     #only does so if username does not already exist
     def create_document(self, password, email, birthday):
-        if self.is_existing_user():
+        if self.is_existing_user(self.__username):
             return
         #file = open(r"D:\Users\Dominic\training-diary-app\database_access\initial_data", "rb")
         #initial_data = pickle.load(file)

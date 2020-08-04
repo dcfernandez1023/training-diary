@@ -17,17 +17,24 @@ class Profile extends Component {
 	state = {
 		data: null,
 		validated: false,
+		username: "",
+		email: "",
 		oldPassword: "",
 		newPassword: "",
 		confirmNewPassword: ""
 	}
 	
 	componentDidMount = () => {
-		console.log(this.props.data);
-		this.setState({data: this.props.data});
+		this.setState({data: this.props.data, username: this.props.data._id, email: this.props.data.email});
 	}
 	
-	handleInfoSubmit = (e) => {
+	onChangeAccountInfo = (e) => {
+		var name = [e.target.name][0];
+		var value = e.target.value;
+		this.setState({[name]: value});
+	}
+	
+	handleInfoSubmit = async (e) => {
 		const form = e.currentTarget;
 		if(form.checkValidity() === false) {
 			e.preventDefault();
@@ -35,6 +42,15 @@ class Profile extends Component {
 		}
 		this.setState({validated: true});
 		e.preventDefault();
+		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0) {
+			return;
+		}
+		var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email};
+		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+		dataCopy._id = this.state.username;
+		dataCopy.email = this.state.email;
+		await this.props.changeUsernameAndEmail(requestBody, dataCopy, this.props.token);
+		this.forceUpdate();
 	}
 	
 	handlePasswordSubmit = (e) => {
@@ -48,7 +64,7 @@ class Profile extends Component {
 	}
 	
 	resetFields = () => {
-		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: ""});
+		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: "", username: this.props.data._id, email: this.props.data.email});
 	}
 	
 	render() {
@@ -61,6 +77,11 @@ class Profile extends Component {
 					</Col>
 				</Row>
 				<Container style = {{border: "1px solid lightGray"}}>
+					<Row>
+						<Col>
+							<h3 style = {{margin: "1%"}}> Profile </h3>
+						</Col>
+					</Row>
 					<Tabs variant = "pills" defaultActiveKey = "editProfile" onSelect = {this.resetFields.bind(this)}>
 						<Tab eventKey = "editProfile" title = "Edit Profile ✏️">
 							<br/>
@@ -71,8 +92,9 @@ class Profile extends Component {
 										<Form.Control
 											required
 											type = "input"
-											name = "_id"
-											value = {this.props.data._id}
+											name = "username"
+											value = {this.state.username}
+											onChange = {(e) => {this.onChangeAccountInfo(e)}}
 										/>
 									</Col>
 								</Row>
@@ -84,7 +106,8 @@ class Profile extends Component {
 											required
 											type = "input"
 											name = "email"
-											value = {this.props.data.email}
+											value = {this.state.email}
+											onChange = {(e) => {this.onChangeAccountInfo(e)}}
 										/>
 									</Col>
 								</Row>
@@ -109,6 +132,7 @@ class Profile extends Component {
 											type = "password"
 											name = "oldPassword"
 											value = {this.state.oldPassword}
+											onChange = {(e) => {this.onChangeAccountInfo(e)}}
 										/>
 									</Col>
 								</Row>
@@ -121,6 +145,7 @@ class Profile extends Component {
 											type = "password"
 											name = "newPassword"
 											value = {this.state.newPassword}
+											onChange = {(e) => {this.onChangeAccountInfo(e)}}
 										/>
 									</Col>
 								</Row>
@@ -130,9 +155,10 @@ class Profile extends Component {
 										<Form.Label> Confirm New Password </Form.Label> 
 										<Form.Control
 											required 
-											type = "input"
-											name = "password"
+											type = "password"
+											name = "confirmNewPassword"
 											value = {this.state.confirmNewPassword}
+											onChange = {(e) => {this.onChangeAccountInfo(e)}}
 										/>
 									</Col>
 								</Row>
@@ -196,62 +222,6 @@ class Profile extends Component {
 							<br/>
 						</Tab>
 					</Tabs>
-					{/*
-					<Row>
-						<Col>
-							<Tab.Container defaultActiveKey = "editProfile">
-								<Row>
-									<Col>
-										<Nav variant = "pills">
-											<Nav.Item>
-												<Nav.Link eventKey = "editProfile"> 
-													Edit Profile ✏️
-												</Nav.Link>
-											</Nav.Item>
-										</Nav>
-										<Nav variant = "pills">
-											<Nav.Item>
-												<Nav.Link eventKey = "changePassword"> 
-													Change Password 🔑
-												</Nav.Link>
-											</Nav.Item>
-										</Nav>
-										<Nav variant = "pills">
-											<Nav.Item>
-												<Nav.Link eventKey = "accountStats"> 
-													Account Stats 📈
-												</Nav.Link>
-											</Nav.Item>
-										</Nav>
-									</Col>
-								</Row>
-							</Tab.Container>
-						</Col>
-						<Col>
-							<Tab.Content>
-								<Tab.Pane eventKey = "editProfile">
-									<Form noValidate validated = {this.state.validated}>
-										<Form.Label> Username </Form.Label>
-										<Form.Control
-											required
-											type = "input"
-											name = "_id"
-											value = {this.props.data._id}
-										/>
-										<br/>
-										<Form.Label> Email </Form.Label>
-										<Form.Control
-											required
-											type = "input"
-											name = "email"
-											value = {this.props.data.email}
-										/>
-									</Form>
-								</Tab.Pane>
-							</Tab.Content>
-						</Col>
-					</Row>
-					*/}
 				</Container>
 			</div>
 		)

@@ -44,6 +44,18 @@ def verify_api_token(username):
     user = User.User(username, app)
     return user.verify_api_token(token)
 
+#change username & email api
+@app.route("/postAccountInfo", methods = ["POST"])
+def update_username_and_email():
+    token = request.headers.get("token")
+    request_body = request.get_json()
+    prev_username = request_body.get("prevUsername")
+    prev_email = request_body.get("prevEmail")
+    new_username = request_body.get("newUsername")
+    new_email = request_body.get("newEmail")
+    user = User.User(prev_username, app)
+    return user.update_username_and_email(token, new_username, new_email)
+
 ## GET APIS ##
 
 #gets entire user document from database

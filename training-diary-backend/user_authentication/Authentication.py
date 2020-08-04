@@ -44,6 +44,7 @@ class Authentication:
     #returns false to indicate user does not have access to apis
     def isApiUser(self, app, token):
         decoded_token = self.__decode_api_token(app, token)
+        print(self.__username)
         if decoded_token == self.__username:
             return True
         return False
@@ -57,6 +58,6 @@ class Authentication:
             payload = jwt.decode(token, app.config.get('SECRET_KEY'))
             return payload['username']
         except jwt.ExpiredSignatureError:
-            return 1
+            return -1
         except jwt.InvalidTokenError:
-            return 1
+            return -1

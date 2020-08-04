@@ -53,8 +53,9 @@ def update_username_and_email():
     prev_email = request_body.get("prevEmail")
     new_username = request_body.get("newUsername")
     new_email = request_body.get("newEmail")
+    new_birthday = request_body.get("birthday")
     user = User.User(prev_username, app)
-    return user.update_username_and_email(token, new_username, new_email)
+    return user.update_username_and_email(token, new_username, new_email, new_birthday)
 
 ## GET APIS ##
 

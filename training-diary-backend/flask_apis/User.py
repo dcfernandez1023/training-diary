@@ -3,11 +3,6 @@ from flask import make_response, Response
 import flask
 import traceback
 
-#MESSAGE CODES
-    # -1 = FAILED OPERATION
-    # 0 = SUCCESSFUL OPERATION
-    # 1 = INVALID OPERATION (usually if api token has expired, failed login, or failed registration)
-
 class User:
     def __init__(self, username, app):
         self.__username = username
@@ -58,18 +53,24 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
-    def update_username_and_email(self, token, new_username, new_email):
+    def update_username_and_email(self, token, new_username, new_email, new_birthday):
         try:
             isVerified = self.__auth.isApiUser(self.__app, token)
             if isVerified:
-                update_body = {"_id": new_username, "email": new_email}
+                update_body = {"_id": new_username, "email": new_email, "birthday": new_birthday}
                 db_access = self.__auth.get_db_access()
-                if db_access.is_existing_user(new_username):
+                if new_username == self.__username:
+                    db_access.update_username_and_email(update_body)
+                    self.reset_user_attributes(new_username)
+                    response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                    return make_response({}, 200, response_header)
+                elif db_access.is_existing_user(new_username):
                     return make_response({}, 409)
-                db_access.update_username_and_email(update_body)
-                self.reset_user_attributes(new_username)
-                response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
-                return make_response({}, 200, response_header)
+                else:
+                    db_access.update_username_and_email(update_body)
+                    self.reset_user_attributes(new_username)
+                    response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                    return make_response({}, 200, response_header)
             return make_response({}, 401)
         except Exception:
             self.__log_error(traceback.format_exc())

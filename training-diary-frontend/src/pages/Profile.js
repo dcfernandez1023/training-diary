@@ -11,6 +11,11 @@ import TabContent from 'react-bootstrap/TabContent';
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import "react-datepicker/dist/react-datepicker.css";
+import subDays from "date-fns/subDays";
+import subYears from "date-fns/subYears";
 
 class Profile extends Component {
 	
@@ -19,19 +24,24 @@ class Profile extends Component {
 		validated: false,
 		username: "",
 		email: "",
+		birthday: null,
 		oldPassword: "",
 		newPassword: "",
 		confirmNewPassword: ""
 	}
 	
 	componentDidMount = () => {
-		this.setState({data: this.props.data, username: this.props.data._id, email: this.props.data.email});
+		this.setState({data: this.props.data, username: this.props.data._id, email: this.props.data.email, birthday: new Date(this.props.data.birthday)});
 	}
 	
 	onChangeAccountInfo = (e) => {
 		var name = [e.target.name][0];
 		var value = e.target.value;
 		this.setState({[name]: value});
+	}
+	
+	onSelectBirthday = (date) => {
+		this.setState({birthday: date});
 	}
 	
 	handleInfoSubmit = async (e) => {
@@ -42,13 +52,14 @@ class Profile extends Component {
 		}
 		this.setState({validated: true});
 		e.preventDefault();
-		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0) {
+		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0 || this.state.birthday === null) {
 			return;
 		}
-		var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email};
+		var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email, birthday: this.state.birthday};
 		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
 		dataCopy._id = this.state.username;
 		dataCopy.email = this.state.email;
+		dataCopy.birthday = this.state.birthday;
 		await this.props.changeUsernameAndEmail(requestBody, dataCopy, this.props.token);
 		this.forceUpdate();
 	}
@@ -64,10 +75,15 @@ class Profile extends Component {
 	}
 	
 	resetFields = () => {
-		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: "", username: this.props.data._id, email: this.props.data.email});
+		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: "", username: this.props.data._id, email: this.props.data.email, birthday: new Date(this.props.data.birthday)});
 	}
 	
 	render() {
+		const datePicker = <Form.Control
+							required
+							type = "input"
+							value = {this.state.birthday}
+							/>
 		return (
 			<div>
 				<br/>
@@ -108,6 +124,25 @@ class Profile extends Component {
 											name = "email"
 											value = {this.state.email}
 											onChange = {(e) => {this.onChangeAccountInfo(e)}}
+										/>
+									</Col>
+								</Row>
+								<br/>
+								<Row>
+									<Col>
+										<Form.Label> Birthday </Form.Label>
+										<DatePicker
+											required
+											selected = {this.state.birthday}
+											onChange = {this.onSelectBirthday}
+											minDate = {subYears(new Date(), 120)}
+											maxDate = {subDays(new Date(), 0)}
+											showYearDropdown
+											scrollableYearDropdown
+											showMonthDropdown
+											dropdownMode="select"
+											placeholderText = "Birthday"
+											customInput = {datePicker}
 										/>
 									</Col>
 								</Row>

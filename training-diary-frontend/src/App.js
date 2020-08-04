@@ -159,6 +159,7 @@ class App extends Component {
 			}
 		}
 		catch(error) {
+			this.logout();
 			return;
 		}
 	}

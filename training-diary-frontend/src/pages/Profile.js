@@ -52,10 +52,14 @@ class Profile extends Component {
 	}
 	
 	render() {
-		console.log(this.props.data._id);
 		return (
 			<div>
 				<br/>
+				<Row>
+					<Col>
+						<h1 style = {{margin: "1%"}}> Training Diary </h1>
+					</Col>
+				</Row>
 				<Container style = {{border: "1px solid lightGray"}}>
 					<Tabs variant = "pills" defaultActiveKey = "editProfile" onSelect = {this.resetFields.bind(this)}>
 						<Tab eventKey = "editProfile" title = "Edit Profile ✏️">
@@ -140,6 +144,56 @@ class Profile extends Component {
 								</Row>
 								<br/>
 							</Form>
+						</Tab>
+						<Tab eventKey = "accountStats" title = "Account Stats 📈">
+							<br/>
+							<Row>
+								<Col>
+									<Card>
+										<Card.Body>
+											<Card.Title>
+												Goal Statistics 🎯
+											</Card.Title>
+											<Card.Text>
+											{this.props.data.metaData.categories.map((category) => {
+												var numGoals = 0;
+												this.props.data.goals.map((goal) => {
+													if(goal["Goal Type"] === category) {
+														numGoals++;
+													}
+												})
+												return (
+													<li> Number of {category} Goals: {numGoals} </li>
+												)
+											})}
+											</Card.Text>
+										</Card.Body>
+									</Card>
+								</Col>
+								<Col>
+									<Card>
+										<Card.Body>
+											<Card.Title>
+												Training Statistics 💪
+											</Card.Title>
+											<Card.Text>
+											{this.props.data.metaData.categories.map((category) => {
+												var numEntries = 0;
+												this.props.data.userData.map((entry) => {
+													if(entry.Category === category) {
+														numEntries++;
+													}
+												})
+												return (
+													<li> Number of {category} Entries: {numEntries} </li>
+												)
+											})}
+											</Card.Text>
+										</Card.Body>
+									</Card>
+								</Col>
+							</Row>
+							<br/>
 						</Tab>
 					</Tabs>
 					{/*

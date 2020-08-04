@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
-import Login from './pages/Login.js';
-import Register from './login-components/Register.js';
+import Login from './login-components/Login.js';
 import TrainingDiary from './td-components/TrainingDiary.js';
+import Profile from './pages/Profile.js';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
 	state = {
@@ -177,20 +179,34 @@ class App extends Component {
 		}
 		else if(this.state.isLoggedIn) {
 			return (
-				<div>
-					<TrainingDiary 
-						data = {this.state.data}
-						logout = {this.logout}
-						saveData = {this.saveData}
-						addModalShow = {this.state.addModalShow}
-						editModalShow = {this.state.editModalShow}
-						isSaving = {this.state.isSaving}
-						toggleAddModal = {this.toggleAddModal}
-						toggleEditModal = {this.toggleEditModal}
-						toggleSaveBar = {this.toggleSaveBar}
-						dataToEdit = {this.state.dataToEdit}
-					/>
-				</div>
+				<Router>
+					<Switch>
+						<Route exact path = "/">
+							<TrainingDiary 
+								data = {this.state.data}
+								logout = {this.logout}
+								saveData = {this.saveData}
+								addModalShow = {this.state.addModalShow}
+								editModalShow = {this.state.editModalShow}
+								isSaving = {this.state.isSaving}
+								toggleAddModal = {this.toggleAddModal}
+								toggleEditModal = {this.toggleEditModal}
+								toggleSaveBar = {this.toggleSaveBar}
+								dataToEdit = {this.state.dataToEdit}
+							/>
+						</Route>
+						<Route exact path = "/profile">
+							<Profile data = {this.state.data}/>
+						</Route>
+						<Route>
+							<div style = {{textAlign: "center"}}>
+								<h1> This page does not exist :( </h1>
+								<br/>
+								<Button href = "/"> Back to main page </Button> 
+							</div>
+						</Route>
+					</Switch>
+				</Router>
 			);
 		}
 		else if(this.state.onLogin) {

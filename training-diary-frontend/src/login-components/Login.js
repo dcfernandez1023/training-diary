@@ -1,53 +1,63 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../login-css/LoginRegister.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
-
-//Login class 
-//props: isProcessing, grantAccess(), toRegistration(), from App.js
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Form from 'react-bootstrap/Form';
+import Figure from 'react-bootstrap/Figure';
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import "react-datepicker/dist/react-datepicker.css";
+import subDays from "date-fns/subDays";
+import subYears from "date-fns/subYears";
 
 class Login extends Component {
 	
 	state = {
-		username: "",
-		password: "",
-		disabled: "",
-		isLoading: false
+		validated: false,
+		
+		onLogin: true,
+		
+		loginUsername: "",
+		loginPassword: "",
+	
+		registerUsername: "",
+		registerPassword: "",
+		email: "",
+		birthday: null,
 	}
 	
-	//registration onClick handler; redirects to Registration.js 
-	toggleRegistration = () => {
-		this.props.toRegistration();
-	}
-	
-	//login response handler
-	//handles the response sent from the server
-	// -1 = failed operation, 0 = successful operation, 1 = invalid operation 
 	handleLoginResponse = (response) => {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
-				this.props.grantAccess(this.state.username, response.headers.token);
+				this.props.grantAccess(this.state.loginUsername, response.headers.token);
 				//saves token and username to browser's local storage 
 				localStorage.setItem("token", response.headers.token);
-				localStorage.setItem("username", this.state.username);
+				localStorage.setItem("username", this.state.loginUsername);
 			}
 		}
 		catch(error) {
-			this.setState({isLoading: false, disabled: ""});
+			this.props.toggleAuthLoader();
 		}
 	}
 	
 	//login onClick event handler
-	handleLogin = () => {
+	login = () => {
 		//checks to make sure username and password fields have values 
-		if(this.state.username.toString().trim().length === 0 || this.state.password.toString().trim().length === 0) {
-			alert("Please enter a username and password");
+		if(this.state.loginUsername.toString().trim().length === 0 || this.state.loginPassword.toString().trim().length === 0) {
+			return;
 		}
 		else {
-			this.setState({disabled: "disabled", isLoading: true});
-			axios.post("/login", {username: this.state.username, password: this.state.password})
+			this.props.toggleAuthLoader();
+			axios.post("/login", {username: this.state.loginUsername, password: this.state.loginPassword})
 				.catch(function(error) {
 					if(error.response.status === 401) {
 						alert("Invalid credentials");
@@ -57,36 +67,277 @@ class Login extends Component {
 
 		}
 	}
+
+	handleRegistrationResponse = (response) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				this.props.grantAccess(this.state.registerUsername, response.headers.token);
+				localStorage.setItem("token", response.headers.token);
+				localStorage.setItem("username", this.state.loginUsername);
+			}
+		}
+		catch(error) {
+			this.props.toggleAuthLoader();
+		}
+	}
 	
-	//onChange handler for username and password input fields
+	//registration onClick event handler
+	register = () => {
+		//checks to make sure username and password fields have values 
+		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString().trim().length === 0 || this.state.birthday === null) {
+			return;
+		}
+		else {
+			this.props.toggleAuthLoader();
+			axios.post("/register", {username: this.state.registerUsername.toString().trim(), password: this.state.registerPassword, email: this.state.email, birthday: this.state.birthday})
+				.catch(function(error) {
+					if(error.response.status === 409) {
+						alert("Username already exists");
+					}
+				})
+				.then(res => this.handleRegistrationResponse(res))
+		}
+	}
+	
+	handleSubmit = (e) => {
+		const form = e.currentTarget;
+		if(form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		this.setState({validated: true});
+		e.preventDefault();
+		if(this.state.onLogin) {
+			this.login();
+		}
+		else {
+			this.register();
+		}
+	}
+	
 	onChangeLogin = (e) => {
-		this.setState({[e.target.name]: e.target.value});
+		var name = [e.target.name][0];
+		var value = e.target.value;
+		this.setState({[name]: value});
+	}
+	
+	onSelectBirthday = (date) => {
+		this.setState({birthday: date});
+	}
+	
+	toggleTab = (tabToRender) => {
+		if(tabToRender === "login" && this.state.onLogin) {
+			return;
+		}
+		if(tabToRender === "register" && !this.state.onLogin) {
+			return;
+		}
+		this.setState({onLogin: !this.state.onLogin, validated: false, loginUsername: "", loginPassword: "", registerUsername: "", registerPassword: "", birthday: null});
 	}
 	
 	render() {
+		const datePicker = <Form.Control
+							required
+							type = "input"
+							value = {this.state.birthday}
+							/>
 		return (
-			<div>
-				<div className = "headerDiv">
-					<h1 className = "headerText"> Training Diary </h1>
-					<br/>
-				</div>
-				<div className = "loginRegisterDiv">
-					{/*login elements*/}
-					<label htmlFor = "username" className = "loginRegisterLabel"> Username: </label> <br/>
-					<input type = "text" id = "username" name = "username" className = "loginRegisterInputText" onChange = {this.onChangeLogin}/> <br/>
-					<label htmlFor = "password" className = "loginRegisterLabel"> Password: </label> <br/>
-					<input type = "password" id = "password" name = "password" className = "loginRegisterInputText" onChange = {this.onChangeLogin}/> <br/>
-					<button className = "loginRegisterInputButton" onClick = {this.handleLogin} disabled = {this.state.disabled}> Login </button>  <br/>
-					<button className = "link" onClick = {this.toggleRegistration}> Don't have an account? Click here to register </button>
-					<Loader type="ThreeDots" 
-						color="#00BFFF" 
-						height={80} 
-						width={80} 
-						visible = {this.state.isLoading}
-					/>
-				</div>
-			</div>
-		)
+			<Jumbotron>
+				<Container fluid>
+					<Row>
+						<Col>
+							<Row>
+								<Col>
+									<h1> Training Diary </h1>
+									<p>
+										A simple application to track and analyze your workout data.
+									</p>
+								</Col>
+							</Row>
+							<br/>
+							<Row>
+								<Col>
+									<Figure>
+										<Figure.Image
+											src = "https://cdn.emojidex.com/emoji/seal/weight_lifter.png"
+											width = {200}
+											height = {300}
+										/>
+									</Figure>
+								</Col>
+								<Col>
+									<Figure>
+										<Figure.Image
+										 src = "https://cdn.emojidex.com/emoji/seal/chart_with_upwards_trend.png"
+										 width = {200}
+										 height = {300}
+										/>
+									</Figure>
+								</Col>
+							</Row>
+						</Col>
+						<Col>
+							<Row>
+								<Col>
+									<Tabs defaultActiveKey = "login" onSelect = {this.toggleTab.bind(this)}>
+										<Tab eventKey = "login" title = "Login">
+											<br/>
+											{this.state.onLogin 
+											?
+											<Row>
+												<Col>
+													<Form noValidate validated = {this.state.validated} onSubmit = {this.handleSubmit}>
+														<Row>
+															<Col>
+																<Form.Label> Username </Form.Label>
+																<Form.Control
+																	required
+																	type = "input"
+																	placeholder = "Username"
+																	name = "loginUsername"
+																	value = {this.state.loginUsername}
+																	onChange = {(e) => {this.onChangeLogin(e)}}
+																/>
+															</Col>
+														</Row>
+														<br/>
+														<Row>
+															<Col>
+																<Form.Label> Password </Form.Label>
+																<Form.Control
+																	required
+																	type = "password"
+																	placeholder = "Password"
+																	name = "loginPassword"
+																	value = {this.state.loginPassword}
+																	onChange = {(e) => {this.onChangeLogin(e)}}
+																/>
+															</Col>
+														</Row>
+														<br/>
+														<Row>
+															<Col>
+																<Button type = "submit" disabled = {this.props.disabled}> Login </Button>
+															</Col>
+															<Col>
+																{this.props.authLoading
+																?
+																	<div style = {{float: "left", marginTop: "5%"}}>
+																		<Loader type="TailSpin" 
+																			color="#00BFFF" 
+																			height={80} 
+																			width={80} 
+																		/>
+																	</div>
+																:
+																<div> </div>
+																}
+															</Col>
+														</Row>
+													</Form> 
+												</Col>
+											</Row>
+											:
+											<div> </div>
+											}
+										</Tab>
+										<Tab eventKey = "register" title = "Register">
+											<br/>
+											{!this.state.onLogin
+											?
+												<Row>
+													<Col>
+														<Form noValidate validated = {this.state.validated} onSubmit = {this.handleSubmit}>
+															<Row>
+																<Col sm = {6}>
+																	<Form.Label> Username </Form.Label>
+																	<Form.Control
+																		required
+																		type = "input"
+																		placeholder = "Username"
+																		name = "registerUsername"
+																		value = {this.state.registerUsername}
+																		onChange = {(e) => {this.onChangeLogin(e)}}
+																	/>
+																</Col>
+																<Col sm = {6}>
+																	<Form.Label> Password </Form.Label>
+																	<Form.Control
+																		required
+																		type = "password"
+																		placeholder = "Password"
+																		name = "registerPassword"
+																		value = {this.state.registerPassword}
+																		onChange = {(e) => {this.onChangeLogin(e)}}
+																	/>																
+																</Col>
+															</Row>
+															<br/>
+															<Row>
+																<Col sm = {6}>
+																	<Form.Label> Email </Form.Label>
+																	<Form.Control
+																		required
+																		type = "input"
+																		placeholder = "Email"
+																		name = "email"
+																		value = {this.state.email}
+																		onChange = {(e) => {this.onChangeLogin(e)}}
+																	/>
+																</Col>
+																<Col sm = {6}>
+																	<Form.Label> Birthday </Form.Label>
+																	<DatePicker 
+																		required
+																		selected = {this.state.birthday}
+																		onChange = {this.onSelectBirthday}
+																		minDate = {subYears(new Date(), 120)}
+																		maxDate = {subDays(new Date(), 0)}
+																		showYearDropdown
+																		scrollableYearDropdown
+																		showMonthDropdown
+																		dropdownMode="select"
+																		placeholderText = "Birthday"
+																		customInput = {datePicker}
+																	/>
+																</Col>
+															</Row>
+															<br/>
+															<Row>
+																<Col>
+																	<Button type = "submit" disabled = {this.props.disabled}> Register </Button>
+																</Col>
+																<Col>
+																{this.props.authLoading
+																?
+																	<div style = {{float: "left", marginTop: "5%"}}>
+																		<Loader type="TailSpin" 
+																			color="#00BFFF" 
+																			height={80} 
+																			width={80} 
+																		/>
+																	</div>
+																:
+																<div> </div>
+																}
+																</Col>
+															</Row>
+														</Form> 
+													</Col>
+												</Row>
+											:
+											<div> </div>
+											}
+										</Tab>
+									</Tabs>
+								</Col>
+							</Row>
+						</Col>
+					</Row>
+				</Container>
+			</Jumbotron>
+		);
 	}
 }
 

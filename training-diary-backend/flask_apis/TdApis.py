@@ -57,6 +57,15 @@ def update_username_and_email():
     user = User.User(prev_username, app)
     return user.update_username_and_email(token, new_username, new_email, new_birthday)
 
+@app.route("/postCredentials/<username>", methods = ["POST"])
+def update_password(username):
+    token = request.headers.get("token")
+    request_body = request.get_json()
+    old_password = request_body.get("oldPassword")
+    new_password = request_body.get("newPassword")
+    user = User.User(username, app)
+    return user.change_password(token, old_password, new_password)
+
 ## GET APIS ##
 
 #gets entire user document from database

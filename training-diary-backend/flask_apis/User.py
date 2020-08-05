@@ -77,6 +77,23 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
+    def change_password(self, token, old_password, new_password):
+        try:
+            isVerified = self.__auth.isApiUser(self.__app, token)
+            if isVerified:
+                if self.__auth.validate_login(old_password):
+                    response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                    new_hashed_password = self.__auth.hash_new_password(new_password)
+                    db_access = self.__auth.get_db_access()
+                    db_access.update_document({"password": new_hashed_password})
+                    return make_response({}, 200, response_header)
+                return make_response({}, 409)
+            return make_response({}, 401)
+        except Exception:
+            self.__log_error(traceback.format_exc())
+            return make_response({}, 500)
+
+
     ## GET METHODS ##
 
     #gets entire user's document from database

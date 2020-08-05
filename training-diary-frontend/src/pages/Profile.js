@@ -64,7 +64,7 @@ class Profile extends Component {
 		this.forceUpdate();
 	}
 	
-	handlePasswordSubmit = (e) => {
+	handlePasswordSubmit = async (e) => {
 		const form = e.currentTarget;
 		if(form.checkValidity() === false) {
 			e.preventDefault();
@@ -72,6 +72,23 @@ class Profile extends Component {
 		}
 		this.setState({validated: true});
 		e.preventDefault();
+		if(this.state.oldPassword.trim().length === 0 || this.state.newPassword.trim().length === 0 || this.state.confirmNewPassword.trim().length === 0) {
+			return;
+		}
+		if(this.state.newPassword !== this.state.confirmNewPassword) {
+			alert("Cannot proceed -- New password does not match confirmation password");
+			this.setState({validated: false});
+			return; 
+		}
+		if(this.state.newPassword === this.state.oldPassword) {
+			alert("Cannot proceed -- New password is the same as the old password");
+			this.setState({validated: false});
+			return;
+		}
+		var requestBody = {oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}
+		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+		await this.props.changePassword(requestBody, dataCopy, this.props.token);
+		this.forceUpdate();
 	}
 	
 	resetFields = () => {

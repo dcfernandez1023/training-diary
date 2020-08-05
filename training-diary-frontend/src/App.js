@@ -136,18 +136,24 @@ class App extends Component {
 	/* AUTH METHODS */ 
 	
 	changeUsernameAndEmail = (reqBody, newData, token) => {
+		var that = this;
 		axios.post("/postAccountInfo", reqBody, {headers: {"token": token}})
 			.catch(function(error) {
 				if(error.response.status === 409) {
 					alert("Username already exists. Please choose another one");
 					return;
 				}
+				else if(error.response.status === 401) {
+					alert("Session expired. Logging you out ");
+					that.logout();
+					return;
+				}
 				alert("Error -- could not update username & email");
 			})
-			.then(res => this.handleChangeResponse(res, newData));
+			.then(res => this.handleChangeInfoResponse(res, newData));
 	}
 	
-	handleChangeResponse = (response, newData) => {
+	handleChangeInfoResponse = (response, newData) => {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
@@ -163,6 +169,39 @@ class App extends Component {
 		}
 	}
 	
+	changePassword = (reqBody, newData, token) => {
+		var that = this;
+		var username = newData._id;
+		axios.post(`/postCredentials/${username}`, reqBody, {headers: {"token": token}})
+			.catch(function(error) {
+				if(error.response.status === 409) {
+					alert("Old password is invalid");
+					return;
+				}
+				else if(error.response.status === 401) {
+					alert("Session expired. Logging you out");
+					that.logout();
+					return;
+				}
+				alert("Error -- could not change password");
+			})
+			.then(res => this.handleChangePasswordResponse(res, newData));
+	}
+	
+	handleChangePasswordResponse = (response, newData) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				alert("Changed successfully");
+				localStorage.setItem("token", response.headers.token);
+				this.setState({token: response.headers.token});
+				this.setState({data: newData});
+			}
+		}
+		catch(error) {
+			return;
+		}
+	}
 	//method passed in as props to Login.js
 	//grants access to apis by setting App.js state and redirecting to TrainingDiary.js
 	//only occurs if login was successful
@@ -224,7 +263,12 @@ class App extends Component {
 							/>
 						</Route>
 						<Route exact path = "/profile">
-							<Profile data = {this.state.data} token = {this.state.token} changeUsernameAndEmail = {this.changeUsernameAndEmail}/>
+							<Profile 
+								data = {this.state.data} 
+								token = {this.state.token} 
+								changeUsernameAndEmail = {this.changeUsernameAndEmail}
+								changePassword = {this.changePassword}
+							/>
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

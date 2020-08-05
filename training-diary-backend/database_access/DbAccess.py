@@ -28,7 +28,6 @@ class DbAccess:
     def is_valid_user(self, password):
         if self.__document is None:
             return False
-        print(self.__document.get("password"))
         if self.__document.get("_id") == self.__username and self.__document.get("password") == password:
             return True
         return False

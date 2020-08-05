@@ -24,7 +24,6 @@ class Authentication:
         if self.__dbAccess.is_existing_user(self.__username):
             salt = self.__dbAccess.get_hash()[:32]
             hashed_password = self.hash_existing_password(password, salt)
-            print(hashed_password)
         if salt is None or hashed_password is None:
             return False
         return self.__dbAccess.is_valid_user(hashed_password)
@@ -44,7 +43,6 @@ class Authentication:
 
     #used to hash a plaintext password to compare to an existing hashed password
     def hash_existing_password(self, password, salt):
-        print(salt)
         compare_key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 100000)
         compare_storage = salt + compare_key
         return compare_storage

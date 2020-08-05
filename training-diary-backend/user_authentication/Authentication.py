@@ -3,6 +3,8 @@
 
 import jwt
 import datetime
+import os
+import hashlib
 from database_access import DbAccess
 
 class Authentication:
@@ -17,13 +19,35 @@ class Authentication:
     #returns true if login is successful
     #returns false if not successful
     def validate_login(self, password):
-        return self.__dbAccess.is_valid_user(password)
+        salt = None
+        hashed_password = None
+        if self.__dbAccess.is_existing_user(self.__username):
+            salt = self.__dbAccess.get_hash()[:32]
+            hashed_password = self.hash_existing_password(password, salt)
+            print(hashed_password)
+        if salt is None or hashed_password is None:
+            return False
+        return self.__dbAccess.is_valid_user(hashed_password)
 
     #validates registration using DbAccess object methods
     #returns true if user can register with the given username
     #returns false if the username is taken
     def validate_registration(self):
         return not self.__dbAccess.is_existing_user(self.__username)
+
+    #used to hash a plaintext password to store in db
+    def hash_new_password(self, password):
+        salt = os.urandom(32)
+        key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 100000)
+        storage = salt + key
+        return storage
+
+    #used to hash a plaintext password to compare to an existing hashed password
+    def hash_existing_password(self, password, salt):
+        print(salt)
+        compare_key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 100000)
+        compare_storage = salt + compare_key
+        return compare_storage
 
     #returns the DbAccess object
     def get_db_access(self):
@@ -44,7 +68,6 @@ class Authentication:
     #returns false to indicate user does not have access to apis
     def isApiUser(self, app, token):
         decoded_token = self.__decode_api_token(app, token)
-        print(self.__username)
         if decoded_token == self.__username:
             return True
         return False

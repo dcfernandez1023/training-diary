@@ -142,7 +142,7 @@ class App extends Component {
 					alert("Username already exists. Please choose another one");
 					return;
 				}
-				alert("Error -- could not update username & email -- redirecting to login page");
+				alert("Error -- could not update username & email");
 			})
 			.then(res => this.handleChangeResponse(res, newData));
 	}
@@ -159,7 +159,6 @@ class App extends Component {
 			}
 		}
 		catch(error) {
-			this.logout();
 			return;
 		}
 	}

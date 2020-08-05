@@ -32,7 +32,8 @@ class User:
         try:
             if self.__auth.validate_registration():
                 db_access = self.__auth.get_db_access()
-                db_access.create_document(password, email, birthday)
+                hashed_password = self.__auth.hash_new_password(password)
+                db_access.create_document(hashed_password, email, birthday)
                 response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
                 msg = make_response({}, 200, response_header)
                 return msg

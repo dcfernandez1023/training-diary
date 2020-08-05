@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database_access/DbAccess.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_access/DbAccess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_apis/TdApis.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/TdApis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_apis/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/User.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_authentication/Authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_authentication/Authentication.py" afterDir="false" />
-    </list>
+    <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="60" column="30" lean-forward="true" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+            <state relative-caret-position="362">
+              <caret line="73" column="27" lean-forward="true" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
               <folding>
                 <element signature="e#122#134#0" expanded="true" />
               </folding>
@@ -141,7 +136,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="230" />
     <option name="y" value="347" />
     <option name="width" value="1936" />
@@ -586,8 +581,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="60" column="30" lean-forward="true" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+        <state relative-caret-position="362">
+          <caret line="73" column="27" lean-forward="true" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
           <folding>
             <element signature="e#122#134#0" expanded="true" />
           </folding>

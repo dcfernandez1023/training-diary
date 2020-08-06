@@ -7,6 +7,7 @@ import Loader from 'react-loader-spinner';
 import Login from './login-components/Login.js';
 import TrainingDiary from './td-components/TrainingDiary.js';
 import Profile from './pages/Profile.js';
+import ForgotCredentials from './pages/ForgotCredentials.js';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -235,26 +236,13 @@ class App extends Component {
 	render() {
 		if(this.state.waitingForPage) {
 			return (
-				<Router>
-					<Switch>
-						<Route exact path = "/">
-							<div style = {{textAlign: "center", marginTop: "5%"}}>
-								<Loader type="TailSpin" 
-									color="#00BFFF" 
-									height={80} 
-									width={80} 
-								/>
-							</div>
-						</Route>
-						<Route>
-							<div style = {{textAlign: "center"}}>
-								<h1> This page does not exist :( </h1>
-								<br/>
-								<Button href = "/"> Back to main page 💪 </Button> 
-							</div>
-						</Route>
-					</Switch>
-				</Router>
+				<div style = {{textAlign: "center", marginTop: "5%"}}>
+					<Loader type="TailSpin" 
+						color="#00BFFF" 
+						height={80} 
+						width={80} 
+					/>
+				</div>
 			)
 		}
 		else if(this.state.isLoggedIn) {
@@ -307,6 +295,9 @@ class App extends Component {
 									toggleAuthLoader = {this.toggleAuthLoader}
 								/>
 							</div>
+						</Route>
+						<Route exact path = "/reset">
+							<ForgotCredentials />
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

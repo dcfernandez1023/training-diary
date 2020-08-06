@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,7 +8,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Tabs from 'react-bootstrap/Tabs';
 import TabContent from 'react-bootstrap/TabContent';
 import Tab from 'react-bootstrap/Tab';
-import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
@@ -118,6 +116,7 @@ class Profile extends Component {
 							required
 							type = "input"
 							value = {this.state.birthday}
+							autoComplete = "off"
 							/>
 		return (
 			<div>
@@ -125,8 +124,10 @@ class Profile extends Component {
 					<Col>
 						<h1 style = {{margin: "1%"}}> Training Diary </h1>
 					</Col>
+					<Col style = {{textAlign: "right"}}>
+						<Button size = "lg" variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
+					</Col>
 				</Row>
-				<br/>
 				<Container>
 					<Row>
 						<h3 style = {{margin: "1%"}}> Profile </h3>
@@ -146,6 +147,7 @@ class Profile extends Component {
 											name = "username"
 											value = {this.state.username}
 											onChange = {(e) => {this.onChangeAccountInfo(e)}}
+											autoComplete = "off"
 										/>
 									</Col>
 								</Row>
@@ -159,6 +161,7 @@ class Profile extends Component {
 											name = "email"
 											value = {this.state.email}
 											onChange = {(e) => {this.onChangeAccountInfo(e)}}
+											autoComplete = "off"
 										/>
 									</Col>
 								</Row>
@@ -293,9 +296,6 @@ class Profile extends Component {
 						</Tab>
 					</Tabs>
 				</Container>
-				<div style = {{textAlign: "center"}}>
-					<Button size = "lg" variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
-				</div>
 			</div>
 		)
 	}

@@ -17,6 +17,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import "react-datepicker/dist/react-datepicker.css";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class Login extends Component {
 	
@@ -141,6 +142,7 @@ class Login extends Component {
 							required
 							type = "input"
 							value = {this.state.birthday}
+							autoComplete = "off"
 							/>
 		return (
 			<Jumbotron>
@@ -198,6 +200,7 @@ class Login extends Component {
 																	name = "loginUsername"
 																	value = {this.state.loginUsername}
 																	onChange = {(e) => {this.onChangeLogin(e)}}
+																	autoComplete = "off"
 																/>
 															</Col>
 														</Row>
@@ -235,6 +238,12 @@ class Login extends Component {
 																}
 															</Col>
 														</Row>
+														<br/>
+														<Row>
+															<Col>
+																<Link to = "/reset"> Forgot Password? </Link>
+															</Col>
+														</Row>
 													</Form> 
 												</Col>
 											</Row>
@@ -259,6 +268,7 @@ class Login extends Component {
 																		name = "registerUsername"
 																		value = {this.state.registerUsername}
 																		onChange = {(e) => {this.onChangeLogin(e)}}
+																		autoComplete = "off"
 																	/>
 																</Col>
 																<Col sm = {6}>
@@ -284,6 +294,7 @@ class Login extends Component {
 																		name = "email"
 																		value = {this.state.email}
 																		onChange = {(e) => {this.onChangeLogin(e)}}
+																		autoComplete = "off"
 																	/>
 																</Col>
 																<Col sm = {6}>

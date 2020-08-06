@@ -1,6 +1,5 @@
-from user_authentication import Authentication
-from flask import make_response, Response
-import flask
+import user_authentication.Authentication as Authentication
+from flask import make_response
 import traceback
 
 class User:

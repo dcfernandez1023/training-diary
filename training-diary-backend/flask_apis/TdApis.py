@@ -1,10 +1,10 @@
 ##THIS PYTHON SCRIPT IS THE MAIN ENTRY POINT OF THE BACKEND##
 ##THE ENTIRE BACKEND IS INTENDED TO RUN FROM THIS SCRIPT##
-
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import flask
 from flask import request
-from flask_apis import User
-
+import flask_apis.User as User
 
 ##GLOBAL VARIABLES
 app = flask.Flask("__main__")

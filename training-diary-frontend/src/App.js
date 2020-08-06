@@ -26,7 +26,8 @@ class App extends Component {
 		authLoading: false,
 		disabled: false,
 		tempSuccess: false,
-		recoveryEmail: ""
+		recoveryEmail: "",
+		recoveryDisabled: false
 		
 	}
 	
@@ -130,7 +131,6 @@ class App extends Component {
 			}
 		}
 		catch(error) {
-			//alert("An unexpected error occurred -- redirecting to login page");
 			this.logout();
 		}
 	}
@@ -246,8 +246,7 @@ class App extends Component {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
-				console.log(response.data);
-				alert("temp password matches!");
+				this.setState({recoveryDisabled: true});
 			}
 		}
 		catch(error) {
@@ -352,7 +351,9 @@ class App extends Component {
 								getTempCredentials = {this.getTempCredentials} 
 								validateTempCredentials = {this.validateTempCredentials} 
 								tempSuccess = {this.state.tempSuccess}
-								email = {this.state.recoveryEmail}/>
+								email = {this.state.recoveryEmail}
+								recoveryDisabled = {this.state.recoveryDisabled}
+							/>
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

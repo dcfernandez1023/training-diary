@@ -16,9 +16,12 @@ class ForgotCredentials extends Component {
 	
 	state = {
 		validated: false,
+		passwordValidated: false,
 		email: "",
 		username: "",
-		tempPassword: ""
+		tempPassword: "",
+		newPassword: "",
+		confirmPassword: ""
 	}
 	
 	handleEmailSubmit = async (e) => {
@@ -49,9 +52,23 @@ class ForgotCredentials extends Component {
 		if(this.state.username.toString().trim().length === 0 || this.state.tempPassword.length === 0) {
 			return;
 		}
-		var requestBody = {username: this.state.username, tempPassword: this.state.tempPassword};
+		var requestBody = {username: this.state.username.trim(), tempPassword: this.state.tempPassword};
 		await this.props.validateTempCredentials(requestBody);
 		this.forceUpdate();
+	}
+	
+	handleNewPasswordSubmit = async (e) => {
+		const form = e.currentTarget;
+		if(form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		this.setState({passwordValidated: true});
+		e.preventDefault();
+		if(this.state.newPassword.length === 0 || this.state.confirmPassword.length === 0) {
+			return;
+		}
+		//continue here
 	}
 	
 	onChangeField = (e) => {
@@ -116,19 +133,21 @@ class ForgotCredentials extends Component {
 															value = {this.state.username}
 															onChange = {(e) => {this.onChangeField(e)}}
 															autoComplete = "off"
+															disabled = {this.props.recoveryDisabled}
 														/>
 														<br/>
 														<Form.Label> Temporary Password (expires in 5 min.) </Form.Label>
 														<Form.Control
 															required
-															type = "input"
+															type = "password"
 															name = "tempPassword"
 															value = {this.state.tempPassword}
 															onChange = {(e) => {this.onChangeField(e)}}
 															autoComplete = "off"
+															disabled = {this.props.recoveryDisabled}
 														/>
 														<br/>
-														<Button type = "submit"> Submit </Button>
+														<Button type = "submit" disabled = {this.props.recoveryDisabled}> Submit </Button>
 													</Form>		
 												</Col>
 											:
@@ -153,6 +172,45 @@ class ForgotCredentials extends Component {
 								</Card.Body>
 							</Card>
 						</Col>
+					</Row>
+					<Row>
+						{this.props.recoveryDisabled
+						?
+							<Col>
+								<Card style = {{marginTop: "5%"}}>
+									<Card.Header as = "h4"> Enter a New Password </Card.Header>
+									<Card.Body>
+										<Card.Text>
+											<Form noValidate validated = {this.state.passwordValidated} onSubmit = {this.handleNewPasswordSubmit}>
+												<Form.Label> New Password </Form.Label>
+												<Form.Control
+													required
+													type = "password"
+													name = "newPassword"
+													value = {this.state.newPassword}
+													onChange = {(e) => {this.onChangeField(e)}}
+													autoComplete = "off"
+												/>
+												<br/>
+												<Form.Label> Confirm New Password </Form.Label>
+												<Form.Control
+													required
+													type = "password"
+													name = "confirmPassword"
+													value = {this.state.confirmPassword}
+													onChange = {(e) => {this.onChangeField(e)}}
+													autoComplete = "off"
+												/>
+												<br/>
+												<Button type = "submit"> Submit </Button>
+											</Form>		
+										</Card.Text>
+									</Card.Body>
+								</Card>
+							</Col>
+						:
+							<div> </div>
+						}
 					</Row>
 				</Container>
 			</div>

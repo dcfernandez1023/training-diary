@@ -52,7 +52,7 @@ class Login extends Component {
 	//login onClick event handler
 	login = () => {
 		//checks to make sure username and password fields have values 
-		if(this.state.loginUsername.toString().trim().length === 0 || this.state.loginPassword.toString().trim().length === 0) {
+		if(this.state.loginUsername.toString().trim().length === 0 || this.state.loginPassword.toString().length === 0) {
 			return;
 		}
 		else {
@@ -85,7 +85,7 @@ class Login extends Component {
 	//registration onClick event handler
 	register = () => {
 		//checks to make sure username and password fields have values 
-		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString().trim().length === 0 || this.state.birthday === null) {
+		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString.length == 0 || this.state.birthday === null) {
 			return;
 		}
 		else {

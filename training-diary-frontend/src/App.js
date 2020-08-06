@@ -235,14 +235,27 @@ class App extends Component {
 	render() {
 		if(this.state.waitingForPage) {
 			return (
-			<div style = {{textAlign: "center", marginTop: "5%"}}>
-				<Loader type="TailSpin" 
-					color="#00BFFF" 
-					height={80} 
-					width={80} 
-				/>
-			</div>
-			);
+				<Router>
+					<Switch>
+						<Route exact path = "/">
+							<div style = {{textAlign: "center", marginTop: "5%"}}>
+								<Loader type="TailSpin" 
+									color="#00BFFF" 
+									height={80} 
+									width={80} 
+								/>
+							</div>
+						</Route>
+						<Route>
+							<div style = {{textAlign: "center"}}>
+								<h1> This page does not exist :( </h1>
+								<br/>
+								<Button href = "/"> Back to main page 💪 </Button> 
+							</div>
+						</Route>
+					</Switch>
+				</Router>
+			)
 		}
 		else if(this.state.isLoggedIn) {
 			return (
@@ -274,7 +287,7 @@ class App extends Component {
 							<div style = {{textAlign: "center"}}>
 								<h1> This page does not exist :( </h1>
 								<br/>
-								<Button href = "/"> Back to main page </Button> 
+								<Button href = "/"> Back to main page 💪 </Button> 
 							</div>
 						</Route>
 					</Switch>
@@ -283,14 +296,27 @@ class App extends Component {
 		}
 		else if(this.state.onLogin) {
 			return (
-				<div>
-					<Login 
-						grantAccess = {this.grantAccess} 
-						authLoading = {this.state.authLoading}
-						disabled = {this.state.disabled}
-						toggleAuthLoader = {this.toggleAuthLoader}
-					/>
-				</div>
+				<Router>
+					<Switch>
+						<Route exact path = "/">
+							<div>
+								<Login 
+									grantAccess = {this.grantAccess} 
+									authLoading = {this.state.authLoading}
+									disabled = {this.state.disabled}
+									toggleAuthLoader = {this.toggleAuthLoader}
+								/>
+							</div>
+						</Route>
+						<Route>
+							<div style = {{textAlign: "center"}}>
+								<h1> This page does not exist :( </h1>
+								<br/>
+								<Button href = "/"> Back to main page 💪 </Button> 
+							</div>
+						</Route>
+					</Switch>
+				</Router>
 			);
 		}
 		return (

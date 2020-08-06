@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database_access/DbAccess.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_access/DbAccess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_apis/TdApis.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/TdApis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_apis/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/User.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_apis/error_log" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/error_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_authentication/Authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_authentication/Authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,10 +15,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
+            <state relative-caret-position="1008">
               <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -55,10 +51,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
+            <state relative-caret-position="-711">
               <caret line="80" column="65" lean-forward="true" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
@@ -421,6 +417,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" weight="0.3985043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -564,16 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-336">
@@ -586,10 +573,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
+        <state relative-caret-position="-711">
           <caret line="80" column="65" lean-forward="true" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

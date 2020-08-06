@@ -52,17 +52,18 @@ class Profile extends Component {
 		}
 		this.setState({validated: true});
 		var requestBody = {};
-		var username = this.state.username;
+		var username = this.state.username.trim();
 		e.preventDefault();
 		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0 || this.state.birthday === null) {
+			alert("Please fill out all fields");
 			return;
 		}
 		if(this.state.username.trim() !== this.props.data._id) {
-			requestBody._id = this.state.username;
+			requestBody._id = this.state.username.trim();
 			username = this.props.data._id;
 		}
 		if(this.state.email.trim() !== this.props.data.email) {
-			requestBody.email = this.state.email;
+			requestBody.email = this.state.email.trim();
 		}
 		if(new Date(this.state.birthday).getTime() !== new Date(this.props.data.birthday).getTime()) {
 			requestBody.birthday = this.state.birthday;
@@ -120,18 +121,18 @@ class Profile extends Component {
 							/>
 		return (
 			<div>
-				<br/>
 				<Row>
 					<Col>
 						<h1 style = {{margin: "1%"}}> Training Diary </h1>
 					</Col>
 				</Row>
-				<Container style = {{border: "1px solid lightGray"}}>
+				<br/>
+				<Container>
 					<Row>
-						<Col>
-							<h3 style = {{margin: "1%"}}> Profile </h3>
-						</Col>
+						<h3 style = {{margin: "1%"}}> Profile </h3>
 					</Row>
+				</Container>
+				<Container style = {{border: "1px solid lightGray"}}>
 					<Tabs variant = "pills" defaultActiveKey = "editProfile" onSelect = {this.resetFields.bind(this)}>
 						<Tab eventKey = "editProfile" title = "Edit Profile ✏️">
 							<br/>
@@ -292,6 +293,9 @@ class Profile extends Component {
 						</Tab>
 					</Tabs>
 				</Container>
+				<div style = {{textAlign: "center"}}>
+					<Button size = "lg" variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
+				</div>
 			</div>
 		)
 	}

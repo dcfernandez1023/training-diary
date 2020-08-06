@@ -405,7 +405,7 @@ class Calendar extends Component {
 				return null;
 			}
 			if(view === "month" && this.createDateList().find(x => x.getTime() === date.getTime())) {
-				return <div className = "dot"> </div>
+				return <div> 💪 </div>
 			}
 			else {
 				return null;

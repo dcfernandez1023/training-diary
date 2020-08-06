@@ -93,7 +93,7 @@ class Login extends Component {
 			axios.post("/register", {username: this.state.registerUsername.toString().trim(), password: this.state.registerPassword, email: this.state.email, birthday: this.state.birthday})
 				.catch(function(error) {
 					if(error.response.status === 409) {
-						alert("Username already exists");
+						alert("Username or email already exists");
 					}
 				})
 				.then(res => this.handleRegistrationResponse(res))

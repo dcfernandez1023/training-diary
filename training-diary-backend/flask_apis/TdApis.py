@@ -45,17 +45,12 @@ def verify_api_token(username):
     return user.verify_api_token(token)
 
 #change username & email api
-@app.route("/postAccountInfo", methods = ["POST"])
-def update_username_and_email():
+@app.route("/postAccountInfo/<username>", methods = ["POST"])
+def update_username_and_email(username):
     token = request.headers.get("token")
     request_body = request.get_json()
-    prev_username = request_body.get("prevUsername")
-    prev_email = request_body.get("prevEmail")
-    new_username = request_body.get("newUsername")
-    new_email = request_body.get("newEmail")
-    new_birthday = request_body.get("birthday")
-    user = User.User(prev_username, app)
-    return user.update_username_and_email(token, new_username, new_email, new_birthday)
+    user = User.User(username, app)
+    return user.update_username_and_email(token, request_body)
 
 @app.route("/postCredentials/<username>", methods = ["POST"])
 def update_password(username):

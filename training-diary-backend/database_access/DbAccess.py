@@ -19,8 +19,8 @@ class DbAccess:
         return self.__document.get("password")
 
     #determines if the user exists
-    def is_existing_user(self, username):
-        if self.__get_document(username) is None:
+    def is_existing_user(self, info):
+        if self.__get_document(info) is None:
             return False
         return True
 
@@ -89,8 +89,8 @@ class DbAccess:
 
     #intended to be called only in constructor; gets the user's document
     #returns none if user document could not be found
-    def __get_document(self, username):
-        document = self.__db.get_collection("td").find_one(username)
+    def __get_document(self, info):
+        document = self.__db.get_collection("td").find_one(info)
         if document is None:
             return None
         return dict(document)

@@ -31,8 +31,10 @@ class Authentication:
     #validates registration using DbAccess object methods
     #returns true if user can register with the given username
     #returns false if the username is taken
-    def validate_registration(self):
-        return not self.__dbAccess.is_existing_user(self.__username)
+    def validate_registration(self, email):
+        id_filter = {"_id": self.__username}
+        email_filter = {"email": email}
+        return not self.__dbAccess.is_existing_user(id_filter) and not self.__dbAccess.is_existing_user(email_filter)
 
     #used to hash a plaintext password to store in db
     def hash_new_password(self, password):

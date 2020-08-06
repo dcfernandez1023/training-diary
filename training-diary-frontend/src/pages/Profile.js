@@ -51,16 +51,33 @@ class Profile extends Component {
 			e.stopPropagation();
 		}
 		this.setState({validated: true});
+		var requestBody = {};
+		var username = this.state.username;
 		e.preventDefault();
 		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0 || this.state.birthday === null) {
 			return;
 		}
-		var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email, birthday: this.state.birthday};
+		if(this.state.username.trim() !== this.props.data._id) {
+			requestBody._id = this.state.username;
+			username = this.props.data._id;
+		}
+		if(this.state.email.trim() !== this.props.data.email) {
+			requestBody.email = this.state.email;
+		}
+		if(new Date(this.state.birthday).getTime() !== new Date(this.props.data.birthday).getTime()) {
+			requestBody.birthday = this.state.birthday;
+		}
+		if(Object.keys(requestBody).length === 0) {
+			alert("You did not make any changes");
+			this.setState({validated: false});
+			return;
+		}
+		//var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email, birthday: this.state.birthday};
 		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
 		dataCopy._id = this.state.username;
 		dataCopy.email = this.state.email;
 		dataCopy.birthday = this.state.birthday;
-		await this.props.changeUsernameAndEmail(requestBody, dataCopy, this.props.token);
+		await this.props.changeUsernameAndEmail(requestBody, dataCopy, this.props.token, username);
 		this.forceUpdate();
 	}
 	

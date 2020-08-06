@@ -135,12 +135,12 @@ class App extends Component {
 	
 	/* AUTH METHODS */ 
 	
-	changeUsernameAndEmail = (reqBody, newData, token) => {
+	changeUsernameAndEmail = (reqBody, newData, token, prevUsername) => {
 		var that = this;
-		axios.post("/postAccountInfo", reqBody, {headers: {"token": token}})
+		axios.post(`/postAccountInfo/${prevUsername}`, reqBody, {headers: {"token": token}})
 			.catch(function(error) {
 				if(error.response.status === 409) {
-					alert("Username already exists. Please choose another one");
+					alert("Username or email already exists. Please choose another one");
 					return;
 				}
 				else if(error.response.status === 401) {

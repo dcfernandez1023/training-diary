@@ -30,7 +30,7 @@ class User:
     #validates registration, puts initial data into database, and returns token (if valid)
     def registration(self, password, email, birthday):
         try:
-            if self.__auth.validate_registration():
+            if self.__auth.validate_registration(email):
                 db_access = self.__auth.get_db_access()
                 hashed_password = self.__auth.hash_new_password(password)
                 db_access.create_document(hashed_password, email, birthday)
@@ -54,24 +54,23 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
-    def update_username_and_email(self, token, new_username, new_email, new_birthday):
+    def update_username_and_email(self, token, account_info):
         try:
             isVerified = self.__auth.isApiUser(self.__app, token)
             if isVerified:
-                update_body = {"_id": new_username, "email": new_email, "birthday": new_birthday}
                 db_access = self.__auth.get_db_access()
-                if new_username == self.__username:
-                    db_access.update_username_and_email(update_body)
-                    self.reset_user_attributes(new_username)
-                    response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
-                    return make_response({}, 200, response_header)
-                elif db_access.is_existing_user(new_username):
-                    return make_response({}, 409)
-                else:
-                    db_access.update_username_and_email(update_body)
-                    self.reset_user_attributes(new_username)
-                    response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
-                    return make_response({}, 200, response_header)
+                if account_info.get("_id") is not None:
+                    id_filter = {"_id": account_info.get("_id")}
+                    if db_access.is_existing_user(id_filter):
+                        return make_response({}, 409)
+                    self.reset_user_attributes(account_info.get("_id"))
+                if account_info.get("email") is not None:
+                    email_filter = {"email": account_info.get("email")}
+                    if db_access.is_existing_user(email_filter):
+                        return make_response({}, 409)
+                db_access.update_username_and_email(account_info)
+                response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                return make_response({}, 200, response_header)
             return make_response({}, 401)
         except Exception:
             self.__log_error(traceback.format_exc())

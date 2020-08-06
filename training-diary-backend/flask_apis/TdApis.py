@@ -69,6 +69,14 @@ def get_temp_password():
     user = User.User(TEMP_USER, app)
     return user.generate_temp_credentials(email)
 
+@app.route("/postTempPassword", methods = ["POST"])
+def validate_temp_password():
+    request_body = request.get_json()
+    temp_password = request_body.get("tempPassword")
+    username = request_body.get("username")
+    user = User.User(TEMP_USER, app)
+    return user.validate_temp_credentials(username, temp_password)
+
 ## GET APIS ##
 
 #gets entire user document from database

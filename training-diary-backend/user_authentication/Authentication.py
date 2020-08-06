@@ -78,6 +78,12 @@ class Authentication:
             return True
         return False
 
+    def is_temp_password_valid(self, app, token, username):
+        decoded_token = self.__decode_api_token(app, token)
+        if decoded_token == username:
+            return True
+        return False
+
     # decodes and validates api token from client
     # intended to be called from isApiUser
     # returns 1 if token is expired or invalid

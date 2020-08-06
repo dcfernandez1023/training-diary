@@ -24,7 +24,9 @@ class App extends Component {
 		isSaving: false,
 		dataToEdit: null,
 		authLoading: false,
-		disabled: false
+		disabled: false,
+		tempSuccess: false,
+		recoveryEmail: ""
 		
 	}
 	
@@ -203,7 +205,7 @@ class App extends Component {
 		}
 	}
 	
-	getTempCredentials = (reqBody) => {
+	getTempCredentials = (reqBody, email) => {
 		axios.post("/getTempPassword", reqBody)
 			.catch(function(error) {
 				if(error.response.status === 401) {
@@ -212,21 +214,45 @@ class App extends Component {
 				}
 				alert("Internal error -- could not get temporary credentials");
 			})
-			.then(res => this.handleTempResponse(res));
+			.then(res => this.handleTempResponse(res, email));
 	}
 	
-	handleTempResponse = (response) => {
+	handleTempResponse = (response, email) => {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
 				console.log(response.data);
-				alert("success");
+				this.setState({tempSuccess: true, recoveryEmail: email});
 			}
 		}
 		catch(error) {
 			return;
 		}
-		
+	}
+	
+	validateTempCredentials = (reqBody) => {
+		axios.post("/postTempPassword", reqBody)
+			.catch(function(error) {
+				if(error.response.status === 401) {
+					alert("The username or temporary password you entered is invalid or expired");
+					return;
+				}
+				alert("Internal error -- could not process temporary credentials");
+			})
+			.then(res => this.handleValidateTempResponse(res));
+	}
+	
+	handleValidateTempResponse = (response) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				console.log(response.data);
+				alert("temp password matches!");
+			}
+		}
+		catch(error) {
+			return;
+		}
 	}
 	
 	//method passed in as props to Login.js
@@ -322,7 +348,11 @@ class App extends Component {
 							</div>
 						</Route>
 						<Route exact path = "/reset">
-							<ForgotCredentials getTempCredentials = {this.getTempCredentials} />
+							<ForgotCredentials 
+								getTempCredentials = {this.getTempCredentials} 
+								validateTempCredentials = {this.validateTempCredentials} 
+								tempSuccess = {this.state.tempSuccess}
+								email = {this.state.recoveryEmail}/>
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

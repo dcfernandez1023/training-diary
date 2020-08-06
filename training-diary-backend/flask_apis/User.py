@@ -106,6 +106,17 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
+    def validate_temp_credentials(self, username, temp_password):
+        try:
+            if self.__auth.is_temp_password_valid(self.__app, temp_password, username):
+                self.reset_user_attributes(username)
+                response_header = self.__token_msg(self.__auth.encode_api_token(self.__app))
+                return make_response(self.__auth.get_db_access().get_all_data(), 200, response_header)
+            return make_response({}, 401)
+        except Exception:
+            self.__log_error(traceback.format_exc())
+            return make_response({}, 500)
+
     ## GET METHODS ##
 
     #gets entire user's document from database

@@ -16,7 +16,9 @@ class ForgotCredentials extends Component {
 	
 	state = {
 		validated: false,
-		email: ""
+		email: "",
+		username: "",
+		tempPassword: ""
 	}
 	
 	handleEmailSubmit = async (e) => {
@@ -30,8 +32,25 @@ class ForgotCredentials extends Component {
 		if(this.state.email.toString().trim().length === 0) {
 			return;
 		}
-		var requestBody = {email: this.state.email}
-		await this.props.getTempCredentials(requestBody);
+		var requestBody = {email: this.state.email.trim()}
+		await this.props.getTempCredentials(requestBody, this.state.email);
+		this.forceUpdate();
+		this.setState({validated: false});
+	}
+	
+	handleTempSubmit = async (e) => {
+		const form = e.currentTarget;
+		if(form.checkValidity() === false) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		this.setState({validated: true});
+		e.preventDefault();
+		if(this.state.username.toString().trim().length === 0 || this.state.tempPassword.length === 0) {
+			return;
+		}
+		var requestBody = {username: this.state.username, tempPassword: this.state.tempPassword};
+		await this.props.validateTempCredentials(requestBody);
 		this.forceUpdate();
 	}
 	
@@ -60,17 +79,59 @@ class ForgotCredentials extends Component {
 							<Card>
 								<Card.Header as = "h4"> Recover Credentials </Card.Header>
 								<Card.Body>
-									<Card.Title>
-										Enter your email 
-									</Card.Title>
+									{this.props.tempSuccess
+									?
+										<Card.Title>
+											Email sent! 
+										</Card.Title>
+									:
+										<Card.Title>
+											Enter your email 
+										</Card.Title>
+									}
 									<Card.Text>
 										<Row>
-											<Col>
-												We'll send your username and a temporary password.
-											</Col>
+											{this.props.tempSuccess
+											?
+												<Col>
+													Enter the <u>username</u> and <u>temporary password</u> sent to <strong> {this.props.email} </strong>
+												</Col>
+											:
+												<Col>
+													We'll send your username and a temporary password.
+												</Col>
+											}
 										</Row>
 										<br/>
 										<Row>
+											{this.props.tempSuccess
+											?
+												<Col>
+													<Form noValidate validated = {this.state.validated} onSubmit = {this.handleTempSubmit}>
+														<Form.Label> Username </Form.Label>
+														<Form.Control
+															required
+															type = "input"
+															name = "username"
+															value = {this.state.username}
+															onChange = {(e) => {this.onChangeField(e)}}
+															autoComplete = "off"
+														/>
+														<br/>
+														<Form.Label> Temporary Password (expires in 5 min.) </Form.Label>
+														<Form.Control
+															required
+															type = "input"
+															name = "tempPassword"
+															value = {this.state.tempPassword}
+															onChange = {(e) => {this.onChangeField(e)}}
+															autoComplete = "off"
+														/>
+														<br/>
+														<Button type = "submit"> Submit </Button>
+													</Form>		
+												</Col>
+											:
 											<Col>
 												<Form noValidate validated = {this.state.validated} onSubmit = {this.handleEmailSubmit}>
 													<Form.Label> Email </Form.Label>
@@ -86,6 +147,7 @@ class ForgotCredentials extends Component {
 													<Button type = "submit"> Submit </Button>
 												</Form>
 											</Col>
+											}
 										</Row>
 									</Card.Text>
 								</Card.Body>

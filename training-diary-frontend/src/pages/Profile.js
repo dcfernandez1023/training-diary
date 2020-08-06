@@ -10,8 +10,6 @@ import TabContent from 'react-bootstrap/TabContent';
 import Tab from 'react-bootstrap/Tab';
 import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import "react-datepicker/dist/react-datepicker.css";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
 

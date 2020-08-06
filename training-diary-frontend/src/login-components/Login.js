@@ -13,8 +13,6 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Form from 'react-bootstrap/Form';
 import Figure from 'react-bootstrap/Figure';
 import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import "react-datepicker/dist/react-datepicker.css";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
 import { BrowserRouter as Router, Link } from 'react-router-dom';

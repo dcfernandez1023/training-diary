@@ -9,6 +9,7 @@ from flask_apis import User
 ##GLOBAL VARIABLES
 app = flask.Flask("__main__")
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
+TEMP_USER = "TEMP"
 
 
 ## AUTHENTICATION APIS ##
@@ -60,6 +61,13 @@ def update_password(username):
     new_password = request_body.get("newPassword")
     user = User.User(username, app)
     return user.change_password(token, old_password, new_password)
+
+@app.route("/getTempPassword", methods = ["POST"])
+def get_temp_password():
+    request_body = request.get_json()
+    email = request_body.get("email")
+    user = User.User(TEMP_USER, app)
+    return user.generate_temp_credentials(email)
 
 ## GET APIS ##
 

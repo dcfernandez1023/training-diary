@@ -72,7 +72,6 @@ class App extends Component {
 			}
 		}
 		catch(error) {
-			//alert("An unexpected error occurred -- redirecting to login page");
 			this.logout();
 		}
 	}
@@ -113,7 +112,7 @@ class App extends Component {
 		const username = this.state.data._id;
 		axios.post(`/postData/${username}`, newData, {headers: {"token": this.state.token}})
 			.catch(function(error) {
-				alert("Error -- could not save data -- redirecting to login page");
+				alert("Internal Error -- could not save data -- redirecting to login page");
 			})
 			.then(res => this.handlePostResponse(res, newData));
 	}
@@ -149,7 +148,7 @@ class App extends Component {
 					that.logout();
 					return;
 				}
-				alert("Error -- could not update username & email");
+				alert("Internal Error -- could not update username & email");
 			})
 			.then(res => this.handleChangeInfoResponse(res, newData));
 	}
@@ -184,7 +183,7 @@ class App extends Component {
 					that.logout();
 					return;
 				}
-				alert("Error -- could not change password");
+				alert("Internal Error -- could not change password");
 			})
 			.then(res => this.handleChangePasswordResponse(res, newData));
 	}
@@ -203,13 +202,40 @@ class App extends Component {
 			return;
 		}
 	}
+	
+	getTempCredentials = (reqBody) => {
+		axios.post("/getTempPassword", reqBody)
+			.catch(function(error) {
+				if(error.response.status === 401) {
+					alert("The email you gave is not linked to any user");
+					return;
+				}
+				alert("Internal error -- could not get temporary credentials");
+			})
+			.then(res => this.handleTempResponse(res));
+	}
+	
+	handleTempResponse = (response) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				console.log(response.data);
+				alert("success");
+			}
+		}
+		catch(error) {
+			return;
+		}
+		
+	}
+	
 	//method passed in as props to Login.js
 	//grants access to apis by setting App.js state and redirecting to TrainingDiary.js
 	//only occurs if login was successful
 	grantAccess = (username, token) => {
 		axios.get(`/getAllData/${username}`, {headers: {"token": token}})
 			.catch(function(error) {
-				alert("Error -- could not get data -- redirecting to login page");
+				alert("Internal Error -- could not get data -- redirecting to login page");
 			})
 			.then(res => this.handleGetResponse(res, username));
 	}
@@ -223,7 +249,6 @@ class App extends Component {
 	//method passed in as props to TrainingDiary.js
 	//logs the user out, clears localStorage, and resets to original state
 	logout = () => {
-		console.log("logging out");
 		localStorage.clear();
 		this.setState({isLoggedIn: false, waitingForPage: false, onLogin: true});
 		this.setState({authLoading: false, disabled: false});
@@ -297,7 +322,7 @@ class App extends Component {
 							</div>
 						</Route>
 						<Route exact path = "/reset">
-							<ForgotCredentials />
+							<ForgotCredentials getTempCredentials = {this.getTempCredentials} />
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

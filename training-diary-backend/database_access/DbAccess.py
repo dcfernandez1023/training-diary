@@ -8,7 +8,7 @@ class DbAccess:
     def __init__(self, username):
         self.__username = username
         self.__db = self.__get_db()
-        self.__document = self.__get_document(username)
+        self.__document = self.get_document(username)
 
     #setter for document
     def set_document(self, document):
@@ -20,7 +20,7 @@ class DbAccess:
 
     #determines if the user exists
     def is_existing_user(self, info):
-        if self.__get_document(info) is None:
+        if self.get_document(info) is None:
             return False
         return True
 
@@ -79,6 +79,14 @@ class DbAccess:
         self.__db.get_collection("td").find_one_and_delete({"_id": self.__username})
         self.__document = None
 
+    #intended to be called only in constructor; gets the user's document
+    #returns none if user document could not be found
+    def get_document(self, info):
+        document = self.__db.get_collection("td").find_one(info)
+        if document is None:
+            return None
+        return dict(document)
+
     ##PRIVATE METHODS##
 
     #intended to be called whenever the document of this class needs to be saved
@@ -86,14 +94,6 @@ class DbAccess:
         if self.__document is None:
             return
         self.__db.get_collection("td").update_one({"_id": self.__document.get("_id")}, {"$set": self.__document}, upsert = True)
-
-    #intended to be called only in constructor; gets the user's document
-    #returns none if user document could not be found
-    def __get_document(self, info):
-        document = self.__db.get_collection("td").find_one(info)
-        if document is None:
-            return None
-        return dict(document)
 
     #intended to be called only in constructor; gets the database
     def __get_db(self):

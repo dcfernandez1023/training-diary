@@ -19,7 +19,7 @@ class ForgotCredentials extends Component {
 		email: ""
 	}
 	
-	handleEmailSubmit = (e) => {
+	handleEmailSubmit = async (e) => {
 		const form = e.currentTarget;
 		if(form.checkValidity() === false) {
 			e.preventDefault();
@@ -27,6 +27,12 @@ class ForgotCredentials extends Component {
 		}
 		this.setState({validated: true});
 		e.preventDefault();
+		if(this.state.email.toString().trim().length === 0) {
+			return;
+		}
+		var requestBody = {email: this.state.email}
+		await this.props.getTempCredentials(requestBody);
+		this.forceUpdate();
 	}
 	
 	onChangeField = (e) => {

@@ -92,6 +92,19 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
+    def generate_temp_credentials(self, email):
+        try:
+            db_access = self.__auth.get_db_access()
+            if db_access.is_existing_user({"email": email}):
+                document = db_access.get_document({"email": email})
+                username = document.get("_id")
+                self.reset_user_attributes(username)
+                temp_password = self.__auth.encode_temp_password(self.__app)
+                return make_response({"username": username, "tempPassword": temp_password}, 200)
+            return make_response({}, 401)
+        except Exception:
+            self.__log_error(traceback.format_exc())
+            return make_response({}, 500)
 
     ## GET METHODS ##
 

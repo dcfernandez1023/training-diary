@@ -63,6 +63,12 @@ class Authentication:
             app.config['SECRET_KEY'])
         return token.decode('UTF-8')
 
+    def encode_temp_password(self, app):
+        token = jwt.encode(
+            {'username': self.__username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5)},
+            app.config['SECRET_KEY'])
+        return token.decode('UTF-8')
+
     #grants access to api usage
     #returns true to indicate user has access to apis
     #returns false to indicate user does not have access to apis

@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_access/DbAccess.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_access/DbAccess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask_apis/TdApis.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/TdApis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask_apis/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/User.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_authentication/Authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_authentication/Authentication.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1008">
-              <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+            <state relative-caret-position="1606">
+              <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -42,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="80" column="69" selection-start-line="80" selection-start-column="69" selection-end-line="80" selection-end-column="69" />
+            <state relative-caret-position="318">
+              <caret line="63" column="36" lean-forward="true" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
               <folding>
                 <element signature="e#141#151#0" expanded="true" />
               </folding>
@@ -54,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-711">
-              <caret line="80" column="65" lean-forward="true" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
+            <state relative-caret-position="87">
+              <caret line="101" column="76" selection-start-line="101" selection-start-column="76" selection-end-line="101" selection-end-column="76" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -63,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-336">
-              <caret line="52" column="61" selection-start-line="52" selection-start-column="61" selection-end-line="52" selection-end-column="61" />
+            <state relative-caret-position="125">
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
               <folding>
                 <element signature="e#122#134#0" expanded="true" />
               </folding>
@@ -101,6 +105,7 @@
       <find>td</find>
       <find>print</find>
       <find>is_existing</find>
+      <find>__get_document</find>
     </findStrings>
     <replaceStrings>
       <replace>Name</replace>
@@ -131,16 +136,16 @@
         <option value="$PROJECT_DIR$/database_access/test.py" />
         <option value="$PROJECT_DIR$/database_access/test.py" />
         <option value="$PROJECT_DIR$/database_access/MetaData.py" />
-        <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
-        <option value="$PROJECT_DIR$/user_authentication/Authentication.py" />
         <option value="$PROJECT_DIR$/database_access/DbAccess.py" />
+        <option value="$PROJECT_DIR$/user_authentication/Authentication.py" />
         <option value="$PROJECT_DIR$/flask_apis/User.py" />
+        <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="146" />
-    <option name="y" value="318" />
+    <option name="x" value="-140" />
+    <option name="y" value="268" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -417,7 +422,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" weight="0.3985043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -427,11 +431,11 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9341412" visible="true" weight="0.12567714" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9341412" visible="true" weight="0.7128928" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49947312" weight="0.25135428" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.065858796" side_tool="true" visible="true" weight="0.12567714" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.065858796" side_tool="true" visible="true" weight="0.7128928" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.49837488" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -553,40 +557,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="80" column="69" selection-start-line="80" selection-start-column="69" selection-end-line="80" selection-end-column="69" />
+        <state relative-caret-position="318">
+          <caret line="63" column="36" lean-forward="true" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
           <folding>
             <element signature="e#141#151#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
+    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="52" column="61" selection-start-line="52" selection-start-column="61" selection-end-line="52" selection-end-column="61" />
+        <state relative-caret-position="1606">
+          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
           <folding>
-            <element signature="e#122#134#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-711">
-          <caret line="80" column="65" lean-forward="true" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
+        <state relative-caret-position="87">
+          <caret line="101" column="76" selection-start-line="101" selection-start-column="76" selection-end-line="101" selection-end-column="76" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
+    <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="48" column="43" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+        <state relative-caret-position="125">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#122#134#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -6,6 +6,7 @@ import flask
 from flask import request
 import flask_apis.User as User
 
+
 ##GLOBAL VARIABLES
 app = flask.Flask("__main__")
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'

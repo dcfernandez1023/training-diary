@@ -221,7 +221,6 @@ class App extends Component {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
-				console.log(response.data);
 				this.setState({tempSuccess: true, recoveryEmail: email});
 			}
 		}

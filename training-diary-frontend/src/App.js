@@ -238,20 +238,48 @@ class App extends Component {
 				}
 				alert("Internal error -- could not process temporary credentials");
 			})
-			.then(res => this.handleValidateTempResponse(res));
+			.then(res => this.handleValidateTempResponse(res, reqBody.username));
 	}
 	
-	handleValidateTempResponse = (response) => {
+	handleValidateTempResponse = (response, username) => {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
-				this.setState({recoveryDisabled: true});
+				this.setState({recoveryDisabled: true, token: response.headers.token, username: username});
 			}
 		}
 		catch(error) {
 			return;
 		}
 	}
+	
+	recoverPassword = (username, token, reqBody) => {
+		axios.post(`/postRecoveryPassword/${username}`, reqBody, {headers: {"token": token}})
+			.catch(function(error) {
+				if(error.response.status === 401) {
+					alert("Sorry -- You are unauthorized to perform this action");
+					return;
+				}
+				alert("Internal error -- could not change your password");
+			})
+			.then(res => this.handleRecoveryResponse(res));
+	}
+	
+	handleRecoveryResponse = (response) => {
+		try {
+			var status = Number(response.status);
+			if(status === 200) {
+				alert("Password changed successfully. Redirecting to login page");
+				this.setState({onLogin: true});
+				window.location.pathname = "/";
+			}
+		}
+		catch(error) {
+			return;
+		}
+	}
+	
+	
 	
 	//method passed in as props to Login.js
 	//grants access to apis by setting App.js state and redirecting to TrainingDiary.js
@@ -352,6 +380,9 @@ class App extends Component {
 								tempSuccess = {this.state.tempSuccess}
 								email = {this.state.recoveryEmail}
 								recoveryDisabled = {this.state.recoveryDisabled}
+								token = {this.state.token}
+								username = {this.state.username}
+								recoverPassword = {this.recoverPassword}
 							/>
 						</Route>
 						<Route>

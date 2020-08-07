@@ -78,7 +78,6 @@ class User:
     def send_recovery_account_message(self, service, user_id, message):
         message = (service.users().messages().send(userId=user_id, body=message)
                    .execute())
-        print('Message Id: %s' % message['id'])
     #used to reset user data members after new account information (username) is updated
     def reset_user_attributes(self, new_username):
         self.__username = new_username
@@ -160,6 +159,20 @@ class User:
         except Exception:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
+
+    def recover_password(self, token, new_password):
+        try:
+            isVerified = self.__auth.isApiUser(self.__app, token)
+            if isVerified:
+                db_access = self.__auth.get_db_access()
+                new_hashed_password = self.__auth.hash_new_password(new_password)
+                db_access.update_document({"password": new_hashed_password})
+                return make_response({}, 200)
+            return make_response({}, 401)
+        except Exception:
+            self.__log_error(traceback.format_exc())
+            return make_response({}, 500)
+
 
     def generate_temp_credentials(self, email):
         try:

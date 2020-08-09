@@ -407,8 +407,8 @@ class AddModal extends Component {
 				onExited = {this.resetModal}
 			>
 			  <Modal.Header>
-				<h2 className = "modal-header-tag"> Add Training Data </h2>
-				<h3 className = "modal-header-tag"> {dateString} </h3>
+				<h4 className = "modal-header-tag"> Add Training Data </h4>
+				<h4 className = "modal-header-tag"> {dateString} </h4>
 				{/*<Button variant = "primary"> Add </Button>*/}
 			  </Modal.Header>
 			  

@@ -89,7 +89,7 @@ class ForgotCredentials extends Component {
 						<h1 style = {{margin: "1%"}}> Training Diary </h1>
 					</Col>
 					<Col style = {{textAlign: "right"}}>
-						<Button size = "lg" variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
+						<Button variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
 					</Col>
 				</Row>
 				<Container>

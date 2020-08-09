@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Profile extends Component {
 	
@@ -123,7 +124,7 @@ class Profile extends Component {
 						<h1 style = {{margin: "1%"}}> Training Diary </h1>
 					</Col>
 					<Col style = {{textAlign: "right"}}>
-						<Button size = "lg" variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
+						<Button variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
 					</Col>
 				</Row>
 				<Container>

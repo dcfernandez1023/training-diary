@@ -268,8 +268,8 @@ class EditModal extends Component {
 				onExited = {this.resetModal}
 			>
 			  <Modal.Header>
-				<h2 className = "modal-header-tag"> Edit Training Data </h2>
-				<h3 className = "modal-header-tag"> {dateString} </h3>
+				<h4 className = "modal-header-tag"> Edit Training Data </h4>
+				<h4 className = "modal-header-tag"> {dateString} </h4>
 			  </Modal.Header>
 			  
 			  <Modal.Body>

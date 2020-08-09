@@ -15,6 +15,7 @@ import Figure from 'react-bootstrap/Figure';
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
+import "react-datepicker/dist/react-datepicker.css";
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 class Login extends Component {

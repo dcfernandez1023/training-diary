@@ -258,16 +258,19 @@ class Calendar extends Component {
 		}
 		const enteredCategories = [];
 		const entries = [];
+		const goalsAchieved = [];
 		for(var i = 0; i < this.props.data.userData.length; i++) {
 			if(new Date(this.props.data.userData[i].Date).getTime() === this.state.selectedDate.getTime()) {
 				entries.push(this.props.data.userData[i]);
+				if(this.goalAchieved(this.props.data.userData[i]) && this.props.data.userData[i].calculationType === "none") {
+					goalsAchieved.push(this.props.data.userData[i]);
+				}
 				if(!enteredCategories.includes(this.props.data.userData[i].Category)) {
 					enteredCategories.push(this.props.data.userData[i].Category);
 				}
 			}
 		}
 		const totals = this.calculateTotals(entries);
-		
 		const cards = enteredCategories.map((category, catIndex) => {
 			this.state.eventKey++;
 			return (
@@ -283,70 +286,35 @@ class Calendar extends Component {
 								if(new Date(entry.Date).getTime() === this.state.selectedDate.getTime() && category === entry.Category) {
 									return (
 										<div>
-											{this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body"
-											?
-												<div>
-													<div> Goal Achieved 🏆 </div>
-													<br/>
-													{entry.displayOrder.map((key) => {
-														if(key !== "Notes") {
-															return (
-																<ListGroup horizontal key = {uuid()}>
-																	<ListGroup.Item style = {{width: "40%"}}> <strong> {key} </strong> </ListGroup.Item>
-																	<ListGroup.Item style = {{width: "60%"}}> {entry[key]} </ListGroup.Item>
-																</ListGroup>
-															)
-														}
-														const popover = (
-															<Popover>
-																<Popover.Title as = "h3"> {key} </Popover.Title>
-																<Popover.Content> {entry[key]} </Popover.Content>
-															</Popover>
-														);
+											<div>
+												{entry.displayOrder.map((key) => {
+													if(key !== "Notes") {
 														return (
-															<div key = {uuid()}>
-																<br/>
-																<OverlayTrigger trigger = "click" placement = "right" overlay = {popover} rootClose = {true}>
-																	<Button variant = "success"> {key} </Button>
-																</OverlayTrigger>
-																<Button variant = "light" className = "deleteEditButtons" onClick = {this.deleteEntry.bind(this, index)}> 🗑️ </Button>
-																<Button variant = "light" className = "deleteEditButtons" onClick = {this.onClickEdit.bind(this, index)}> ✏️ </Button>
-																<hr style = {{border: "1px solid black"}} />
-															</div>
+															<ListGroup horizontal key = {uuid()}>
+																<ListGroup.Item style = {{width: "40%"}}> <strong> {key} </strong> </ListGroup.Item>
+																<ListGroup.Item style = {{width: "60%"}}> {entry[key]} </ListGroup.Item>
+															</ListGroup>
 														)
-													})}
-												</div>
-											:
-												<div>
-													{entry.displayOrder.map((key) => {
-														if(key !== "Notes") {
-															return (
-																<ListGroup horizontal key = {uuid()}>
-																	<ListGroup.Item style = {{width: "40%"}}> <strong> {key} </strong> </ListGroup.Item>
-																	<ListGroup.Item style = {{width: "60%"}}> {entry[key]} </ListGroup.Item>
-																</ListGroup>
-															)
-														}
-														const popover = (
-															<Popover>
-																<Popover.Title as = "h3"> {key} </Popover.Title>
-																<Popover.Content> {entry[key]} </Popover.Content>
-															</Popover>
-														);
-														return (
-															<div key = {uuid()}>
-																<br/>
-																<OverlayTrigger trigger = "click" placement = "right" overlay = {popover} rootClose = {true}>
-																	<Button variant = "success"> {key} </Button>
-																</OverlayTrigger>
-																<Button variant = "light" className = "deleteEditButtons" onClick = {this.deleteEntry.bind(this, index)}> 🗑️ </Button>
-																<Button variant = "light" className = "deleteEditButtons" onClick = {this.onClickEdit.bind(this, index)}> ✏️ </Button>
-																<hr style = {{border: "1px solid black"}} />
-															</div>
-														)
-													})}
-												</div>
-											}
+													}
+													const popover = (
+														<Popover>
+															<Popover.Title as = "h3"> {key} </Popover.Title>
+															<Popover.Content> {entry[key]} </Popover.Content>
+														</Popover>
+													);
+													return (
+														<div key = {uuid()}>
+															<br/>
+															<OverlayTrigger trigger = "click" placement = "right" overlay = {popover} rootClose = {true}>
+																<Button variant = "success"> {key} </Button>
+															</OverlayTrigger>
+															<Button variant = "light" className = "deleteEditButtons" onClick = {this.deleteEntry.bind(this, index)}> 🗑️ </Button>
+															<Button variant = "light" className = "deleteEditButtons" onClick = {this.onClickEdit.bind(this, index)}> ✏️ </Button>
+															<hr style = {{border: "1px solid black"}} />
+														</div>
+													)
+												})}
+											</div>
 										</div>
 									)
 								}
@@ -358,44 +326,84 @@ class Calendar extends Component {
 			)
 		});
 		return (
-			<Accordion> 
-				{cards} 
-				<Card key = {uuid()}>
-					<Card.Header>
-						<Accordion.Toggle as = {Button} variant = "link" eventKey = "total">
-							Data Totals 
-						</Accordion.Toggle>
-					</Card.Header>
-					<Accordion.Collapse eventKey = "total">
-						<Card.Body>
-						{totals.map((total) => {
-							if(this.goalAchieved(total)) {
+				<Accordion> 
+					{cards} 
+					{totals.length !== 0
+					?
+					<Card key = {uuid()}>
+						<Card.Header>
+							<Accordion.Toggle as = {Button} variant = "link" eventKey = "total">
+								Data Totals 
+							</Accordion.Toggle>
+						</Card.Header>
+						<Accordion.Collapse eventKey = "total">
+							<Card.Body>
+							{totals.map((total) => {
+								if(this.goalAchieved(total)) {
+									goalsAchieved.push(total);
+								}
 								return (
 									<div>
-										<div> Goal Achieved 🏆 </div>
-										<br/>
 										<ListGroup horizontal key = {uuid()}>
 											<ListGroup.Item style = {{width: "50%"}}> <strong> {total.Type} </strong> </ListGroup.Item>
 											<ListGroup.Item style = {{width: "50%"}}> {total[total.Type]} </ListGroup.Item>
 										</ListGroup>
+									</div>
+								)
+							})}
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
+					:
+					<div> </div>
+					}
+					{goalsAchieved.length !== 0 
+					?
+					<Card key = {uuid()}>
+						<Card.Header>
+							<Accordion.Toggle as = {Button} variant = "link" eventKey = "goalsAchieved">
+								Goals Achieved 
+							</Accordion.Toggle>
+						</Card.Header>
+						<Accordion.Collapse eventKey = "goalsAchieved">
+							<Card.Body>
+							{goalsAchieved.map((goalAchieved) => {
+								if(goalAchieved.displayOrder === undefined) {
+									return (
+										<div>
+											<div> 🏆 👏 </div>
+											<br/>
+											<ListGroup horizontal key = {uuid()}>
+												<ListGroup.Item style = {{width: "50%"}}> <strong> {goalAchieved.Type} </strong> </ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}> {goalAchieved[goalAchieved.Type]} </ListGroup.Item>
+											</ListGroup>
+											<hr style = {{border: "1px solid black"}} />
+										</div>
+									)
+								}
+								return (
+									<div>
+										<div> 🏆 👏 </div>
+										<br/>
+											{goalAchieved.displayOrder.map((key) => {
+												return (
+													<ListGroup horizontal key = {uuid()}>
+														<ListGroup.Item style = {{width: "50%"}}> <strong> {key} </strong> </ListGroup.Item>
+														<ListGroup.Item style = {{width: "50%"}}> {goalAchieved[key]} </ListGroup.Item>
+													</ListGroup>
+												)
+											})}
 										<hr style = {{border: "1px solid black"}} />
 									</div>
 								)
-							}
-							return (
-								<div>
-									<ListGroup horizontal key = {uuid()}>
-										<ListGroup.Item style = {{width: "50%"}}> <strong> {total.Type} </strong> </ListGroup.Item>
-										<ListGroup.Item style = {{width: "50%"}}> {total[total.Type]} </ListGroup.Item>
-									</ListGroup>
-									<hr style = {{border: "1px solid black"}} />
-								</div>
-							)
-						})}
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
-			</Accordion>
+							})}
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
+					:
+					<div> </div>
+					}
+				</Accordion>
 		)
 	}
 	

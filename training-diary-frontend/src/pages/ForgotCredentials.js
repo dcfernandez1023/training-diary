@@ -59,6 +59,7 @@ class ForgotCredentials extends Component {
 		var requestBody = {username: this.state.username.trim(), tempPassword: this.state.tempPassword};
 		await this.props.validateTempCredentials(requestBody);
 		this.forceUpdate();
+		this.setState({validated: false});
 	}
 	
 	handleNewPasswordSubmit = async (e) => {
@@ -76,6 +77,7 @@ class ForgotCredentials extends Component {
 		if(this.props.username.toString().length !== 0 && this.props.username !== undefined && this.props.token !== null && this.props.token !== undefined) {
 			this.props.toggleSaving();
 			await this.props.recoverPassword(this.props.username, this.props.token, requestBody);
+			this.setState({validated: false});
 		}
 	}
 	

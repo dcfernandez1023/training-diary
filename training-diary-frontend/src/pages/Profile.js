@@ -54,7 +54,6 @@ class Profile extends Component {
 		var username = this.state.username.trim();
 		e.preventDefault();
 		if(this.state.username.trim().length === 0 || this.state.email.trim().length === 0 || this.state.birthday === null) {
-			alert("Please fill out all fields");
 			return;
 		}
 		if(this.state.username.trim() !== this.props.data._id) {
@@ -79,7 +78,7 @@ class Profile extends Component {
 		dataCopy.email = this.state.email;
 		dataCopy.birthday = this.state.birthday;
 		await this.props.changeUsernameAndEmail(requestBody, dataCopy, this.props.token, username);
-		this.forceUpdate();
+		this.setState({validated: false});
 	}
 	
 	handlePasswordSubmit = async (e) => {
@@ -108,6 +107,7 @@ class Profile extends Component {
 		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
 		await this.props.changePassword(requestBody, dataCopy, this.props.token);
 		this.forceUpdate();
+		this.setState({validated: false});
 	}
 	
 	resetFields = () => {

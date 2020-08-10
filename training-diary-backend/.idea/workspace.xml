@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/flask_apis/token.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/token.pickle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/ForgotCredentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/ForgotCredentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +128,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1257" />
     <option name="y" value="107" />
     <option name="width" value="1936" />
@@ -428,7 +428,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.08587988" />

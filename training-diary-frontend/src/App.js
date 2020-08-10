@@ -27,7 +27,8 @@ class App extends Component {
 		disabled: false,
 		tempSuccess: false,
 		recoveryEmail: "",
-		recoveryDisabled: false
+		recoveryDisabled: false,
+		profileAndCredSaving: false
 		
 	}
 	
@@ -59,6 +60,10 @@ class App extends Component {
 	toggleEditModal = (dataToEdit) => {
 		console.log(dataToEdit);
 		this.setState({editModalShow: !this.state.editModalShow, dataToEdit: dataToEdit});
+	}
+	
+	toggleProfAndCredLoader = () => {
+		this.setState({profileAndCredSaving: !this.state.profileAndCredSaving});
 	}
 	
 	
@@ -160,6 +165,7 @@ class App extends Component {
 			var status = Number(response.status);
 			if(status === 200) {
 				alert("Changed successfully");
+				this.toggleProfAndCredLoader();
 				localStorage.setItem("token", response.headers.token);
 				localStorage.setItem("username", newData._id);
 				this.setState({token: response.headers.token});
@@ -167,6 +173,7 @@ class App extends Component {
 			}
 		}
 		catch(error) {
+			this.toggleProfAndCredLoader();
 			return;
 		}
 	}
@@ -195,21 +202,24 @@ class App extends Component {
 			var status = Number(response.status);
 			if(status === 200) {
 				alert("Changed successfully");
+				this.toggleProfAndCredLoader();
 				localStorage.setItem("token", response.headers.token);
 				this.setState({token: response.headers.token});
 				this.setState({data: newData});
 			}
 		}
 		catch(error) {
+			this.toggleProfAndCredLoader();
 			return;
 		}
 	}
 	
 	getTempCredentials = (reqBody, email) => {
+		var that = this;
 		axios.post("/getTempPassword", reqBody)
 			.catch(function(error) {
 				if(error.response.status === 401) {
-					alert("The email you gave is not linked to any user");
+					alert("The email you gave is not linked to any user");	
 					return;
 				}
 				alert("Internal error -- could not get temporary credentials");
@@ -221,15 +231,18 @@ class App extends Component {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
+				this.toggleProfAndCredLoader();
 				this.setState({tempSuccess: true, recoveryEmail: email});
 			}
 		}
 		catch(error) {
+			this.toggleProfAndCredLoader();
 			return;
 		}
 	}
 	
 	validateTempCredentials = (reqBody) => {
+		var that = this;
 		axios.post("/postTempPassword", reqBody)
 			.catch(function(error) {
 				if(error.response.status === 401) {
@@ -245,15 +258,18 @@ class App extends Component {
 		try {
 			var status = Number(response.status);
 			if(status === 200) {
+				this.toggleProfAndCredLoader();
 				this.setState({recoveryDisabled: true, token: response.headers.token, username: username});
 			}
 		}
 		catch(error) {
+			this.toggleProfAndCredLoader();
 			return;
 		}
 	}
 	
 	recoverPassword = (username, token, reqBody) => {
+		var that = this;
 		axios.post(`/postRecoveryPassword/${username}`, reqBody, {headers: {"token": token}})
 			.catch(function(error) {
 				if(error.response.status === 401) {
@@ -270,11 +286,13 @@ class App extends Component {
 			var status = Number(response.status);
 			if(status === 200) {
 				alert("Password changed successfully. Redirecting to login page");
+				this.toggleProfAndCredLoader();
 				this.setState({onLogin: true});
 				window.location.pathname = "/";
 			}
 		}
 		catch(error) {
+			this.toggleProfAndCredLoader();
 			return;
 		}
 	}
@@ -300,10 +318,9 @@ class App extends Component {
 	
 	//method passed in as props to TrainingDiary.js
 	//logs the user out, clears localStorage, and resets to original state
-	logout = () => {
-		localStorage.clear();
-		this.setState({isLoggedIn: false, waitingForPage: false, onLogin: true});
-		this.setState({authLoading: false, disabled: false});
+	logout = async () => {
+		await localStorage.clear();
+		window.location.pathname = "/";
 	}
 	
 	toggleAuthLoader = () => {
@@ -346,6 +363,8 @@ class App extends Component {
 								token = {this.state.token} 
 								changeUsernameAndEmail = {this.changeUsernameAndEmail}
 								changePassword = {this.changePassword}
+								saving = {this.state.profileAndCredSaving}
+								toggleSaving = {this.toggleProfAndCredLoader}
 							/>
 						</Route>
 						<Route>
@@ -383,6 +402,8 @@ class App extends Component {
 								token = {this.state.token}
 								username = {this.state.username}
 								recoverPassword = {this.recoverPassword}
+								saving = {this.state.profileAndCredSaving}
+								toggleSaving = {this.toggleProfAndCredLoader}
 							/>
 						</Route>
 						<Route>

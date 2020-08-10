@@ -12,7 +12,8 @@ import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css"
+import Spinner from 'react-bootstrap/Spinner';
 
 class Profile extends Component {
 	
@@ -24,7 +25,8 @@ class Profile extends Component {
 		birthday: null,
 		oldPassword: "",
 		newPassword: "",
-		confirmNewPassword: ""
+		confirmNewPassword: "",
+		saving: false
 	}
 	
 	componentDidMount = () => {
@@ -70,6 +72,7 @@ class Profile extends Component {
 			this.setState({validated: false});
 			return;
 		}
+		this.props.toggleSaving();
 		//var requestBody = {prevUsername: this.props.data._id, prevEmail: this.props.data.email, newUsername: this.state.username, newEmail: this.state.email, birthday: this.state.birthday};
 		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
 		dataCopy._id = this.state.username;
@@ -100,6 +103,7 @@ class Profile extends Component {
 			this.setState({validated: false});
 			return;
 		}
+		this.props.toggleSaving();
 		var requestBody = {oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}
 		var dataCopy = JSON.parse(JSON.stringify(this.props.data));
 		await this.props.changePassword(requestBody, dataCopy, this.props.token);
@@ -185,6 +189,14 @@ class Profile extends Component {
 								</Row>
 								<br/>
 								<Row>
+								{this.props.saving
+									?
+									<Col>
+										<Spinner animation = "border" variant = "primary" />
+									</Col>
+									:
+									<div> </div>
+									}
 									<Col>
 										<Button type = "submit" style = {{float: "right"}}> Save </Button>
 									</Col>
@@ -236,6 +248,14 @@ class Profile extends Component {
 								</Row>
 								<br/>
 								<Row>
+								{this.props.saving
+									?
+									<Col>
+										<Spinner animation = "border" variant = "primary" />
+									</Col>
+									:
+									<div> </div>
+									}
 									<Col>
 										<Button type = "submit" style = {{float: "right"}}> Save </Button>
 									</Col>

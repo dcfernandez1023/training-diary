@@ -10,6 +10,7 @@ import TabContent from 'react-bootstrap/TabContent';
 import Tab from 'react-bootstrap/Tab';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 class ForgotCredentials extends Component {
@@ -21,7 +22,8 @@ class ForgotCredentials extends Component {
 		username: "",
 		tempPassword: "",
 		newPassword: "",
-		confirmPassword: ""
+		confirmPassword: "",
+		saving: false
 	}
 	
 	handleEmailSubmit = async (e) => {
@@ -35,6 +37,7 @@ class ForgotCredentials extends Component {
 		if(this.state.email.toString().trim().length === 0) {
 			return;
 		}
+		await this.props.toggleSaving();
 		var requestBody = {email: this.state.email.trim()}
 		await this.props.getTempCredentials(requestBody, this.state.email);
 		this.forceUpdate();
@@ -52,6 +55,7 @@ class ForgotCredentials extends Component {
 		if(this.state.username.toString().trim().length === 0 || this.state.tempPassword.length === 0) {
 			return;
 		}
+		this.props.toggleSaving();
 		var requestBody = {username: this.state.username.trim(), tempPassword: this.state.tempPassword};
 		await this.props.validateTempCredentials(requestBody);
 		this.forceUpdate();
@@ -70,6 +74,7 @@ class ForgotCredentials extends Component {
 		}
 		var requestBody = {password: this.state.newPassword};
 		if(this.props.username.toString().length !== 0 && this.props.username !== undefined && this.props.token !== null && this.props.token !== undefined) {
+			this.props.toggleSaving();
 			await this.props.recoverPassword(this.props.username, this.props.token, requestBody);
 		}
 	}
@@ -95,6 +100,53 @@ class ForgotCredentials extends Component {
 				<Container>
 					<br/>
 					<Row>
+						{this.props.recoveryDisabled
+						?
+							<Col>
+								<Card style = {{marginTop: "5%"}}>
+									<Card.Header as = "h4"> Enter a New Password </Card.Header>
+									<Card.Body>
+										<Card.Text>
+											<Form noValidate validated = {this.state.passwordValidated} onSubmit = {this.handleNewPasswordSubmit}>
+												<Form.Label> New Password </Form.Label>
+												<Form.Control
+													required
+													type = "password"
+													name = "newPassword"
+													value = {this.state.newPassword}
+													onChange = {(e) => {this.onChangeField(e)}}
+													autoComplete = "off"
+												/>
+												<br/>
+												<Form.Label> Confirm New Password </Form.Label>
+												<Form.Control
+													required
+													type = "password"
+													name = "confirmPassword"
+													value = {this.state.confirmPassword}
+													onChange = {(e) => {this.onChangeField(e)}}
+													autoComplete = "off"
+												/>
+												<br/>
+														<Row  style = {{textAlign: "left"}}>
+															<Col>
+																<Button type = "submit"> Submit </Button>
+															</Col>
+															{this.props.saving 
+															?
+															<Col>
+																<Spinner animation = "border" variant = "primary" />
+															</Col>
+															: 
+															<div> </div>
+															}
+														</Row>
+											</Form>		
+										</Card.Text>
+									</Card.Body>
+								</Card>
+							</Col>
+						:
 						<Col>
 							<Card>
 								<Card.Header as = "h4"> Recover Credentials </Card.Header>
@@ -150,7 +202,19 @@ class ForgotCredentials extends Component {
 															disabled = {this.props.recoveryDisabled}
 														/>
 														<br/>
-														<Button type = "submit" disabled = {this.props.recoveryDisabled}> Submit </Button>
+														<Row  style = {{textAlign: "left"}}>
+															<Col>
+																<Button type = "submit" disabled = {this.props.recoveryDisabled}> Submit </Button>
+															</Col>
+															{this.props.saving 
+															?
+															<Col>
+																<Spinner animation = "border" variant = "primary" />
+															</Col>
+															: 
+															<div> </div>
+															}
+														</Row>
 													</Form>		
 												</Col>
 											:
@@ -166,7 +230,19 @@ class ForgotCredentials extends Component {
 														autoComplete = "off"
 													/>
 													<br/>
-													<Button type = "submit"> Submit </Button>
+														<Row  style = {{textAlign: "left"}}>
+															<Col>
+																<Button type = "submit" disabled = {this.props.recoveryDisabled}> Submit </Button>
+															</Col>
+															{this.props.saving 
+															?
+															<Col>
+																<Spinner animation = "border" variant = "primary" />
+															</Col>
+															: 
+															<div> </div>
+															}
+														</Row>
 												</Form>
 											</Col>
 											}
@@ -175,44 +251,6 @@ class ForgotCredentials extends Component {
 								</Card.Body>
 							</Card>
 						</Col>
-					</Row>
-					<Row>
-						{this.props.recoveryDisabled
-						?
-							<Col>
-								<Card style = {{marginTop: "5%"}}>
-									<Card.Header as = "h4"> Enter a New Password </Card.Header>
-									<Card.Body>
-										<Card.Text>
-											<Form noValidate validated = {this.state.passwordValidated} onSubmit = {this.handleNewPasswordSubmit}>
-												<Form.Label> New Password </Form.Label>
-												<Form.Control
-													required
-													type = "password"
-													name = "newPassword"
-													value = {this.state.newPassword}
-													onChange = {(e) => {this.onChangeField(e)}}
-													autoComplete = "off"
-												/>
-												<br/>
-												<Form.Label> Confirm New Password </Form.Label>
-												<Form.Control
-													required
-													type = "password"
-													name = "confirmPassword"
-													value = {this.state.confirmPassword}
-													onChange = {(e) => {this.onChangeField(e)}}
-													autoComplete = "off"
-												/>
-												<br/>
-												<Button type = "submit"> Submit </Button>
-											</Form>		
-										</Card.Text>
-									</Card.Body>
-								</Card>
-							</Col>
-						:
-							<div> </div>
 						}
 					</Row>
 				</Container>

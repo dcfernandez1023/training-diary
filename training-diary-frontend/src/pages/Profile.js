@@ -14,6 +14,7 @@ import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
 import "react-datepicker/dist/react-datepicker.css"
 import Spinner from 'react-bootstrap/Spinner';
+import CardDeck from 'react-bootstrap/CardDeck';
 
 class Profile extends Component {
 	
@@ -271,6 +272,7 @@ class Profile extends Component {
 										<Card.Body>
 											<Card.Title>
 												Goal Statistics 🎯
+												<hr style = {{border: "1px solid lightGray"}} />
 											</Card.Title>
 											<Card.Text>
 											{this.props.data.metaData.categories.map((category) => {
@@ -281,7 +283,10 @@ class Profile extends Component {
 													}
 												})
 												return (
-													<li> Number of {category} Goals: {numGoals} </li>
+													<div>
+														<li> Number of {category} Goals: {numGoals} </li>
+														<br/>
+													</div>
 												)
 											})}
 											</Card.Text>
@@ -293,6 +298,7 @@ class Profile extends Component {
 										<Card.Body>
 											<Card.Title>
 												Training Statistics 💪
+												<hr style = {{border: "1px solid lightGray"}} />
 											</Card.Title>
 											<Card.Text>
 											{this.props.data.metaData.categories.map((category) => {
@@ -303,7 +309,10 @@ class Profile extends Component {
 													}
 												})
 												return (
-													<li> Number of {category} Entries: {numEntries} </li>
+													<div>
+														<li> Number of {category} Entries: {numEntries} </li>
+														<br/>
+													</div>
 												)
 											})}
 											</Card.Text>
@@ -312,6 +321,108 @@ class Profile extends Component {
 								</Col>
 							</Row>
 							<br/>
+						</Tab>
+						<Tab eventKey = "customize" title = "Customize Data ⚙️">
+						<br/>
+						<Row>
+							<Col>
+								<h3>
+									Training Data Options
+								</h3>
+								<p>
+									Customize your data by editing, deleting, and adding to the options below.
+								</p>
+								<Row>
+									{this.props.data.metaData.categories.map((category) => {
+										return (
+											<Col sm = {12}>
+												<Card>
+													<Card.Body>
+														<Card.Title>
+															{category}
+															<Button variant = "primary" style = {{float: "right"}}> + </Button>
+														</Card.Title>
+														<Card.Text>
+															<Row>
+																{this.props.data.metaData.entryTypes.map((entry) => {
+																	if(entry.Category === category) {
+																		if(entry.deletable) {
+																			return (
+																				<Col sm = {4}>
+																					<Card style = {{height: "100%"}}>
+																						<Row style = {{marginBottom: "1%"}}>
+																							<Col>
+																								<Card.Title>
+																									<Button size = "sm" variant = "light" style = {{float: "right"}}> ✏️ </Button>
+																								</Card.Title>
+																							</Col>
+																						</Row>
+																						<Card.Body>
+																							<Card.Text> 
+																								<ListGroup horizontal>
+																									<ListGroup.Item style = {{width: "100%"}}> <strong> Category </strong> : {entry.Category} </ListGroup.Item>
+																								</ListGroup>
+																								<ListGroup horizontal>
+																									<ListGroup.Item style = {{width: "100%"}}> <strong> Type </strong> : {entry.Type} </ListGroup.Item>
+																								</ListGroup>
+																								<ListGroup horizontal>
+																									<ListGroup.Item style = {{width: "100%"}}> 
+																										<strong> Fields </strong>
+																										{entry.displayOrder.map((key) => {
+																											if(key !== "Category" && key !== "Type") {
+																												return (
+																													<li> {key} </li>
+																												)
+																											}
+																										})}
+																									</ListGroup.Item>
+																								</ListGroup>
+																							</Card.Text>
+																						</Card.Body>
+																					</Card>
+																				</Col>
+																			)
+																		}
+																		return (
+																			<Col sm = {4}>
+																				<Card style = {{height: "100%"}}>
+																					<Card.Body>
+																						<Card.Text> 
+																							<ListGroup horizontal>
+																								<ListGroup.Item style = {{width: "100%"}}> <strong> Category </strong> : {entry.Category} </ListGroup.Item>
+																							</ListGroup>
+																							<ListGroup horizontal>
+																								<ListGroup.Item style = {{width: "100%"}}> <strong> Type </strong> : {entry.Type} </ListGroup.Item>
+																							</ListGroup>
+																							<ListGroup horizontal>
+																								<ListGroup.Item style = {{width: "100%"}}> 
+																									<strong> Fields </strong>
+																									{entry.displayOrder.map((key) => {
+																										if(key !== "Category" && key !== "Type") {
+																											return (
+																												<li> {key} </li>
+																											)
+																										}
+																									})}
+																								</ListGroup.Item>
+																							</ListGroup>
+																						</Card.Text>
+																					</Card.Body>
+																				</Card>
+																			</Col>
+																		)
+																	}
+																})}
+															</Row>
+														</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
+										)
+									})}
+								</Row>
+							</Col>
+						</Row>
 						</Tab>
 					</Tabs>
 				</Container>

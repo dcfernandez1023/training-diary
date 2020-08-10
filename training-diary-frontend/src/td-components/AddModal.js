@@ -247,6 +247,7 @@ class AddModal extends Component {
 					}
 					newDataCopy.displayOrder = entryType.displayOrder;
 					newDataCopy.Date = this.props.selectedDate.toString();
+					newDataCopy.calculationType = entryType.calculationType;
 					entry = entryType;
 					break;
 				}
@@ -271,6 +272,7 @@ class AddModal extends Component {
 		}
 		var inputs;
 		const newDataKeys = Object.keys(this.state.newData);
+		//const newDataKeys = this.state.newData.displayOrder;
 		if(newDataKeys.length === 0) {
 			inputs = <ListGroup horizontal>
 						<ListGroup.Item style = {{width: "50%"}}>
@@ -337,7 +339,7 @@ class AddModal extends Component {
 				);
 			}
 			else {
-				if(field !== "displayOrder" && field !== "Date") {
+				if(field !== "displayOrder" && field !== "Date" && field !== "calculationType") {
 					if(field === "Name") {
 						var nameList = [];
 						for(var i = 0; i < this.state.data.entryNames.length ; i++) {

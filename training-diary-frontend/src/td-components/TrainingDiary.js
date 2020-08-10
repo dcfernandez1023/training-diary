@@ -66,7 +66,7 @@ class TrainingDiary extends Component {
 				<Row style = {{height: "75vh"}}>
 					<Col>
 						<Tabs activeKey = {this.state.activeTab} onSelect = {(tab) => {this.toggleTabs(tab)}}>
-								<Tab eventKey = "graph" title = "Graph">
+								<Tab eventKey = "graph" title = "Graph 📉">
 									{this.state.activeTab !== "graph"
 									?
 									<div> </div>
@@ -77,7 +77,7 @@ class TrainingDiary extends Component {
 									</div>
 									}
 								</Tab>
-								<Tab eventKey = "calendar" title = "Calendar">
+								<Tab eventKey = "calendar" title = "Calendar 📅">
 									{this.state.activeTab !== "calendar"
 									?
 									<div> </div>
@@ -99,7 +99,7 @@ class TrainingDiary extends Component {
 									}
 								</Tab>
 								
-								<Tab eventKey = "dataList" title = "Data-List">
+								<Tab eventKey = "dataList" title = "Data-List 📝">
 									{this.state.activeTab !== "dataList"
 									?
 									<div> </div>
@@ -121,7 +121,7 @@ class TrainingDiary extends Component {
 									}
 								</Tab>
 								
-								<Tab eventKey = "goals" title = "Goals">
+								<Tab eventKey = "goals" title = "Goals 🎯">
 									{this.state.activeTab !== "goals"
 									?
 									<div> </div>

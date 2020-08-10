@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/ForgotCredentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/ForgotCredentials.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database_access/MetaData.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_access/MetaData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/AddModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/AddModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/TrainingDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/TrainingDiary.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2142">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+            <state relative-caret-position="504">
+              <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -52,7 +53,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="1115">
               <caret line="169" column="45" selection-start-line="169" selection-start-column="45" selection-end-line="169" selection-end-column="45" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
@@ -64,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1848">
+            <state relative-caret-position="224">
               <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
             </state>
           </provider>
@@ -118,17 +119,17 @@
         <option value="$PROJECT_DIR$/FlaskApis/TdApis.py" />
         <option value="$PROJECT_DIR$/database_access/test.py" />
         <option value="$PROJECT_DIR$/database_access/test.py" />
-        <option value="$PROJECT_DIR$/database_access/MetaData.py" />
         <option value="$PROJECT_DIR$/database_access/DbAccess.py" />
         <option value="$PROJECT_DIR$/user_authentication/Authentication.py" />
         <option value="$PROJECT_DIR$/user_authentication/googleQuickstart.py" />
         <option value="$PROJECT_DIR$/user_authentication/TdBot.py" />
         <option value="$PROJECT_DIR$/flask_apis/User.py" />
         <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
+        <option value="$PROJECT_DIR$/database_access/MetaData.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1257" />
     <option name="y" value="107" />
     <option name="width" value="1936" />
@@ -439,7 +440,7 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9336143" visible="true" weight="0.4312026" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9336143" visible="true" weight="0.156013" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" weight="0.25135428" />
@@ -616,14 +617,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
+        <state relative-caret-position="224">
           <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
+        <state relative-caret-position="1115">
           <caret line="169" column="45" selection-start-line="169" selection-start-column="45" selection-end-line="169" selection-end-column="45" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
@@ -633,8 +634,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2142">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        <state relative-caret-position="504">
+          <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

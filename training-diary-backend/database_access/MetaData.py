@@ -27,7 +27,8 @@ meta_data = \
               "Body-Weight": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Body-Weight", "Notes"],
-              "calculationType": "average"
+              "calculationType": "average",
+              "deletable": False
           },
 
           {
@@ -37,7 +38,8 @@ meta_data = \
               "Body-Fat %": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Body-Fat %", "Notes"],
-              "calculationType": "average"
+              "calculationType": "average",
+              "deletable": False
           },
 
           {
@@ -47,7 +49,8 @@ meta_data = \
               "Calories": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Calories", "Notes"],
-              "calculationType": "add"
+              "calculationType": "add",
+              "deletable": False
           },
 
           {
@@ -57,7 +60,8 @@ meta_data = \
               "Protein": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Protein", "Notes"],
-              "calculationType": "add"
+              "calculationType": "add",
+              "deletable": False
           },
 
           {
@@ -67,7 +71,8 @@ meta_data = \
               "Carbs": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Carbs", "Notes"],
-              "calculationType": "add"
+              "calculationType": "add",
+              "deletable": False
           },
 
           {
@@ -77,7 +82,8 @@ meta_data = \
               "Fats": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Fats", "Notes"],
-              "calculationType": "add"
+              "calculationType": "add",
+              "deletable": False
           },
 
           {
@@ -90,7 +96,8 @@ meta_data = \
               "Weight": "number",
               "Notes": "string",
               "displayOrder": ["Category", "Type", "Name", "Sets", "Reps", "Weight", "Notes"],
-              "calculationType": "none"
+              "calculationType": "none",
+              "deletable": False
           },
 
           {
@@ -100,8 +107,10 @@ meta_data = \
               "Name": "string",
               "Distance": "number",
               "Time": "number",
+              "Notes": "string",
               "displayOrder": ["Category", "Type", "Name", "Distance", "Time", "Notes"],
-              "calculationType": "none"
+              "calculationType": "none",
+              "deletable": False
           },
       ]
   }

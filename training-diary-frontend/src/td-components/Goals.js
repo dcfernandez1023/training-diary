@@ -137,7 +137,6 @@ class Goals extends Component {
 		else {
 			dataCopy.Fields[name] = value;
 		}
-		console.log(dataCopy);
 		this.setState({addingData: dataCopy});
 	}
 	
@@ -394,6 +393,13 @@ class Goals extends Component {
 												</ListGroup.Item>
 												<ListGroup.Item style = {{width: "50%"}}>
 													<InputGroup>
+														<Form.Control
+															as = "input"
+															autoComplete = "off"
+															name = {field}
+															value = {this.state.addingData.Fields[field]}
+															onChange = {(e) => {this.onChangeAdd(e)}}
+														/>
 														<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
 															<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
 															<Dropdown.Menu rootCloseEvent = "click">
@@ -406,13 +412,6 @@ class Goals extends Component {
 																})}
 															</Dropdown.Menu>
 														</Dropdown> 
-														<Form.Control
-															as = "input"
-															autoComplete = "off"
-															name = {field}
-															value = {this.state.addingData.Fields[field]}
-															onChange = {(e) => {this.onChangeAdd(e)}}
-														/>
 													</InputGroup> 
 												</ListGroup.Item>
 											</ListGroup>

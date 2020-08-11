@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database_access/MetaData.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_access/MetaData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/AddModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/AddModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/TrainingDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/td-components/TrainingDiary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +30,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
+            <state relative-caret-position="2268">
               <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -129,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1257" />
     <option name="y" value="107" />
     <option name="width" value="1936" />
@@ -429,7 +427,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.08587988" />
@@ -634,7 +632,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="2268">
           <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />

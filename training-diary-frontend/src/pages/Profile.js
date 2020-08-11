@@ -14,7 +14,9 @@ import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
 import "react-datepicker/dist/react-datepicker.css"
 import Spinner from 'react-bootstrap/Spinner';
-import CardDeck from 'react-bootstrap/CardDeck';
+import Modal from "react-bootstrap/Modal";
+import Dropdown from 'react-bootstrap/Dropdown';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 class Profile extends Component {
 	
@@ -27,7 +29,11 @@ class Profile extends Component {
 		oldPassword: "",
 		newPassword: "",
 		confirmNewPassword: "",
-		saving: false
+		saving: false,
+		showModal: false,
+		addModalData: {},
+		fields: [],
+		categoryMenuShow: false
 	}
 	
 	componentDidMount = () => {
@@ -115,6 +121,66 @@ class Profile extends Component {
 		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: "", username: this.props.data._id, email: this.props.data.email, birthday: new Date(this.props.data.birthday)});
 	}
 	
+	openAddModal = async () => {
+		const newData = {Category: "", Type: "", Notes: "string"};
+		await this.setState({showModal: true, addModalData: newData});
+	}
+	
+	closeAddModal = () => {
+		this.setState({addModalData: {}, showModal: false});
+	}
+	
+	onChangeAddModal = (e) => {
+		var name = [e.target.name][0];
+		var value = e.target.value;
+		var copy = JSON.parse(JSON.stringify(this.state.addModalData));
+		if(name === "Category") {
+			this.showCategoryList(value);
+		}
+		copy[name] = value;
+		this.setState({addModalData: copy});
+	}
+	
+	onSelectDropdown = (key, value) => {
+		var copy = JSON.parse(JSON.stringify(this.state.addModalData));
+		copy[key] = value;
+		this.setState({addModalData: copy});
+	}
+	
+	onClickRootCloseCategory = () => {
+		if(this.state.categoryMenuShow) {
+			this.setState({categoryMenuShow: false});
+		}
+		else {
+			this.setState({categoryMenuShow: true});
+		}
+	}
+	
+	showCategoryList = (categorySearch) => {
+		if(categorySearch.length === 0) {
+			this.setState({categoryMenuShow: false});
+		}
+		else {
+			this.setState({categoryMenuShow: true});
+		}
+	}
+	
+	addField = () => {
+		var newField = {fieldName: "", dataType: ""};
+		var copy = this.state.fields.slice();
+		copy.push(newField);
+		this.setState({fields: copy});
+	}
+	
+	onChangeField = (e, index) => {
+		console.log(index);
+		var name = [e.target.name][0];
+		var value = e.target.value;
+		var copy = this.state.fields.slice();
+		copy[index][name] = value;
+		this.setState({fields: copy});
+	}
+	
 	render() {
 		const datePicker = <Form.Control
 							required
@@ -124,6 +190,134 @@ class Profile extends Component {
 							/>
 		return (
 			<div>
+				{this.state.showModal
+				?
+					<Modal show = {this.state.showModal} backdrop = "static" onHide = {this.closeAddModal.bind(this)} size = "lg">
+						<Modal.Header closeButton>
+							<Modal.Title>
+								Add New Training Data
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							<Form>
+								{Object.keys(this.state.addModalData).map((key) => {
+									if(key === "Category") {
+										return (
+											<Row>
+												<Col>
+												<Form.Label> Category </Form.Label>
+													<InputGroup>
+														<Form.Control
+															as = "input"
+															autoComplete = "off"
+															name = {key}
+															value = {this.state.addModalData[key]}
+															onChange = {(e) => {this.onChangeAddModal(e)}}
+														/>
+														<Dropdown show = {this.state.categoryMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootCloseCategory.bind(this)}>
+															<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+															<Dropdown.Menu rootCloseEvent = "click">
+																{this.props.data.metaData.categories.map((category) => {
+																	return (
+																		<Dropdown.Item onSelect = {this.onSelectDropdown.bind(this, key, category)} >
+																			{category}
+																		</Dropdown.Item>
+																	)
+																})}
+															</Dropdown.Menu>
+														</Dropdown> 
+													</InputGroup> 
+													<br/>
+												</Col>
+											</Row>
+										)
+									}
+									else if(key === "Type") {
+										return (
+											<Row>
+												<Col>
+													<Form.Label> Type </Form.Label>
+													<Form.Control
+														as = "input"
+														autoComplete = "off"
+														name = {key}
+														value = {this.state.addModalData[key]}
+														onChange = {(e) => {this.onChangeAddModal(e)}}
+													/>
+													<br/>
+													<Row>
+														<Col>
+															<hr style = {{border: "1px solid gray"}} />
+															<h5> Fields  <Button variant = "primary" size = "sm" style = {{float: "right"}} onClick = {this.addField.bind(this)}> Add Field + </Button> </h5>
+															<br/>
+														</Col>
+													</Row>
+												</Col>
+											</Row>
+										)
+									}
+									else if(key === "Notes") {
+										return (
+											<Row>
+												<Col sm = {6}>
+													<Form.Label> Field </Form.Label>
+													<Form.Control
+														as = "input"
+														name = {key}
+														value = "Notes"
+														disabled = {true}
+													/>
+												</Col>
+												<Col sm = {6}>
+													<Form.Label> Data Type </Form.Label>
+													<Form.Control
+														as = "select"
+														disabled = {true}
+													>
+														<option value = "string"> String </option>
+													</Form.Control>
+												</Col>
+											</Row>
+										)
+									}
+								})}
+								{this.state.fields.map((newField, index) => {
+									return (
+										<Row>
+											<Col sm = {6}>
+												<Form.Label> Field </Form.Label>
+												<Form.Control
+													as = "input"
+													name = "fieldName"
+													value = {newField.fieldName}
+													onChange = {(e) => {this.onChangeField(e, index)}}
+												/>
+											</Col>
+											<Col sm = {6}>
+												<Form.Label> Data Type </Form.Label>
+												<Form.Control
+													as = "select"
+													name = "dataType"
+													onChange = {(e) => {this.onChangeField(e, index)}}
+												>
+													<option selected disabled hidden> Select </option>
+													<option value = "string"> String </option>
+													<option value = "number"> Number </option>
+												</Form.Control>
+											</Col>
+										</Row>
+									)
+								})}
+							</Form>
+						</Modal.Body>
+						<Modal.Footer>
+							<Button variant = "secondary" onClick = {this.closeAddModal.bind(this)}> Close </Button>
+							<Button variant = "primary"> Save </Button>
+						</Modal.Footer>
+					</Modal>
+				: 
+				<div> </div>
+				}
 				<Row>
 					<Col>
 						<h1 style = {{margin: "1%"}}> Training Diary </h1>
@@ -328,6 +522,7 @@ class Profile extends Component {
 							<Col>
 								<h3>
 									Training Data Options
+									<Button variant = "primary" style = {{float: "right"}} onClick = {this.openAddModal.bind(this)}> + </Button>
 								</h3>
 								<p>
 									Customize your data by editing, deleting, and adding to the options below.
@@ -340,7 +535,6 @@ class Profile extends Component {
 													<Card.Body>
 														<Card.Title>
 															{category}
-															<Button variant = "primary" style = {{float: "right"}}> + </Button>
 														</Card.Title>
 														<Card.Text>
 															<Row>
@@ -384,7 +578,7 @@ class Profile extends Component {
 																			)
 																		}
 																		return (
-																			<Col sm = {4}>
+																			<Col sm = {4} style = {{marginBottom: "3%"}}>
 																				<Card style = {{height: "100%"}}>
 																					<Card.Body>
 																						<Card.Text> 

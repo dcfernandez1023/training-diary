@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import subYears from "date-fns/subYears";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Profile extends Component {
 	

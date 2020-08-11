@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask_apis/token.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/token.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/login-components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/login-components/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +20,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
+            <state relative-caret-position="1700">
               <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -27,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+            <state relative-caret-position="200">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -42,16 +44,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
+            <state relative-caret-position="120">
               <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3381">
+            <state relative-caret-position="421">
               <caret line="169" column="45" selection-start-line="169" selection-start-column="45" selection-end-line="169" selection-end-column="45" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
@@ -63,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
+            <state relative-caret-position="1760">
               <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
             </state>
           </provider>
@@ -117,21 +119,21 @@
         <option value="$PROJECT_DIR$/FlaskApis/TdApis.py" />
         <option value="$PROJECT_DIR$/database_access/test.py" />
         <option value="$PROJECT_DIR$/database_access/test.py" />
-        <option value="$PROJECT_DIR$/database_access/MetaData.py" />
         <option value="$PROJECT_DIR$/database_access/DbAccess.py" />
         <option value="$PROJECT_DIR$/user_authentication/Authentication.py" />
         <option value="$PROJECT_DIR$/user_authentication/googleQuickstart.py" />
         <option value="$PROJECT_DIR$/user_authentication/TdBot.py" />
         <option value="$PROJECT_DIR$/flask_apis/User.py" />
         <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
+        <option value="$PROJECT_DIR$/database_access/MetaData.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-265" />
     <option name="y" value="305" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1937" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -145,26 +147,6 @@
             <path>
               <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="database_access" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_apis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="user_authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -427,10 +409,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.32876712" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.32848644" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5016251" side_tool="true" weight="0.24973656" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -441,7 +422,7 @@
       <window_info anchor="bottom" id="Run" order="5" sideWeight="0.9336143" weight="0.07367281" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" visible="true" weight="0.25135428" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" visible="true" weight="0.25036603" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5015806" side_tool="true" weight="0.25135428" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.49837488" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -541,9 +522,6 @@
     <entry file="file://$PROJECT_DIR$/flask_apis/cert.pem">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/flask_apis/key.pem">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/training-diary-frontend/src/Login.js" />
     <entry file="file://$USER_HOME$/training-diary-frontend/src/Register.js" />
     <entry file="file://$USER_HOME$/training-diary-frontend/src/App.js" />
@@ -584,40 +562,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Scripts/activate">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-672" />
@@ -630,12 +574,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1760">
+          <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3381">
+        <state relative-caret-position="421">
           <caret line="169" column="45" selection-start-line="169" selection-start-column="45" selection-end-line="169" selection-end-column="45" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flask_apis/key.pem">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>

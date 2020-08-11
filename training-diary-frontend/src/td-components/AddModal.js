@@ -85,7 +85,6 @@ class AddModal extends Component {
 	
 	validateFields = () => {
 		if(this.state.entryType === null || Object.keys(this.state.newData).length === 0) {
-			console.log("here...");
 			this.showAlert("Cannot save data, you're missing some required fields!");
 			return false;
 		}
@@ -94,7 +93,6 @@ class AddModal extends Component {
 				continue;
 			}
 			else if(this.state.newData[key].toString().trim().length === 0) {
-				console.log("here!!!");
 				this.showAlert("Cannot save data, you're missing some required fields!");
 				return false;
 			}

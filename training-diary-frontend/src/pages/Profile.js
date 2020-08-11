@@ -17,6 +17,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Modal from "react-bootstrap/Modal";
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Alert from 'react-bootstrap/Alert';
 
 class Profile extends Component {
 	
@@ -33,7 +34,9 @@ class Profile extends Component {
 		showModal: false,
 		addModalData: {},
 		fields: [],
-		categoryMenuShow: false
+		categoryMenuShow: false,
+		showAlert: false,
+		alertMessage: ""
 	}
 	
 	componentDidMount = () => {
@@ -180,6 +183,56 @@ class Profile extends Component {
 		this.setState({fields: copy});
 	}
 	
+	typeExists = (category, type) => {
+		for(var i = 0; i < this.props.data.metaData.entryTypes.length; i++) {
+			var entry = this.props.data.metaData.entryTypes[i];
+			if(entry.Category === category && entry.Type === type) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	validateFields = () => {
+		if(Object.keys(this.state.addModalData).length === 0) {
+			this.showAlert("Cannot add new data, you're missing some required fields!");
+			return false;
+		}
+		for(var key in this.state.addModalData) {
+			if(this.state.addModalData[key].toString().trim().length === 0) {
+				this.showAlert("Cannot add new data, you're missing some required fields!");
+				return false;
+			}
+		}
+		for(var i = 0; i < this.state.fields.length; i++) {
+			var newField = this.state.fields[i];
+			for(var key in newField) {
+				if(newField[key].toString().trim().length === 0) {
+					this.showAlert("Cannot add new data, you're missing some required fields!");
+					return false;
+				}
+			}
+		}
+		if(this.typeExists(this.state.addModalData.Category.trim(), this.state.addModalData.Type.trim())) {
+			this.showAlert("Cannot add new data -- " + "'" + this.state.addModalData.Type + "'" +
+			" already exists under " + "'" + this.state.addModalData.Category + "'" + "!");
+			return false;
+		}
+		return true;
+	}
+	
+	onClickSave = () => {
+		this.validateFields();
+	}
+	
+	showAlert = (msg) => {
+		this.setState({showAlert: true, alertMessage: msg});
+	}
+	
+	hideAlert = () => {
+		this.setState({showAlert: false, alertMessage: ""});
+	}
+	
 	render() {
 		const datePicker = <Form.Control
 							required
@@ -198,44 +251,15 @@ class Profile extends Component {
 							</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
-							<Form>
-								{Object.keys(this.state.addModalData).map((key) => {
-									if(key === "Category") {
-										return (
-											<Row>
-												<Col>
-												<Form.Label> Category </Form.Label>
-													<InputGroup>
-														<Form.Control
-															as = "input"
-															autoComplete = "off"
-															name = {key}
-															value = {this.state.addModalData[key]}
-															onChange = {(e) => {this.onChangeAddModal(e)}}
-														/>
-														<Dropdown show = {this.state.categoryMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootCloseCategory.bind(this)}>
-															<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
-															<Dropdown.Menu rootCloseEvent = "click">
-																{this.props.data.metaData.categories.map((category) => {
-																	return (
-																		<Dropdown.Item onSelect = {this.onSelectDropdown.bind(this, key, category)} >
-																			{category}
-																		</Dropdown.Item>
-																	)
-																})}
-															</Dropdown.Menu>
-														</Dropdown> 
-													</InputGroup> 
-													<br/>
-												</Col>
-											</Row>
-										)
-									}
-									else if(key === "Type") {
-										return (
-											<Row>
-												<Col>
-													<Form.Label> Type </Form.Label>
+							<h5> Category & Type </h5>
+							<br/>
+							{Object.keys(this.state.addModalData).map((key) => {
+								if(key === "Category") {
+									return (
+										<Row>
+											<Col>
+											<Form.Label> Category </Form.Label>
+												<InputGroup>
 													<Form.Control
 														as = "input"
 														autoComplete = "off"
@@ -243,76 +267,118 @@ class Profile extends Component {
 														value = {this.state.addModalData[key]}
 														onChange = {(e) => {this.onChangeAddModal(e)}}
 													/>
-													<br/>
-													<Row>
-														<Col>
-															<hr style = {{border: "1px solid gray"}} />
-															<h5> Fields  <Button variant = "primary" size = "sm" style = {{float: "right"}} onClick = {this.addField.bind(this)}> Add Field + </Button> </h5>
-															<br/>
-														</Col>
-													</Row>
+													<Dropdown show = {this.state.categoryMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootCloseCategory.bind(this)}>
+														<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+														<Dropdown.Menu rootCloseEvent = "click">
+															{this.props.data.metaData.categories.map((category) => {
+																return (
+																	<Dropdown.Item onSelect = {this.onSelectDropdown.bind(this, key, category)} >
+																		{category}
+																	</Dropdown.Item>
+																)
+															})}
+														</Dropdown.Menu>
+													</Dropdown> 
+												</InputGroup> 
+												<br/>
+											</Col>
+										</Row>
+									)
+								}
+								else if(key === "Type") {
+									return (
+										<Row>
+											<Col>
+												<Form.Label> Type </Form.Label>
+												<Form.Control
+													as = "input"
+													autoComplete = "off"
+													name = {key}
+													value = {this.state.addModalData[key]}
+													onChange = {(e) => {this.onChangeAddModal(e)}}
+												/>
+												<br/>
+												<Row>
+													<Col>
+														<hr style = {{border: "1px solid lightGray"}} />
+														<h5> Fields  <Button variant = "primary" size = "sm" style = {{float: "right"}} onClick = {this.addField.bind(this)}> Add Field + </Button> </h5>
+														<br/>
+													</Col>
+												</Row>
+											</Col>
+										</Row>
+									)
+								}
+								else if(this.state.fields.length !== 0) {
+									return this.state.fields.map((newField, index) => {
+										return (
+											<Row>
+												<Col sm = {6}>
+													<Form.Label> Field Name </Form.Label>
+													<Form.Control
+														as = "input"
+														name = "fieldName"
+														value = {newField.fieldName}
+														onChange = {(e) => {this.onChangeField(e, index)}}
+													/>
+												</Col>
+												<Col sm = {6}>
+													<Form.Label> Data Type </Form.Label>
+													<Form.Control
+														as = "select"
+														name = "dataType"
+														onChange = {(e) => {this.onChangeField(e, index)}}
+													>
+														<option selected disabled hidden> Select </option>
+														<option value = "string"> String </option>
+														<option value = "number"> Number </option>
+													</Form.Control>
+												<br/>
 												</Col>
 											</Row>
 										)
-									}
-									else if(this.state.fields.length !== 0) {
-										return this.state.fields.map((newField, index) => {
-											return (
-												<Row>
-													<Col sm = {6}>
-														<Form.Label> Field </Form.Label>
-														<Form.Control
-															as = "input"
-															name = "fieldName"
-															value = {newField.fieldName}
-															onChange = {(e) => {this.onChangeField(e, index)}}
-														/>
-													</Col>
-													<Col sm = {6}>
-														<Form.Label> Data Type </Form.Label>
-														<Form.Control
-															as = "select"
-															name = "dataType"
-															onChange = {(e) => {this.onChangeField(e, index)}}
-														>
-															<option selected disabled hidden> Select </option>
-															<option value = "string"> String </option>
-															<option value = "number"> Number </option>
-														</Form.Control>
-													<br/>
-													</Col>
-												</Row>
-											)
-										})
-									}
-								})}
-								<Row>
-									<Col sm = {6}>
-										<Form.Label> Field </Form.Label>
-										<Form.Control
-											as = "input"
-											name = "Notes"
-											value = "Notes"
-											disabled = {true}
-										/>
-									</Col>
-									<Col sm = {6}>
-										<Form.Label> Data Type </Form.Label>
-										<Form.Control
-											as = "select"
-											disabled = {true}
-										>
-											<option value = "string"> String </option>
-										</Form.Control>
-									<br/>
-									</Col>
-								</Row>
-							</Form>
+									})
+								}
+							})}
+							<Row>
+								<Col sm = {6}>
+									<Form.Label> Field </Form.Label>
+									<Form.Control
+										as = "input"
+										name = "Notes"
+										value = "Notes"
+										disabled = {true}
+									/>
+								</Col>
+								<Col sm = {6}>
+									<Form.Label> Data Type </Form.Label>
+									<Form.Control
+										as = "select"
+										disabled = {true}
+									>
+										<option value = "string"> String </option>
+									</Form.Control>
+								<br/>
+								</Col>
+							</Row>
 						</Modal.Body>
+						{this.state.showAlert
+						?
+						<Modal.Footer>
+							<div>
+								<Alert variant = "danger" onClose = {this.hideAlert.bind(this)} dismissible>
+									<p> {this.state.alertMessage} </p>
+								</Alert>
+							</div>
+							<Button variant = "secondary" onClick = {this.closeAddModal.bind(this)}> Close </Button>
+							<Button variant = "primary" onClick = {this.onClickSave.bind(this)}> Save </Button>
+						</Modal.Footer>
+						:
 						<Modal.Footer>
 							<Button variant = "secondary" onClick = {this.closeAddModal.bind(this)}> Close </Button>
-							<Button variant = "primary"> Save </Button>
+							<Button variant = "primary" onClick = {this.onClickSave.bind(this)}> Save </Button>
 						</Modal.Footer>
+						}
 					</Modal>
 				: 
 				<div> </div>

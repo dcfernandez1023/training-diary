@@ -317,6 +317,9 @@ class Goals extends Component {
 								<Modal.Title> Edit {this.state.goalEditing} Goal </Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
+							{!this.state.editingData.deletable
+							?
+							<div>
 								{this.state.editingData.fieldOrder.map((field) => {
 									return (
 										<ListGroup horizontal>
@@ -334,6 +337,97 @@ class Goals extends Component {
 										</ListGroup>
 									);
 								})}
+							</div>
+							:
+							<div>
+								{this.state.editingData.fieldOrder.map((field) => {
+									console.log(field);
+									if(field === "Type") {
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<Form.Control 
+														as = "select"
+														name = {field}
+														value = {this.state.editingData.Fields[field]}
+														onChange = {(e) => {this.onChangeEdit(e)}}
+														disabled = {true}
+													>
+														<option  value = "" selected disabled hidden> Select </option>
+														{this.props.data.metaData.entryTypes.map((entry) => {
+															if(this.state.goalEditing === entry.Category) {
+																return (
+																	<option value = {entry.Type}> {entry.Type} </option>
+																);
+															}
+														})}
+													</Form.Control>
+												</ListGroup.Item>
+											</ListGroup>
+										)
+									}
+									else if (field === "Name") {
+										var nameList = [];
+										for(var i = 0; i < this.state.data.entryNames.length ; i++) {
+											var nameData = this.state.data.entryNames[i];
+											if(this.state.goalEditing === nameData.Category && this.state.editingData.Fields.Type === nameData.Type) {
+												nameList.push(nameData.Name);
+											}
+										}
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<InputGroup>
+														<Form.Control
+															as = "input"
+															autoComplete = "off"
+															name = {field}
+															value = {this.state.editingData.Fields[field]}
+															onChange = {(e) => {this.onChangeEdit(e)}}
+														/>
+														<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
+															<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+															<Dropdown.Menu rootCloseEvent = "click">
+																{nameList.map((name) => {
+																	return (
+																		<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
+																			{name}
+																		</Dropdown.Item>
+																	)
+																})}
+															</Dropdown.Menu>
+														</Dropdown> 
+													</InputGroup> 
+												</ListGroup.Item>
+											</ListGroup>
+										)
+									}
+									else {
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<Form.Control
+														as = "input"
+														name = {field}
+														value = {this.state.editingData.Fields[field]}
+														onChange = {(e) => {this.onChangeEdit(e)}}
+													/>			
+												</ListGroup.Item>
+											</ListGroup>
+										);
+									}
+								})}
+								</div>
+							}
 							</Modal.Body>
 							<Modal.Footer>
 								{this.state.invalidFields 
@@ -359,8 +453,10 @@ class Goals extends Component {
 								<Modal.Title> Add {this.state.goalAdding} Goal </Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
+							{this.state.goalAdding !== "Diet" && this.state.goalAdding !== "Body"
+							?
+							<div>
 								{Object.keys(this.state.addingData.Fields).map((field) => {
-									console.log(field);
 									if(field === "Type") {
 										return (
 											<ListGroup horizontal>
@@ -425,109 +521,6 @@ class Goals extends Component {
 												</ListGroup.Item>
 											</ListGroup>
 										)
-										/*
-										if(this.state.nameSelect) {
-											return (
-												<ListGroup horizontal>
-													<ListGroup.Item style = {{width: "50%"}}>
-														{field}
-													</ListGroup.Item>
-													<ListGroup.Item style = {{width: "50%"}}>
-														<InputGroup> 
-															<DropdownButton
-																as = {InputGroup.Prepend}
-																variant = "outline-secondary"
-																title = "Select"
-															>
-																<Dropdown.Item onSelect = {this.onSelectNameChoice.bind(this)}> Enter </Dropdown.Item>
-															</DropdownButton>
-															<Form.Control
-																as = "select"
-																name = {field}
-																value = {this.state.addingData.Fields[field]}
-																onChange = {(e) => {this.onChangeAdd(e)}}
-															>
-																<option  value = "" selected disabled hidden> Previous Names </option>
-																{nameList.map((name) => {
-																	return (
-																		<option value = {name}> {name} </option>
-																	)
-																})}
-															</Form.Control>
-														</InputGroup>
-													</ListGroup.Item>
-												</ListGroup>
-											)
-										}
-										else {
-											return (
-												<ListGroup horizontal>
-													<ListGroup.Item style = {{width: "50%"}}>
-														{field}
-													</ListGroup.Item>
-													<ListGroup.Item style = {{width: "50%"}}>
-														<InputGroup> 
-															<DropdownButton
-																as = {InputGroup.Prepend}
-																variant = "outline-secondary"
-																title = "Enter"
-															>
-																<Dropdown.Item onSelect = {this.onSelectNameChoice.bind(this)}> Select </Dropdown.Item>
-															</DropdownButton>
-															<Form.Control
-																as = "input"
-																name = {field}
-																value = {this.state.addingData.Fields[field]}
-																onChange = {(e) => {this.onChangeAdd(e)}}
-															/>
-														</InputGroup>
-													</ListGroup.Item>
-												</ListGroup>
-											)
-										}
-										/*
-										if(nameList.length === 0) {
-											return (
-												<ListGroup horizontal>
-													<ListGroup.Item style = {{width: "50%"}}>
-														{field}
-													</ListGroup.Item>
-													<ListGroup.Item style = {{width: "50%"}}>
-														<Form.Control
-															as = "input"
-															name = {field}
-															value = {this.state.addingData.Fields[field]}
-															onChange = {(e) => {this.onChangeAdd(e)}}
-														/>			
-													</ListGroup.Item>
-												</ListGroup>
-											);
-										}
-										else {
-											return (
-												<ListGroup horizontal>
-													<ListGroup.Item style = {{width: "50%"}}>
-														{field}
-													</ListGroup.Item>
-													<ListGroup.Item style = {{width: "50%"}}>
-														<Form.Control
-															as = "select"
-															name = {field}
-															value = {this.state.addingData.Fields[field]}
-															onChange = {(e) => {this.onChangeAdd(e)}}
-														>
-															<option  value = "" selected disabled hidden> Select </option>
-															{nameList.map((name) => {
-																return (
-																	<option value = {name}> {name} </option>
-																)
-															})}
-														</Form.Control>
-													</ListGroup.Item>
-												</ListGroup>
-											);
-										}
-										*/
 									}
 									else {
 										return (
@@ -547,6 +540,95 @@ class Goals extends Component {
 										);
 									}
 								})}
+								</div>
+							:
+							<div>
+								{Object.keys(this.state.addingData.Fields).map((field) => {
+									if(field === "Type") {
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<Form.Control 
+														as = "select"
+														name = {field}
+														value = {this.state.addingData.Fields[field]}
+														onChange = {(e) => {this.onChangeAdd(e)}}
+													>
+														<option  value = "" selected disabled hidden> Select </option>
+														{this.props.data.metaData.entryTypes.map((entry) => {
+															if(this.state.goalAdding === entry.Category && !this.state.data.metaData.nonDeletableGoalFields.includes(entry.Type)) {
+																return (
+																	<option value = {entry.Type}> {entry.Type} </option>
+																);
+															}
+														})}
+													</Form.Control>
+												</ListGroup.Item>
+											</ListGroup>
+										)
+									}
+									else if (field === "Name") {
+										var nameList = [];
+										for(var i = 0; i < this.state.data.entryNames.length ; i++) {
+											var nameData = this.state.data.entryNames[i];
+											if(this.state.goalAdding === nameData.Category && this.state.addingData.Fields.Type === nameData.Type) {
+												nameList.push(nameData.Name);
+											}
+										}
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<InputGroup>
+														<Form.Control
+															as = "input"
+															autoComplete = "off"
+															name = {field}
+															value = {this.state.addingData.Fields[field]}
+															onChange = {(e) => {this.onChangeAdd(e)}}
+														/>
+														<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
+															<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+															<Dropdown.Menu rootCloseEvent = "click">
+																{nameList.map((name) => {
+																	return (
+																		<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
+																			{name}
+																		</Dropdown.Item>
+																	)
+																})}
+															</Dropdown.Menu>
+														</Dropdown> 
+													</InputGroup> 
+												</ListGroup.Item>
+											</ListGroup>
+										)
+									}
+									else {
+										return (
+											<ListGroup horizontal>
+												<ListGroup.Item style = {{width: "50%"}}>
+													{field}
+												</ListGroup.Item>
+												<ListGroup.Item style = {{width: "50%"}}>
+													<Form.Control
+														as = "input"
+														name = {field}
+														value = {this.state.addingData.Fields[field]}
+														onChange = {(e) => {this.onChangeAdd(e)}}
+													/>			
+												</ListGroup.Item>
+											</ListGroup>
+										);
+									}
+								})}
+							</div>
+							}
 							</Modal.Body>
 							<Modal.Footer>
 								{this.state.invalidFields 
@@ -571,29 +653,16 @@ class Goals extends Component {
 					<div>
 						<Card>
 							<Card.Body>
-							{category !== "Diet" && category !== "Body"
-							?
-								<Row>
-									<Col>
-										<Card.Title> 
-											<Row>
-												<Col>
-													{category} Goals 
-												</Col>
-												<Col>
-													<Button variant = "primary" style = {{float: "right"}} onClick = {this.openAddModal.bind(this, category)}>
-														+
-													</Button>
-												</Col>
-											</Row>
-										</Card.Title>
-									</Col>
-								</Row>
-							:
 								<Card.Title> 
-									{category} Goals 
+									<Row>
+										{category} Goals 
+										<Col>
+											<Button variant = "primary" style = {{float: "right"}} onClick = {this.openAddModal.bind(this, category)}>
+												+
+											</Button>
+										</Col>
+									</Row>
 								</Card.Title>
-							}
 								<Card.Text>
 								{this.state.data.goals.map((goal, goalIndex) => {
 									var pieData = this.constructPieData(goal.Fields);

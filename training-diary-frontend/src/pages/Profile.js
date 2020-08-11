@@ -32,11 +32,14 @@ class Profile extends Component {
 		confirmNewPassword: "",
 		saving: false,
 		showModal: false,
+		showEditModal: false,
+		editModalData: {},
 		addModalData: {},
 		fields: [],
 		categoryMenuShow: false,
 		showAlert: false,
-		alertMessage: ""
+		alertMessage: "",
+		entryTypeIndex: -1
 	}
 	
 	componentDidMount = () => {
@@ -124,6 +127,35 @@ class Profile extends Component {
 		this.setState({validated: false, oldPassword: "", newPassword: "", confirmNewPassword: "", username: this.props.data._id, email: this.props.data.email, birthday: new Date(this.props.data.birthday)});
 	}
 	
+	openEditModal = async (index) => {
+		var editData = {};
+		var fields = [];
+		const entryType = this.props.data.metaData.entryTypes[index];
+		editData.Category = entryType.Category;
+		editData.Type = entryType.Type;
+		editData.Notes = "string";
+		for(var i = 0; i < entryType.displayOrder.length; i++) {
+			var key = entryType.displayOrder[i];
+			if(key !== "Category" && key !== "Type" && key !== "Notes") {
+				fields.push({fieldName: key, dataType: entryType[key]});
+			}
+		}
+		await this.setState({showEditModal: true, editModalData: editData, fields: fields, entryTypeIndex: index});
+	}
+	
+	closeEditModal = async () => {
+		await this.setState({showEditModal: false, editModalData: {}, fields: [], entryTypeIndex: -1});
+		this.hideAlert();
+	}
+	
+	onChangeEditModal = (e) => {
+		var name = [e.target.name][0];
+		var value = e.target.value;
+		var copy = JSON.parse(JSON.stringify(this.state.editModalData));
+		copy[name] = value;
+		this.setState({editModalData: copy});
+	}
+	
 	openAddModal = async () => {
 		const newData = {Category: "", Type: "", Notes: "string"};
 		await this.setState({showModal: true, addModalData: newData});
@@ -131,6 +163,7 @@ class Profile extends Component {
 	
 	closeAddModal = () => {
 		this.setState({addModalData: {}, fields: [], showModal: false});
+		this.hideAlert();
 	}
 	
 	onChangeAddModal = (e) => {
@@ -194,6 +227,8 @@ class Profile extends Component {
 	}
 	
 	validateFields = () => {
+		var defaultKeys = Object.keys(this.state.addModalData);
+		var fieldNames = [];
 		if(Object.keys(this.state.addModalData).length === 0) {
 			this.showAlert("Cannot add new data, you're missing some required fields!");
 			return false;
@@ -206,6 +241,7 @@ class Profile extends Component {
 		}
 		for(var i = 0; i < this.state.fields.length; i++) {
 			var newField = this.state.fields[i];
+			fieldNames.push(newField.fieldName);
 			for(var key in newField) {
 				if(newField[key].toString().trim().length === 0) {
 					this.showAlert("Cannot add new data, you're missing some required fields!");
@@ -218,7 +254,106 @@ class Profile extends Component {
 			" already exists under " + "'" + this.state.addModalData.Category + "'" + "!");
 			return false;
 		}
+		for(var i = 0; i < this.state.fields.length; i++) {
+			var newField = this.state.fields[i];
+			for(var key in newField) {
+				if(defaultKeys.includes(newField[key])) {
+					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' already exists");
+					return false;
+				}
+				else {
+					var count = 0;
+					for(var x = 0; x < fieldNames.length; x++) {
+						if(newField[key] === fieldNames[i]) {
+							count++;
+						}
+					}
+					if(count > 1) {
+						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' is a duplicate");
+						return false;
+					}
+				}
+			}
+		}
 		return true;
+	}
+	
+	validateEditFields = () => {
+		var defaultKeys = Object.keys(this.state.editModalData);
+		var fieldNames = [];
+		if(Object.keys(this.state.editModalData).length === 0) {
+			this.showAlert("Cannot add new data, you're missing some required fields!");
+			return false;
+		}
+		for(var key in this.state.editModalData) {
+			if(this.state.editModalData[key].toString().trim().length === 0) {
+				this.showAlert("Cannot add new data, you're missing some required fields!");
+				return false;
+			}
+		}
+		for(var i = 0; i < this.state.fields.length; i++) {
+			var newField = this.state.fields[i];
+			fieldNames.push(newField.fieldName);
+			for(var key in newField) {
+				if(newField[key].toString().trim().length === 0) {
+					this.showAlert("Cannot add new data, you're missing some required fields!");
+					return false;
+				}
+			}
+		}
+		if(this.typeExists(this.state.editModalData.Category.trim(), this.state.editModalData.Type.trim())) {
+			this.showAlert("Cannot add new data -- " + "'" + this.state.editModalData.Type + "'" +
+			" already exists under " + "'" + this.state.editModalData.Category + "'" + "!");
+			return false;
+		}
+		for(var i = 0; i < this.state.fields.length; i++) {
+			var newField = this.state.fields[i];
+			for(var key in newField) {
+				if(defaultKeys.includes(newField[key])) {
+					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' already exists");
+					return false;
+				}
+				else {
+					var count = 0;
+					for(var x = 0; x < fieldNames.length; x++) {
+						if(newField[key] === fieldNames[i]) {
+							count++;
+						}
+					}
+					if(count > 1) {
+						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' is a duplicate");
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	onClickSaveEdit = async () => {
+		if(this.validateEditFields()) {
+			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+			var newData = {};
+			var displayOrder = [];
+			newData.Category = this.state.editModalData.Category.toString().trim();
+			newData.Type = this.state.editModalData.Type.toString().trim();
+			for(var i = 0; i < this.state.fields.length; i++) {
+				var newField = this.state.fields[i];
+				var fieldName = newField.fieldName.toString().trim();
+				var dataType = newField.dataType;
+				newData[fieldName] = dataType;
+			}
+			newData.Notes = this.state.editModalData.Notes;
+			displayOrder = Object.keys(newData);
+			newData.displayOrder = displayOrder;
+			newData.Date = "string";
+			newData.calculationType = "none";
+			newData.deletable = true;
+			dataCopy.metaData.entryTypes[this.state.entryTypeIndex] = newData;
+			await this.props.saveData(dataCopy);
+			this.closeEditModal();
+			this.forceUpdate();
+		}
 	}
 	
 	onClickSave = async () => {
@@ -246,6 +381,44 @@ class Profile extends Component {
 			}
 			await this.props.saveData(dataCopy);
 			this.closeAddModal();
+			this.forceUpdate();
+		}
+		else {
+			return;
+		}
+	}
+	
+	deleteData = async (index) => {
+		var approveDelete = window.confirm("Are you sure you want to delete this entry?");
+		if(approveDelete) {
+			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+			dataCopy.metaData.entryTypes.splice(index, 1);
+			await this.props.saveData(dataCopy);
+			this.forceUpdate();
+		}
+		else {
+			return;
+		}
+	}
+	
+	deleteCategory = async (category) => {
+		var approveDelete = window.confirm("All options under this category will be removed -- Are you sure you want to delete it? ");
+		if(approveDelete) {
+			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+			dataCopy.metaData.categories.splice(dataCopy.metaData.categories.indexOf(category), 1);
+			for(var i = 0; i < dataCopy.metaData.entryTypes.length; i++) {
+				var entry = dataCopy.metaData.entryTypes[i];
+				if(entry.Category === category) {
+					dataCopy.metaData.entryTypes.splice(i, 1);
+				}
+			}
+			for(i = 0; i < dataCopy.userData.length; i++) {
+				entry = dataCopy.userData[i];
+				if(entry.Category === category) {
+					dataCopy.userData.splice(i, 1);
+				}
+			}
+			await this.props.saveData(dataCopy);
 			this.forceUpdate();
 		}
 		else {
@@ -281,7 +454,7 @@ class Profile extends Component {
 					<Modal show = {this.state.showModal} backdrop = "static" onHide = {this.closeAddModal.bind(this)} size = "lg">
 						<Modal.Header closeButton>
 							<Modal.Title>
-								Add New Training Data
+								Add Custom Training Data
 							</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
@@ -346,11 +519,14 @@ class Profile extends Component {
 								else if(this.state.fields.length !== 0) {
 									return this.state.fields.map((newField, index) => {
 										return (
+										<div>
 											<Row>
-												<Col sm = {1}>
-													<Button variant = "danger" size = "sm" onClick = {this.removeField.bind(this, index)}> X </Button>
+												<Col>
+													<Button variant = "danger" size = "sm" style = {{float:"right"}} onClick = {this.removeField.bind(this, index)}> X </Button>
 												</Col>
-												<Col sm = {5}>
+											</Row>
+											<Row>
+												<Col sm = {6}>
 													<Form.Label> Field Name </Form.Label>
 													<Form.Control
 														as = "input"
@@ -373,13 +549,14 @@ class Profile extends Component {
 												<br/>
 												</Col>
 											</Row>
+										</div>
 										)
 									})
 								}
 							})}
 							<Row>
 								<Col sm = {6}>
-									<Form.Label> Field </Form.Label>
+									<Form.Label> Field Name </Form.Label>
 									<Form.Control
 										as = "input"
 										name = "Notes"
@@ -418,6 +595,141 @@ class Profile extends Component {
 						}
 					</Modal>
 				: 
+				<div> </div>
+				}
+				{this.state.showEditModal
+				?
+					<Modal show = {this.state.showEditModal} backdrop = "static" onHide = {this.closeEditModal.bind(this)} size = "lg">
+						<Modal.Header closeButton>
+							<Modal.Title>
+								Edit Custom Training Data
+							</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							<h5> Category & Type </h5>
+							<br/>
+							{Object.keys(this.state.editModalData).map((key, index) => {
+								if(key === "Category") {
+									return (
+										<Row>
+											<Col>
+											<Form.Label> Category </Form.Label>
+												<Form.Control
+													as = "input"
+													autoComplete = "off"
+													name = {key}
+													value = {this.state.editModalData[key]}
+													onChange = {(e) => {this.onChangeEditModal(e)}}
+													disabled = {true}
+												/>
+												<br/>
+											</Col>
+										</Row>
+									)
+								}
+								else if(key === "Type") {
+									return (
+										<Row>
+											<Col>
+												<Form.Label> Type </Form.Label>
+												<Form.Control
+													as = "input"
+													autoComplete = "off"
+													name = {key}
+													value = {this.state.editModalData[key]}
+													onChange = {(e) => {this.onChangeEditModal(e)}}
+												/>
+												<br/>
+												<Row>
+													<Col>
+														<hr style = {{border: "1px solid lightGray"}} />
+														<h5> Fields  <Button variant = "primary" size = "sm" style = {{float: "right"}} onClick = {this.addField.bind(this)}> Add Field + </Button> </h5>
+														<br/>
+													</Col>
+												</Row>
+											</Col>
+										</Row>
+									)
+								}
+								else if(this.state.fields.length !== 0) {
+									return this.state.fields.map((newField, index) => {
+										return (
+										<div>
+											<Row>
+												<Col>
+													<Button variant = "danger" size = "sm" style = {{float:"right"}} onClick = {this.removeField.bind(this, index)}> X </Button>
+												</Col>
+											</Row>
+											<Row>
+												<Col sm = {6}>
+													<Form.Label> Field Name </Form.Label>
+													<Form.Control
+														as = "input"
+														name = "fieldName"
+														value = {newField.fieldName}
+														onChange = {(e) => {this.onChangeField(e, index)}}
+													/>
+												</Col>
+												<Col sm = {6}>
+													<Form.Label> Data Type </Form.Label>
+													<Form.Control
+														as = "select"
+														name = "dataType"
+														onChange = {(e) => {this.onChangeField(e, index)}}
+													>
+														<option selected hidden> {newField.dataType.charAt(0).toUpperCase() + newField.dataType.slice(1)} </option>
+														<option value = "string"> String </option>
+														<option value = "number"> Number </option>
+													</Form.Control>
+												<br/>
+												</Col>
+											</Row>
+										</div>
+										)
+									})
+								}
+							})}
+							<Row>
+								<Col sm = {6}>
+									<Form.Label> Field Name </Form.Label>
+									<Form.Control
+										as = "input"
+										name = "Notes"
+										value = "Notes"
+										disabled = {true}
+									/>
+								</Col>
+								<Col sm = {6}>
+									<Form.Label> Data Type </Form.Label>
+									<Form.Control
+										as = "select"
+										disabled = {true}
+									>
+										<option value = "string"> String </option>
+									</Form.Control>
+								<br/>
+								</Col>
+							</Row>
+						</Modal.Body>
+						{this.state.showAlert
+						?
+						<Modal.Footer>
+							<div>
+								<Alert variant = "danger" onClose = {this.hideAlert.bind(this)} dismissible>
+									<p> {this.state.alertMessage} </p>
+								</Alert>
+							</div>
+							<Button variant = "secondary" onClick = {this.closeEditModal.bind(this)}> Close </Button>
+							<Button variant = "primary" onClick = {this.onClickSaveEdit.bind(this)}> Save </Button>
+						</Modal.Footer>
+						:
+						<Modal.Footer>
+							<Button variant = "secondary" onClick = {this.closeEditModal.bind(this)}> Close </Button>
+							<Button variant = "primary" onClick = {this.onClickSaveEdit.bind(this)}> Save </Button>
+						</Modal.Footer>
+						}
+					</Modal>
+				:
 				<div> </div>
 				}
 				<Row>
@@ -636,11 +948,25 @@ class Profile extends Component {
 												<Card>
 													<Card.Body>
 														<Card.Title>
-															{category}
+														{category !== "Diet" && category !== "Body" && category !== "Exercise"
+														?
+														<Row>
+															<Col>
+																{category}
+																<Button size = "sm" variant = "light" style = {{margin: "1%"}} onClick = {this.deleteCategory.bind(this, category)}> 🗑️ </Button>
+															</Col>
+														</Row>
+														:
+														<Row>
+															<Col>
+																{category}
+															</Col>
+														</Row>
+														}
 														</Card.Title>
 														<Card.Text>
 															<Row>
-																{this.props.data.metaData.entryTypes.map((entry) => {
+																{this.props.data.metaData.entryTypes.map((entry, entryIndex) => {
 																	if(entry.Category === category) {
 																		if(entry.deletable) {
 																			return (
@@ -649,8 +975,8 @@ class Profile extends Component {
 																						<Row>
 																							<Col>
 																								<Card.Title>
-																									<Button size = "sm" variant = "light" style = {{float: "right"}}> 🗑️ </Button>
-																									<Button size = "sm" variant = "light" style = {{float: "right"}}> ✏️ </Button>
+																									<Button size = "sm" variant = "light" style = {{float: "right"}} onClick = {this.deleteData.bind(this, entryIndex)}> 🗑️ </Button>
+																									<Button size = "sm" variant = "light" style = {{float: "right"}} onClick = {this.openEditModal.bind(this, entryIndex)}> ✏️ </Button>
 																								</Card.Title>
 																							</Col>
 																						</Row>

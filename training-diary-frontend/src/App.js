@@ -87,6 +87,7 @@ class App extends Component {
 	//handles the response from server that verifies if user is still logged in
 	//if successful, sends a request to get all user data
 	handleVerificationResponse = (response, username) => {
+		var that = this;
 		try {
 			if(localStorage.getItem("token") === null || localStorage.getItem("username") === null) {
 				this.setState({isLoggedIn: false, waitingForPage: false});
@@ -99,7 +100,8 @@ class App extends Component {
 					localStorage.setItem("token", response.headers.token);
 					axios.get(`/getAllData/${username}`, {headers: {"token": response.headers.token}})
 						.catch(function(error) {
-							return;
+							alert("Internal Error -- could not get data -- redirecting to login page");
+							that.logout();
 						})
 						.then(res => this.handleGetResponse(res, username));
 				}
@@ -306,8 +308,14 @@ class App extends Component {
 		var that = this;
 		axios.get(`/getAllData/${username}`, {headers: {"token": token}})
 			.catch(function(error) {
-				alert("Internal Error -- could not get data -- redirecting to login page");
-				that.logout();
+				if(error.response.status === 500) {
+					alert("Internal Error -- could not get data -- redirecting to login page");
+					that.logout();
+				}
+				else if(error.response.status === 401) {
+					alert("Session expired, logging you out");
+					that.logout();
+				}
 			})
 			.then(res => this.handleGetResponse(res, username));
 	}

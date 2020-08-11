@@ -108,6 +108,7 @@ class DbAccess:
                 "fieldDataTypes": ["string", "number"],
                 "fieldConstants": ["Name", "Notes"],
                 "calculationTypes": ["add", "subtract", "multiply", "divide", "average", "none"],
+                "nonDeletableGoalFields": ["Body-Weight", "Body-Fat %", "Calories", "Protein", "Fats", "Carbs"],
                 "graphFilterConstants": ["Name"],
                 "requiredGoalFieldTypes": ["number"],
                 "goalStructure": {

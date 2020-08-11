@@ -257,19 +257,19 @@ class Profile extends Component {
 		for(var i = 0; i < this.state.fields.length; i++) {
 			var newField = this.state.fields[i];
 			for(var key in newField) {
-				if(defaultKeys.includes(newField[key])) {
-					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' already exists");
+				if(defaultKeys.includes(newField[key].toString().trim())) {
+					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key].toString().trim() + "' already exists");
 					return false;
 				}
 				else {
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
-						if(newField[key] === fieldNames[i]) {
+						if(newField[key].toString().trim() === fieldNames[i]) {
 							count++;
 						}
 					}
 					if(count > 1) {
-						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' is a duplicate");
+						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key].toString().trim() + "' is a duplicate");
 						return false;
 					}
 				}
@@ -309,19 +309,19 @@ class Profile extends Component {
 		for(var i = 0; i < this.state.fields.length; i++) {
 			var newField = this.state.fields[i];
 			for(var key in newField) {
-				if(defaultKeys.includes(newField[key])) {
+				if(defaultKeys.includes(newField[key].toString().trim())) {
 					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' already exists");
 					return false;
 				}
 				else {
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
-						if(newField[key] === fieldNames[i]) {
+						if(newField[key].toString().trim() === fieldNames[i]) {
 							count++;
 						}
 					}
 					if(count > 1) {
-						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' is a duplicate");
+						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key].toString().trim() + "' is a duplicate");
 						return false;
 					}
 				}

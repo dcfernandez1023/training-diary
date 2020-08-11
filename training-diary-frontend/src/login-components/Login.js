@@ -57,7 +57,7 @@ class Login extends Component {
 		}
 		else {
 			this.props.toggleAuthLoader();
-			axios.post("/login", {username: this.state.loginUsername, password: this.state.loginPassword})
+			axios.post("/login", {username: this.state.loginUsername.toString().trim(), password: this.state.loginPassword})
 				.catch(function(error) {
 					if(error.response.status === 401) {
 						alert("Invalid credentials");
@@ -84,13 +84,15 @@ class Login extends Component {
 	
 	//registration onClick event handler
 	register = () => {
+		console.log("yo");
 		//checks to make sure username and password fields have values 
-		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString.length == 0 || this.state.birthday === null) {
+		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString().trim().length == 0 || this.state.email.toString().trim().length === 0 || this.state.birthday === null) {
+			console.log("nah");
 			return;
 		}
 		else {
 			this.props.toggleAuthLoader();
-			axios.post("/register", {username: this.state.registerUsername.toString().trim(), password: this.state.registerPassword, email: this.state.email, birthday: this.state.birthday})
+			axios.post("/register", {username: this.state.registerUsername.toString().trim(), password: this.state.registerPassword, email: this.state.email.toString().trim(), birthday: this.state.birthday})
 				.catch(function(error) {
 					if(error.response.status === 409) {
 						alert("Username or email already exists");
@@ -133,7 +135,7 @@ class Login extends Component {
 		if(tabToRender === "register" && !this.state.onLogin) {
 			return;
 		}
-		this.setState({onLogin: !this.state.onLogin, validated: false, loginUsername: "", loginPassword: "", registerUsername: "", registerPassword: "", birthday: null});
+		this.setState({onLogin: !this.state.onLogin, validated: false, loginUsername: "", loginPassword: "", registerUsername: "", registerPassword: "", email: "", birthday: null});
 	}
 	
 	render() {

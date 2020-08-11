@@ -283,7 +283,7 @@ class Calendar extends Component {
 								if(new Date(entry.Date).getTime() === this.state.selectedDate.getTime() && category === entry.Category) {
 									return (
 										<div>
-											{this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body"
+											{this.goalAchieved(entry) && entry.calculationType === "none"
 											?
 												<div>
 													<div> Goal Achieved 🏆 </div>

@@ -303,9 +303,11 @@ class App extends Component {
 	//grants access to apis by setting App.js state and redirecting to TrainingDiary.js
 	//only occurs if login was successful
 	grantAccess = (username, token) => {
+		var that = this;
 		axios.get(`/getAllData/${username}`, {headers: {"token": token}})
 			.catch(function(error) {
 				alert("Internal Error -- could not get data -- redirecting to login page");
+				that.logout();
 			})
 			.then(res => this.handleGetResponse(res, username));
 	}
@@ -365,6 +367,7 @@ class App extends Component {
 								changePassword = {this.changePassword}
 								saving = {this.state.profileAndCredSaving}
 								toggleSaving = {this.toggleProfAndCredLoader}
+								saveData = {this.saveData}
 							/>
 						</Route>
 						<Route>

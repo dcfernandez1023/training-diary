@@ -221,8 +221,36 @@ class Profile extends Component {
 		return true;
 	}
 	
-	onClickSave = () => {
-		this.validateFields();
+	onClickSave = async () => {
+		if(this.validateFields()) {
+			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
+			var newData = {};
+			var displayOrder = [];
+			newData.Category = this.state.addModalData.Category.toString().trim();
+			newData.Type = this.state.addModalData.Type.toString().trim();
+			for(var i = 0; i < this.state.fields.length; i++) {
+				var newField = this.state.fields[i];
+				var fieldName = newField.fieldName.toString().trim();
+				var dataType = newField.dataType;
+				newData[fieldName] = dataType;
+			}
+			newData.Notes = this.state.addModalData.Notes;
+			displayOrder = Object.keys(newData);
+			newData.displayOrder = displayOrder;
+			newData.Date = "string";
+			newData.calculationType = "none";
+			newData.deletable = true;
+			dataCopy.metaData.entryTypes.push(newData);
+			if(!dataCopy.metaData.categories.includes(newData.Category)) {
+				dataCopy.metaData.categories.push(newData.Category);
+			}
+			await this.props.saveData(dataCopy);
+			this.closeAddModal();
+			this.forceUpdate();
+		}
+		else {
+			return;
+		}
 	}
 	
 	showAlert = (msg) => {
@@ -231,6 +259,12 @@ class Profile extends Component {
 	
 	hideAlert = () => {
 		this.setState({showAlert: false, alertMessage: ""});
+	}
+	
+	removeField = (index) => {
+		var copy = this.state.fields.slice();
+		copy.splice(index, 1);
+		this.setState({fields: copy});
 	}
 	
 	render() {
@@ -313,7 +347,10 @@ class Profile extends Component {
 									return this.state.fields.map((newField, index) => {
 										return (
 											<Row>
-												<Col sm = {6}>
+												<Col sm = {1}>
+													<Button variant = "danger" size = "sm" onClick = {this.removeField.bind(this, index)}> X </Button>
+												</Col>
+												<Col sm = {5}>
 													<Form.Label> Field Name </Form.Label>
 													<Form.Control
 														as = "input"
@@ -609,9 +646,10 @@ class Profile extends Component {
 																			return (
 																				<Col sm = {4}>
 																					<Card style = {{height: "100%"}}>
-																						<Row style = {{marginBottom: "1%"}}>
+																						<Row>
 																							<Col>
 																								<Card.Title>
+																									<Button size = "sm" variant = "light" style = {{float: "right"}}> 🗑️ </Button>
 																									<Button size = "sm" variant = "light" style = {{float: "right"}}> ✏️ </Button>
 																								</Card.Title>
 																							</Col>

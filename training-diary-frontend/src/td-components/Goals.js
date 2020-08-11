@@ -167,6 +167,10 @@ class Goals extends Component {
 				entryType = entry;
 				break;
 			}
+			else if(entry.Category === this.state.editingData["Goal Type"] && this.state.editingData.Fields.Type === entry.Type) {
+				entryType = entry;
+				break;
+			}
 		}
 		if(entryType === null) {
 			alert("Sorry, an error occurred -- you cannot update this goal");
@@ -210,6 +214,9 @@ class Goals extends Component {
 	onClickSaveEdit = async () => {
 		if(this.checkEditFields()) {
 			var dataCopy = JSON.parse(JSON.stringify(this.state.data));
+			for(var key in this.state.editingData.Fields) {
+				this.state.editingData.Fields[key] = this.state.editingData.Fields[key].toString().trim();
+			}
 			this.state.editingData.lastUpdated = new Date();
 			dataCopy.goals[this.state.goalIndex] = this.state.editingData;
 			this.setState({data: dataCopy});
@@ -224,10 +231,12 @@ class Goals extends Component {
 	onClickSaveAdd = async () => {
 		if(this.checkAddFields()) {
 			var dataCopy = JSON.parse(JSON.stringify(this.state.data));
+			for(var key in this.state.addingData.Fields) {
+				this.state.addingData.Fields[key] = this.state.addingData.Fields[key].toString().trim();
+			}
 			this.state.addingData.lastUpdated = new Date();
 			this.state.addingData.fieldOrder = Object.keys(this.state.addingData.Fields);
 			dataCopy.goals.push(this.state.addingData);
-			console.log(dataCopy);
 			this.setState({data: dataCopy});
 			await this.props.saveData(dataCopy, "save", "Goals");
 			this.closeAddModal();

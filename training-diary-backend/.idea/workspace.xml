@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/flask_apis/error_log" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/error_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
-    </list>
+    <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -428,8 +425,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.08587988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -439,7 +435,7 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9336143" visible="true" weight="0.156013" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.9336143" weight="0.156013" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" weight="0.25135428" />

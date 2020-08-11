@@ -345,7 +345,7 @@ class DataList extends Component {
 								if(this.state.listFilters.length === 0) {
 									if(new Date(entry.Date).getTime() === new Date(date).getTime()) {
 										totalList.push(entry);
-										if(this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body") {
+										if(this.goalAchieved(entry) && entry.calculationType === "none") {
 											return (
 												<div>
 													<div> Goal Achieved 🏆 </div>
@@ -414,7 +414,7 @@ class DataList extends Component {
 								else {
 									if(new Date(entry.Date).getTime() === new Date(date).getTime() && this.state.listFilters.includes(entry.Type)) {
 										totalList.push(entry);
-										if(this.goalAchieved(entry) && entry.Category !== "Diet" && entry.Category !== "Body") {
+										if(this.goalAchieved(entry) && entry.calculationType === "none") {
 											return (
 												<div>
 													<div> Goal Achieved 🏆 </div>

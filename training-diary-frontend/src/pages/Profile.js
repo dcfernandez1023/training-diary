@@ -127,7 +127,7 @@ class Profile extends Component {
 	}
 	
 	closeAddModal = () => {
-		this.setState({addModalData: {}, showModal: false});
+		this.setState({addModalData: {}, fields: [], showModal: false});
 	}
 	
 	onChangeAddModal = (e) => {
@@ -173,7 +173,6 @@ class Profile extends Component {
 	}
 	
 	onChangeField = (e, index) => {
-		console.log(index);
 		var name = [e.target.name][0];
 		var value = e.target.value;
 		var copy = this.state.fields.slice();
@@ -256,58 +255,58 @@ class Profile extends Component {
 											</Row>
 										)
 									}
-									else if(key === "Notes") {
-										return (
-											<Row>
-												<Col sm = {6}>
-													<Form.Label> Field </Form.Label>
-													<Form.Control
-														as = "input"
-														name = {key}
-														value = "Notes"
-														disabled = {true}
-													/>
-												</Col>
-												<Col sm = {6}>
-													<Form.Label> Data Type </Form.Label>
-													<Form.Control
-														as = "select"
-														disabled = {true}
-													>
-														<option value = "string"> String </option>
-													</Form.Control>
-												</Col>
-											</Row>
-										)
+									else if(this.state.fields.length !== 0) {
+										return this.state.fields.map((newField, index) => {
+											return (
+												<Row>
+													<Col sm = {6}>
+														<Form.Label> Field </Form.Label>
+														<Form.Control
+															as = "input"
+															name = "fieldName"
+															value = {newField.fieldName}
+															onChange = {(e) => {this.onChangeField(e, index)}}
+														/>
+													</Col>
+													<Col sm = {6}>
+														<Form.Label> Data Type </Form.Label>
+														<Form.Control
+															as = "select"
+															name = "dataType"
+															onChange = {(e) => {this.onChangeField(e, index)}}
+														>
+															<option selected disabled hidden> Select </option>
+															<option value = "string"> String </option>
+															<option value = "number"> Number </option>
+														</Form.Control>
+													<br/>
+													</Col>
+												</Row>
+											)
+										})
 									}
 								})}
-								{this.state.fields.map((newField, index) => {
-									return (
-										<Row>
-											<Col sm = {6}>
-												<Form.Label> Field </Form.Label>
-												<Form.Control
-													as = "input"
-													name = "fieldName"
-													value = {newField.fieldName}
-													onChange = {(e) => {this.onChangeField(e, index)}}
-												/>
-											</Col>
-											<Col sm = {6}>
-												<Form.Label> Data Type </Form.Label>
-												<Form.Control
-													as = "select"
-													name = "dataType"
-													onChange = {(e) => {this.onChangeField(e, index)}}
-												>
-													<option selected disabled hidden> Select </option>
-													<option value = "string"> String </option>
-													<option value = "number"> Number </option>
-												</Form.Control>
-											</Col>
-										</Row>
-									)
-								})}
+								<Row>
+									<Col sm = {6}>
+										<Form.Label> Field </Form.Label>
+										<Form.Control
+											as = "input"
+											name = "Notes"
+											value = "Notes"
+											disabled = {true}
+										/>
+									</Col>
+									<Col sm = {6}>
+										<Form.Label> Data Type </Form.Label>
+										<Form.Control
+											as = "select"
+											disabled = {true}
+										>
+											<option value = "string"> String </option>
+										</Form.Control>
+									<br/>
+									</Col>
+								</Row>
 							</Form>
 						</Modal.Body>
 						<Modal.Footer>

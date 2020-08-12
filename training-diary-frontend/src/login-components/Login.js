@@ -84,10 +84,8 @@ class Login extends Component {
 	
 	//registration onClick event handler
 	register = () => {
-		console.log("yo");
 		//checks to make sure username and password fields have values 
 		if(this.state.registerUsername.toString().trim().length === 0 || this.state.registerPassword.toString().trim().length == 0 || this.state.email.toString().trim().length === 0 || this.state.birthday === null) {
-			console.log("nah");
 			return;
 		}
 		else {

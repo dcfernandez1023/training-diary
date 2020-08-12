@@ -139,7 +139,6 @@ class AddModal extends Component {
 		}
 		if(this.state.entryType.calculationType === "add") {
 			var newValue = (Number(this.state.data.userData[dataIndex][calculationKey]) + Number(this.state.newData[calculationKey]));
-			console.log(newValue);
 			if(Math.floor(newValue) !== newValue) {
 				newValue = newValue.toFixed(2);
 			}
@@ -281,7 +280,7 @@ class AddModal extends Component {
 								<option  value = "" selected disabled hidden> Select </option>
 								{this.props.data.metaData.categories.map((category) => {
 									return (
-										<option value = {category}>
+										<option key = {uuid()} value = {category}>
 											{category}
 										</option>
 									)

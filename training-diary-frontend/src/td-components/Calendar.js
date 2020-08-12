@@ -131,7 +131,6 @@ class Calendar extends Component {
 	
 	//onclick event handler to delete an entry
 	deleteEntry = (index) => {
-		console.log(index);
 		var approveDelete = window.confirm("Are you sure you want to delete this entry?");
 		if(approveDelete) {
 			this.props.data.userData.splice(index, 1);
@@ -178,7 +177,6 @@ class Calendar extends Component {
 				totalList.push(total);
 			}
 		}
-		console.log(totalList);
 		if(totalList.length === 0) {
 			return totalList;
 		}
@@ -209,7 +207,6 @@ class Calendar extends Component {
 			}
 			results.push(result);
 		}
-		console.log(results);
 		return results;
 	}
 	
@@ -218,7 +215,6 @@ class Calendar extends Component {
 		for(var key in entry) {
 			if(!isNaN(entry[key]) && entry[key].toString().trim().length !== 0) {
 				numKey = key;
-				console.log(numKey);
 			}
 		}
 		for(var i = 0; i < this.props.data.goals.length; i++) {
@@ -265,19 +261,20 @@ class Calendar extends Component {
 		const totals = this.calculateTotals(entries);
 		
 		const cards = enteredCategories.map((category, catIndex) => {
+			var id = uuid();
 			return (
 				<Card key = {uuid}>
 					<Card.Header>
-						<Accordion.Toggle as = {Button} variant = "link" eventKey = {catIndex+category}>
+						<Accordion.Toggle as = {Button} variant = "link" eventKey = {id}>
 							{category}
 						</Accordion.Toggle>
 					</Card.Header>
-					<Accordion.Collapse eventKey = {catIndex+category}>
+					<Accordion.Collapse eventKey = {id}>
 						<Card.Body>
 							{this.props.data.userData.map((entry, index) => {
 								if(new Date(entry.Date).getTime() === this.state.selectedDate.getTime() && category === entry.Category) {
 									return (
-										<div>
+										<div key = {uuid()}>
 											{this.goalAchieved(entry) && entry.calculationType === "none"
 											?
 												<div>

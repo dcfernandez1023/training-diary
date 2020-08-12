@@ -262,7 +262,6 @@ class Profile extends Component {
 					return false;
 				}
 				else {
-					console.log(fieldNames);
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
 						if(newField[key].toString().trim() === fieldNames[x].toString().trim()) {
@@ -308,7 +307,6 @@ class Profile extends Component {
 			" already exists under " + "'" + this.state.editModalData.Category + "'" + "!");
 			return false;
 		}
-		console.log(this.state.fields);
 		for(var i = 0; i < this.state.fields.length; i++) {
 			var newField = this.state.fields[i];
 			for(var key in newField) {
@@ -408,8 +406,6 @@ class Profile extends Component {
 		var approveDelete = window.confirm("All data linked to this category will be removed -- Are you sure you want to delete it? ");
 		if(approveDelete) {
 			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
-			console.log(this.props.data);
-			console.log(dataCopy);
 			dataCopy.metaData.categories.splice(dataCopy.metaData.categories.indexOf(category), 1);	
 			var newEntryTypes = [];
 			var newUserData = [];

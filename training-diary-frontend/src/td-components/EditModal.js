@@ -52,10 +52,8 @@ class EditModal extends Component {
 	}
 	
 	onSelectName = (value) => {
-		console.log("yoo");
 		var dataCopy = JSON.parse(JSON.stringify(this.state.dataToEdit));
 		dataCopy.Name = value;
-		console.log(dataCopy.Name);
 		this.setState({dataToEdit: dataCopy});
 	}
 	

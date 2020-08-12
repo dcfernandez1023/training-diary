@@ -161,8 +161,6 @@ class Goals extends Component {
 		var entryType = null;
 		for(var i = 0; i < this.state.data.metaData.entryTypes.length; i++) {
 			var entry = this.state.data.metaData.entryTypes[i];
-			console.log(entry);
-			console.log(this.state.editingData);
 			if(entry.Category === this.state.editingData["Goal Type"] && Object.keys(this.state.editingData.Fields).includes(entry.Type)) {
 				entryType = entry;
 				break;
@@ -341,7 +339,6 @@ class Goals extends Component {
 							:
 							<div>
 								{this.state.editingData.fieldOrder.map((field) => {
-									console.log(field);
 									if(field === "Type") {
 										return (
 											<ListGroup horizontal>
@@ -672,7 +669,6 @@ class Goals extends Component {
 												lastUpdated = new Date(goal.lastUpdated);
 											}
 											else {
-												console.log(lastUpdated);
 												if(new Date(lastUpdated).getTime() < new Date(goal.lastUpdated).getTime()) {
 													lastUpdated = new Date(goal.lastUpdated).toLocaleString();
 												}

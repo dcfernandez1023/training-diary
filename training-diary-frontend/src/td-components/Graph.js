@@ -55,7 +55,6 @@ class Graph extends Component {
 	}
 	
 	onChangeSlider = (e) => {
-		console.log(e.target.value);
 		this.setState({rangeValue: e.target.value});
 	}
 	
@@ -158,11 +157,9 @@ class Graph extends Component {
 				filteredEntry["Date"] = entry["Date"];
 				filteredGraphData.push(filteredEntry);
 			}
-			console.log(filteredGraphData);
 			return filteredGraphData
 		}
 		else {
-			console.log(numericFilters);
 			if(numericFilters.length === 0) {
 				return filteredGraphData;
 			}
@@ -181,7 +178,6 @@ class Graph extends Component {
 				filteredEntry["Date"] = entry["Date"];
 				finalFilteredGraphData.push(filteredEntry);
 			}
-			console.log(finalFilteredGraphData);
 			return finalFilteredGraphData;
 		}
 		return null;
@@ -236,7 +232,6 @@ class Graph extends Component {
 				}
 			}
 		}
-		console.log(dataKeys);
 		const lines = dataKeys.map((dataKey, index) => {
 			return (
 				<Line dataKey = {dataKey} stroke = {this.state.lineColors[index]}/>
@@ -267,11 +262,9 @@ class Graph extends Component {
 			matchingColorIndex = this.state.colorIndex - legendData.length;
 		}
 		for(i = 0; i < legendData.length; i++) {
-			console.log(this.state.lineColors[matchingColorIndex]);
 			legendData[i] = {"color": this.state.lineColors[i], dataKey: legendData[i], "type": "line", "value": legendData[i]}
 			matchingColorIndex++;
 		}
-		console.log(legendData);
 		return legendData;
 	}
 

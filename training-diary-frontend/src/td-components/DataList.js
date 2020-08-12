@@ -65,7 +65,6 @@ class DataList extends Component {
 	
 	//onclick event handler to delete an entry
 	deleteEntry = (index) => {
-		console.log(index);
 		var approveDelete = window.confirm("Are you sure you want to delete this entry?");
 		if(approveDelete) {
 			this.props.data.userData.splice(index, 1);
@@ -85,7 +84,6 @@ class DataList extends Component {
 		for(var key in entry) {
 			if(!isNaN(entry[key]) && entry[key].toString().trim().length !== 0) {
 				numKey = key;
-				console.log(numKey);
 			}
 		}
 		for(var i = 0; i < this.props.data.goals.length; i++) {
@@ -197,7 +195,6 @@ class DataList extends Component {
 	}
 	
 	calculateTotals = (data) => {
-		console.log(data);
 		var totalList = [];
 		for(var i = 0; i < this.props.data.metaData.entryTypes.length; i++) {
 			var entryType = this.props.data.metaData.entryTypes[i];
@@ -478,7 +475,6 @@ class DataList extends Component {
 							})}
 							<div>
 								{this.calculateTotals(totalList).map((total) => {
-									console.log(total);
 									if(this.goalAchieved(total)) {
 										return (
 											<div>

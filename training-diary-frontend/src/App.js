@@ -58,7 +58,6 @@ class App extends Component {
 	}
 	
 	toggleEditModal = (dataToEdit) => {
-		console.log(dataToEdit);
 		this.setState({editModalShow: !this.state.editModalShow, dataToEdit: dataToEdit});
 	}
 	

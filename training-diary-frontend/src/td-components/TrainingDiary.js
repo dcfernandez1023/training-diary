@@ -36,7 +36,6 @@ class TrainingDiary extends Component {
 	
 	componentDidMount = () => {
 		this.setState({data: this.props.data});
-		console.log(this.props.data);
 	}
 	
 	/* GENERAL COMPONENT METHODS */ 

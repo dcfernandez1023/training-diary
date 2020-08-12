@@ -1,0 +1,1 @@
+web: gunicorn TdApis:training-diary-td

@@ -9,7 +9,7 @@ import flask_apis.User as User
 
 
 ##GLOBAL VARIABLES
-#app = flask.Flask(__name__, static_folder = "./build", static_url_path = "/")
+#app = flask.Flask(__name__, static_folder = "../../training-diary-frontend/build", static_url_path = "/")
 app = flask.Flask("__main__")
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
 TEMP_USER = "TEMP"

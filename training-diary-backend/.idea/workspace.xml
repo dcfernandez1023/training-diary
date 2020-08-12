@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c460275-867d-42ea-9263-29b0dd0b7b03" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/../training-diary-frontend/src/pages/Profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask_apis/TdApis.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_apis/TdApis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,10 +18,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="1806">
               <caret line="110" column="100" selection-start-line="110" selection-start-column="100" selection-end-line="110" selection-end-column="100" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -30,7 +33,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
+            <state relative-caret-position="2268">
               <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -42,7 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1586">
+            <state relative-caret-position="126">
               <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
             </state>
           </provider>
@@ -63,8 +66,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1848">
-              <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
+            <state relative-caret-position="-1624">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#121#145#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Procfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="27" lean-forward="true" selection-start-column="27" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -121,15 +136,16 @@
         <option value="$PROJECT_DIR$/user_authentication/googleQuickstart.py" />
         <option value="$PROJECT_DIR$/user_authentication/TdBot.py" />
         <option value="$PROJECT_DIR$/flask_apis/User.py" />
-        <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
         <option value="$PROJECT_DIR$/database_access/MetaData.py" />
         <option value="$PROJECT_DIR$/database_access/DbAccess.py" />
+        <option value="$PROJECT_DIR$/flask_apis/TdApis.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1257" />
-    <option name="y" value="107" />
+    <option name="x" value="-189" />
+    <option name="y" value="206" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -139,6 +155,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -146,31 +163,10 @@
               <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="database_access" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="flask_apis" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="user_authentication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="training-diary-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="venv" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,9 +423,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.08587988" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.2813488" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5016251" side_tool="true" weight="0.24973656" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -437,10 +434,10 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.9336143" weight="0.2654388" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.9336143" weight="0.63163596" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" weight="0.25135428" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" visible="true" weight="0.25135428" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5015806" side_tool="true" weight="0.25135428" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.49837488" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -595,6 +592,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1806">
+          <caret line="110" column="100" selection-start-line="110" selection-start-column="100" selection-end-line="110" selection-end-column="100" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2268">
+          <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/User.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3360">
@@ -607,35 +631,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/flask_apis/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
-          <caret line="88" column="14" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/MetaData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="109" column="32" selection-start-line="109" selection-start-column="32" selection-end-line="109" selection-end-column="32" />
+        <state relative-caret-position="-1624">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#121#145#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user_authentication/Authentication.py">
+    <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1586">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database_access/DbAccess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="110" column="100" selection-start-line="110" selection-start-column="100" selection-end-line="110" selection-end-column="100" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="27" lean-forward="true" selection-start-column="27" selection-end-column="27" />
         </state>
       </provider>
     </entry>

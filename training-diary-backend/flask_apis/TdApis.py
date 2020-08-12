@@ -1,6 +1,7 @@
 ##THIS PYTHON SCRIPT IS THE MAIN ENTRY POINT OF THE BACKEND##
 ##THE ENTIRE BACKEND IS INTENDED TO RUN FROM THIS SCRIPT##
 from os import sys, path
+import os
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import flask
 from flask import request
@@ -8,10 +9,16 @@ import flask_apis.User as User
 
 
 ##GLOBAL VARIABLES
+#app = flask.Flask(__name__, static_folder = "./build", static_url_path = "/")
 app = flask.Flask("__main__")
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
 TEMP_USER = "TEMP"
 
+
+##serving the react app
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 ## AUTHENTICATION APIS ##
 
@@ -110,4 +117,6 @@ def post_data(username):
     return user.post_data(token, request_body)
 
 
+#if __name__ == "__main__":
+    #app.run(host = "0.0.0.0", debug = False, port = os.environ.get("PORT", 80))
 app.run(host = "localhost", port = 8080, debug = True)

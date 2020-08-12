@@ -10,13 +10,9 @@ import EditModal from './EditModal.js';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Overlay from 'react-bootstrap/Overlay';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import PopoverContent from 'react-bootstrap/PopoverContent';
-import PopoverTitle from 'react-bootstrap/PopoverTitle';
 import uuid from 'react-uuid';
-import Table from 'react-bootstrap/Table';
 
 //PROPS
 	//data 
@@ -269,15 +265,14 @@ class Calendar extends Component {
 		const totals = this.calculateTotals(entries);
 		
 		const cards = enteredCategories.map((category, catIndex) => {
-			this.state.eventKey++;
 			return (
 				<Card key = {uuid}>
 					<Card.Header>
-						<Accordion.Toggle as = {Button} variant = "link" eventKey = {this.state.eventKey}>
+						<Accordion.Toggle as = {Button} variant = "link" eventKey = {catIndex+category}>
 							{category}
 						</Accordion.Toggle>
 					</Card.Header>
-					<Accordion.Collapse eventKey = {this.state.eventKey}>
+					<Accordion.Collapse eventKey = {catIndex+category}>
 						<Card.Body>
 							{this.props.data.userData.map((entry, index) => {
 								if(new Date(entry.Date).getTime() === this.state.selectedDate.getTime() && category === entry.Category) {
@@ -360,6 +355,8 @@ class Calendar extends Component {
 		return (
 			<Accordion> 
 				{cards} 
+				{totals.length !== 0
+				?
 				<Card key = {uuid()}>
 					<Card.Header>
 						<Accordion.Toggle as = {Button} variant = "link" eventKey = "total">
@@ -395,6 +392,9 @@ class Calendar extends Component {
 						</Card.Body>
 					</Accordion.Collapse>
 				</Card>
+				:
+				<div> </div>
+				}
 			</Accordion>
 		)
 	}

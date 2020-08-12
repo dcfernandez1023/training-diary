@@ -211,6 +211,13 @@ class EditModal extends Component {
 						</ListGroup.Item>
 						<ListGroup.Item style = {{width: "50%"}}>
 							<InputGroup>
+								<Form.Control
+									as = "input"
+									autoComplete = "off"
+									name = {key}
+									value = {this.state.dataToEdit[key]}
+									onChange = {(e) => {this.onChangeEdit(e)}}
+								/>
 								<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
 									<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
 									<Dropdown.Menu rootCloseEvent = "click">
@@ -223,13 +230,6 @@ class EditModal extends Component {
 										})}
 									</Dropdown.Menu>
 								</Dropdown> 
-								<Form.Control
-									as = "input"
-									autoComplete = "off"
-									name = {key}
-									value = {this.state.dataToEdit[key]}
-									onChange = {(e) => {this.onChangeEdit(e)}}
-								/>
 							</InputGroup> 
 						</ListGroup.Item>
 					</ListGroup>

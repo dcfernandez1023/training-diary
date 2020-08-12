@@ -8,18 +8,13 @@ import EditModal from './EditModal.js';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Overlay from 'react-bootstrap/Overlay';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import PopoverContent from 'react-bootstrap/PopoverContent';
-import PopoverTitle from 'react-bootstrap/PopoverTitle';
 import uuid from 'react-uuid';
-import Table from 'react-bootstrap/Table';
 import '../td-css/DataList.css';
 import DatePicker from 'react-datepicker';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 
 //props
 	//data
@@ -103,7 +98,7 @@ class DataList extends Component {
 				}
 				else {
 					var isAchieved = false;
-					for(var key in goal.Fields) {
+					for(key in goal.Fields) {
 						if(goal.Fields[key] === entry[key]) {
 							isAchieved = true;
 						}
@@ -290,7 +285,7 @@ class DataList extends Component {
 		}
 		//all is not selected and other checkboxes have been selected
 		else {
-			for(var i = 0; i < this.props.data.userData.length; i++) {
+			for(i = 0; i < this.props.data.userData.length; i++) {
 				const entry = this.props.data.userData[i];
 				const entryDate = new Date(entry.Date);
 				if(this.state.startDate.getTime() <= entryDate.getTime() && entryDate.getTime() <= this.state.endDate.getTime() && this.state.listFilters.includes(entry.Type)) {

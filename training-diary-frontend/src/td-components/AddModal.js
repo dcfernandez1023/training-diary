@@ -353,6 +353,13 @@ class AddModal extends Component {
 								</ListGroup.Item>
 								<ListGroup.Item style = {{width: "50%"}}>
 									<InputGroup>
+										<Form.Control
+											as = "input"
+											autoComplete = "off"
+											name = {field}
+											value = {this.state.newData[field]}
+											onChange = {(e) => {this.onChangeNewData(e)}}
+										/>
 										<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
 											<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
 											<Dropdown.Menu rootCloseEvent = "click">
@@ -365,13 +372,6 @@ class AddModal extends Component {
 												})}
 											</Dropdown.Menu>
 										</Dropdown> 
-										<Form.Control
-											as = "input"
-											autoComplete = "off"
-											name = {field}
-											value = {this.state.newData[field]}
-											onChange = {(e) => {this.onChangeNewData(e)}}
-										/>
 									</InputGroup> 
 								</ListGroup.Item>
 							</ListGroup>

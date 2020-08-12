@@ -265,7 +265,7 @@ class Profile extends Component {
 					console.log(fieldNames);
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
-						if(newField[key].toString().trim() === fieldNames[x]) {
+						if(newField[key].toString().trim() === fieldNames[x].toString().trim()) {
 							count++;
 						}
 					}
@@ -308,6 +308,7 @@ class Profile extends Component {
 			" already exists under " + "'" + this.state.editModalData.Category + "'" + "!");
 			return false;
 		}
+		console.log(this.state.fields);
 		for(var i = 0; i < this.state.fields.length; i++) {
 			var newField = this.state.fields[i];
 			for(var key in newField) {
@@ -318,7 +319,7 @@ class Profile extends Component {
 				else {
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
-						if(newField[key].toString().trim() === fieldNames[i]) {
+						if(newField[key].toString().trim() === fieldNames[x].toString().trim()) {
 							count++;
 						}
 					}
@@ -404,22 +405,30 @@ class Profile extends Component {
 	}
 	
 	deleteCategory = async (category) => {
-		var approveDelete = window.confirm("All options under this category will be removed -- Are you sure you want to delete it? ");
+		var approveDelete = window.confirm("All data linked to this category will be removed -- Are you sure you want to delete it? ");
 		if(approveDelete) {
 			var dataCopy = JSON.parse(JSON.stringify(this.props.data));
-			dataCopy.metaData.categories.splice(dataCopy.metaData.categories.indexOf(category), 1);
+			console.log(this.props.data);
+			console.log(dataCopy);
+			dataCopy.metaData.categories.splice(dataCopy.metaData.categories.indexOf(category), 1);	
+			var newEntryTypes = [];
+			var newUserData = [];
 			for(var i = 0; i < dataCopy.metaData.entryTypes.length; i++) {
 				var entry = dataCopy.metaData.entryTypes[i];
-				if(entry.Category === category) {
-					dataCopy.metaData.entryTypes.splice(i, 1);
+				if(entry.Category !== category) {
+					newEntryTypes.push(entry);
+					//dataCopy.metaData.entryTypes.splice(i, 1);
 				}
 			}
 			for(i = 0; i < dataCopy.userData.length; i++) {
 				entry = dataCopy.userData[i];
-				if(entry.Category === category) {
-					dataCopy.userData.splice(i, 1);
+				if(entry.Category !== category) {
+					newUserData.push(entry);
+					//dataCopy.userData.splice(i, 1);
 				}
 			}
+			dataCopy.metaData.entryTypes = newEntryTypes;
+			dataCopy.userData = newUserData;
 			await this.props.saveData(dataCopy);
 			this.forceUpdate();
 		}

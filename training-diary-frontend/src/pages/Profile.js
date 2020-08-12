@@ -262,9 +262,10 @@ class Profile extends Component {
 					return false;
 				}
 				else {
+					console.log(fieldNames);
 					var count = 0;
 					for(var x = 0; x < fieldNames.length; x++) {
-						if(newField[key].toString().trim() === fieldNames[i]) {
+						if(newField[key].toString().trim() === fieldNames[x]) {
 							count++;
 						}
 					}
@@ -281,6 +282,7 @@ class Profile extends Component {
 	validateEditFields = () => {
 		var defaultKeys = Object.keys(this.state.editModalData);
 		var fieldNames = [];
+		var prev = this.props.data.metaData.entryTypes[this.state.entryTypeIndex];
 		if(Object.keys(this.state.editModalData).length === 0) {
 			this.showAlert("Cannot add new data, you're missing some required fields!");
 			return false;
@@ -301,7 +303,7 @@ class Profile extends Component {
 				}
 			}
 		}
-		if(this.typeExists(this.state.editModalData.Category.trim(), this.state.editModalData.Type.trim())) {
+		if(this.typeExists(this.state.editModalData.Category.trim(), this.state.editModalData.Type.trim()) && prev.Type !== this.state.editModalData.Type.trim()) {
 			this.showAlert("Cannot add new data -- " + "'" + this.state.editModalData.Type + "'" +
 			" already exists under " + "'" + this.state.editModalData.Category + "'" + "!");
 			return false;

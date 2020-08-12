@@ -13,6 +13,7 @@ import '../td-css/EditModal.css';
 import Alert from 'react-bootstrap/Alert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ListGroup from 'react-bootstrap/ListGroup';
+import uuid from 'react-uuid';
 
 //PROPS
 	//data
@@ -217,11 +218,11 @@ class EditModal extends Component {
 									onChange = {(e) => {this.onChangeEdit(e)}}
 								/>
 								<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
-									<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+									<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
 									<Dropdown.Menu rootCloseEvent = "click">
 										{nameList.map((name) => {
 											return (
-												<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
+												<Dropdown.Item key = {uuid()} onSelect = {this.onSelectName.bind(this, name)} >
 													{name}
 												</Dropdown.Item>
 											)
@@ -264,6 +265,8 @@ class EditModal extends Component {
 				scrollable = {true}
 				size = "lg"
 				onExited = {this.resetModal}
+				onHide = {this.closeModal}
+				backdrop = "static"
 			>
 			  <Modal.Header>
 				<h4 className = "modal-header-tag"> Edit Training Data </h4>

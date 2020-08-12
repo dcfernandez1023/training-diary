@@ -302,7 +302,7 @@ class AddModal extends Component {
 								<option  value = "" selected disabled hidden> Select </option>
 								{this.props.data.metaData.categories.map((category) => {
 									return (
-										<option value = {category}>
+										<option value = {category} key = {uuid()}>
 											{category}
 										</option>
 									)
@@ -324,7 +324,7 @@ class AddModal extends Component {
 								{this.props.data.metaData.entryTypes.map((entry) => {
 									if(entry.Category === this.state.newData.Category) {
 										return (
-											<option value = {entry.Type}>
+											<option value = {entry.Type} key = {uuid()}>
 												{entry.Type}
 											</option>
 										)
@@ -360,7 +360,7 @@ class AddModal extends Component {
 											onChange = {(e) => {this.onChangeNewData(e)}}
 										/>
 										<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
-											<Dropdown.Toggle variant = "outline-secondary" eventKey = "00"> </Dropdown.Toggle>
+											<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
 											<Dropdown.Menu rootCloseEvent = "click">
 												{nameList.map((name) => {
 													return (
@@ -404,6 +404,8 @@ class AddModal extends Component {
 				scrollable = {true}
 				size = "lg"
 				onExited = {this.resetModal}
+				onHide = {this.closeModal}
+				backdrop = "static"
 			>
 			  <Modal.Header>
 				<h4 className = "modal-header-tag"> Add Training Data </h4>

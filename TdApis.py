@@ -3,9 +3,11 @@
 from os import sys, path
 import os
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+
 import flask
 from flask import request
-import flask_apis.User as User
+#from training-diary-backend import flask_apis.User as User
+import training_diary_backend.flask_apis.User as User
 
 ##GLOBAL VARIABLES
 app = flask.Flask(__name__, static_folder = "./training-diary-frontend/build", static_url_path = "/")

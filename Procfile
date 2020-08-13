@@ -1,1 +1,1 @@
-web: gunicorn training-diary-backend.flask_apis.TdApis:app
+web: gunicorn TdApis:app

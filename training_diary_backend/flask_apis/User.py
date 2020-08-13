@@ -1,4 +1,4 @@
-import user_authentication.Authentication as Authentication
+from ..user_authentication import Authentication as Authentication
 from flask import make_response
 import traceback
 import pickle

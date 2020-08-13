@@ -5,7 +5,7 @@ import jwt
 import datetime
 import os
 import hashlib
-import database_access.DbAccess as DbAccess
+from ..database_access import DbAccess as DbAccess
 
 class Authentication:
     #constructor takes in the flask's app in order to generate api tokens for the application

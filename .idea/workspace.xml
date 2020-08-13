@@ -58,8 +58,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+            <state relative-caret-position="336">
+              <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
               <folding>
                 <element signature="e#121#145#0" expanded="true" />
               </folding>
@@ -127,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-189" />
     <option name="y" value="206" />
     <option name="width" value="1936" />
@@ -146,6 +146,32 @@
             <path>
               <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="training-diary" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-diary" type="462c0819:PsiDirectoryNode" />
+              <item name="td-client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-diary" type="462c0819:PsiDirectoryNode" />
+              <item name="td-client" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-diary" type="462c0819:PsiDirectoryNode" />
+              <item name="td-client" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="training-diary-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="training-diary" type="462c0819:PsiDirectoryNode" />
+              <item name="td-client" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -623,8 +649,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+        <state relative-caret-position="336">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
           <folding>
             <element signature="e#121#145#0" expanded="true" />
           </folding>

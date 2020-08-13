@@ -1,1 +1,1 @@
-web: gunicorn TdApis:training-diary-td
+web: gunicorn TdApis:app

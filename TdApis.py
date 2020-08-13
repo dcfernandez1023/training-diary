@@ -118,6 +118,6 @@ def post_data(username):
     return user.post_data(token, request_body)
 
 
-#if __name__ == "__main__":
-app.run(host = "0.0.0.0", debug = False, port = os.environ.get("PORT", 80))
+if __name__ == "__main__":
+    app.run(host = "0.0.0.0", debug = True, port = 8080)
 #app.run(host = "localhost", port = 8080, debug = True)

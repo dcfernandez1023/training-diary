@@ -1,1 +1,1 @@
-web: gunicorn TdApis:app
+web: gunicorn app:app

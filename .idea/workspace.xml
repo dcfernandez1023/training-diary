@@ -59,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="707">
-              <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+              <caret line="121" selection-start-line="121" selection-end-line="121" />
               <folding>
                 <element signature="e#121#145#0" expanded="true" />
               </folding>
@@ -127,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-189" />
     <option name="y" value="206" />
     <option name="width" value="1936" />
@@ -407,7 +407,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.2813488" />
@@ -624,7 +624,7 @@
     <entry file="file://$PROJECT_DIR$/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="707">
-          <caret line="121" column="25" selection-start-line="121" selection-start-column="25" selection-end-line="121" selection-end-column="25" />
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
           <folding>
             <element signature="e#121#145#0" expanded="true" />
           </folding>

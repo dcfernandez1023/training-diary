@@ -367,15 +367,17 @@ class App extends Component {
 							/>
 						</Route>
 						<Route exact path = "/profile">
-							<Profile 
-								data = {this.state.data} 
-								token = {this.state.token} 
-								changeUsernameAndEmail = {this.changeUsernameAndEmail}
-								changePassword = {this.changePassword}
-								saving = {this.state.profileAndCredSaving}
-								toggleSaving = {this.toggleProfAndCredLoader}
-								saveData = {this.saveData}
-							/>
+							<div>
+								<Profile 
+									data = {this.state.data} 
+									token = {this.state.token} 
+									changeUsernameAndEmail = {this.changeUsernameAndEmail}
+									changePassword = {this.changePassword}
+									saving = {this.state.profileAndCredSaving}
+									toggleSaving = {this.toggleProfAndCredLoader}
+									saveData = {this.saveData}
+								/>
+							</div>
 						</Route>
 						<Route>
 							<div style = {{textAlign: "center"}}>

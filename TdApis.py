@@ -19,7 +19,14 @@ TEMP_USER = "TEMP"
 ##serving the react app
 @app.route("/")
 def index():
-    #return "<h1> test </h1>"
+    return app.send_static_file("index.html")
+
+@app.route("/reset")
+def reset():
+    return app.send_static_file("index.html")
+
+@app.route("/profile")
+def profile():
     return app.send_static_file("index.html")
 
 ## AUTHENTICATION APIS ##

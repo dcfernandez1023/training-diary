@@ -23,6 +23,7 @@ import Alert from 'react-bootstrap/Alert';
 import Pie from 'react-chartjs-2';
 import InputGroup from 'react-bootstrap/InputGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 class Goals extends Component {
 	
@@ -458,7 +459,7 @@ class Goals extends Component {
 										return (
 											<ListGroup horizontal>
 												<ListGroup.Item style = {{width: "50%"}}>
-													{field}
+													{field} 
 												</ListGroup.Item>
 												<ListGroup.Item style = {{width: "50%"}}>
 													<Form.Control 
@@ -542,10 +543,20 @@ class Goals extends Component {
 							<div>
 								{Object.keys(this.state.addingData.Fields).map((field) => {
 									if(field === "Type") {
+										var toolTip = <Tooltip> The default {this.state.goalAdding} fields cannot be edited, deleted, or added. If you want to add additional {this.state.goalAdding} goals, 
+											then add a new Type under the Customize Data tab in your Profile page. </Tooltip>
 										return (
 											<ListGroup horizontal>
 												<ListGroup.Item style = {{width: "50%"}}>
 													{field}
+													<OverlayTrigger
+														placement = "right"
+														delay = {{ show: 250, hide: 400 }}
+														overlay = {toolTip}
+														
+													>
+														<Button variant = "light" size = "sm" style = {{marginLeft: "1.5%"}}> ℹ️ </Button>
+													</OverlayTrigger>
 												</ListGroup.Item>
 												<ListGroup.Item style = {{width: "50%"}}>
 													<Form.Control 

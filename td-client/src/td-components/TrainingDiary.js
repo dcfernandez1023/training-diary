@@ -56,7 +56,7 @@ class TrainingDiary extends Component {
 					</Col>
 					<Col xs = {4}>
 						<Button variant = "primary" onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
-						<Link to  = "/profile"> <Button variant = "primary" className = "td-header-button"> Profile </Button> </Link>
+						<Button variant = "primary" href = "/profile" className = "td-header-button"> Profile </Button> 
 					</Col>
 				</Row>
 				

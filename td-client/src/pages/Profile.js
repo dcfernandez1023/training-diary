@@ -283,12 +283,12 @@ class Profile extends Component {
 		var fieldNames = [];
 		var prev = this.props.data.metaData.entryTypes[this.state.entryTypeIndex];
 		if(Object.keys(this.state.editModalData).length === 0) {
-			this.showAlert("Cannot add new data, you're missing some required fields!");
+			this.showAlert("Cannot edit data, you're missing some required fields!");
 			return false;
 		}
 		for(var key in this.state.editModalData) {
 			if(this.state.editModalData[key].toString().trim().length === 0) {
-				this.showAlert("Cannot add new data, you're missing some required fields!");
+				this.showAlert("Cannot edit data, you're missing some required fields!");
 				return false;
 			}
 		}
@@ -297,13 +297,13 @@ class Profile extends Component {
 			fieldNames.push(newField.fieldName);
 			for(var key in newField) {
 				if(newField[key].toString().trim().length === 0) {
-					this.showAlert("Cannot add new data, you're missing some required fields!");
+					this.showAlert("Cannot edit data, you're missing some required fields!");
 					return false;
 				}
 			}
 		}
 		if(this.typeExists(this.state.editModalData.Category.trim(), this.state.editModalData.Type.trim()) && prev.Type !== this.state.editModalData.Type.trim()) {
-			this.showAlert("Cannot add new data -- " + "'" + this.state.editModalData.Type + "'" +
+			this.showAlert("Cannot edit data -- " + "'" + this.state.editModalData.Type + "'" +
 			" already exists under " + "'" + this.state.editModalData.Category + "'" + "!");
 			return false;
 		}
@@ -311,7 +311,7 @@ class Profile extends Component {
 			var newField = this.state.fields[i];
 			for(var key in newField) {
 				if(defaultKeys.includes(newField[key].toString().trim())) {
-					this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key] + "' already exists");
+					this.showAlert("Cannot edit data -- " + "the name " + "'" + newField[key] + "' already exists");
 					return false;
 				}
 				else {
@@ -322,7 +322,7 @@ class Profile extends Component {
 						}
 					}
 					if(count > 1) {
-						this.showAlert("Cannot add new data -- " + "the name " + "'" + newField[key].toString().trim() + "' is a duplicate");
+						this.showAlert("Cannot edit data -- " + "the name " + "'" + newField[key].toString().trim() + "' is a duplicate");
 						return false;
 					}
 				}
@@ -678,16 +678,34 @@ class Profile extends Component {
 													/>
 												</Col>
 												<Col sm = {6}>
-													<Form.Label> Data Type </Form.Label>
-													<Form.Control
-														as = "select"
-														name = "dataType"
-														onChange = {(e) => {this.onChangeField(e, index)}}
-													>
-														<option selected hidden> {newField.dataType.charAt(0).toUpperCase() + newField.dataType.slice(1)} </option>
-														<option value = "string"> String </option>
-														<option value = "number"> Number </option>
-													</Form.Control>
+													{newField.fieldName.length === 0
+													?
+													<div>
+														<Form.Label> Data Type </Form.Label>
+														<Form.Control
+															as = "select"
+															name = "dataType"
+															onChange = {(e) => {this.onChangeField(e, index)}}
+														>
+															<option selected disabled hidden> Select </option>
+															<option value = "string"> String </option>
+															<option value = "number"> Number </option>
+														</Form.Control>
+													</div>
+													:
+													<div>
+														<Form.Label> Data Type </Form.Label>
+														<Form.Control
+															as = "select"
+															name = "dataType"
+															onChange = {(e) => {this.onChangeField(e, index)}}
+														>
+															<option selected hidden> {newField.dataType.charAt(0).toUpperCase() + newField.dataType.slice(1)} </option>
+															<option value = "string"> String </option>
+															<option value = "number"> Number </option>
+														</Form.Control>
+													</div>
+													}
 												<br/>
 												</Col>
 											</Row>

@@ -10,7 +10,7 @@ import flask_apis.User as User
 
 
 ##GLOBAL VARIABLES
-app = flask.Flask("__main__", static_folder = "../td-client/build", static_url_path = "/")
+app = flask.Flask("__main__", static_folder = "./td-client/build", static_url_path = "/")
 #app = flask.Flask("__main__")
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
 TEMP_USER = "TEMP"
@@ -19,6 +19,7 @@ TEMP_USER = "TEMP"
 ##serving the react app
 @app.route("/")
 def index():
+    #return "<h1> test </h1>"
     return app.send_static_file("index.html")
 
 ## AUTHENTICATION APIS ##
@@ -119,5 +120,5 @@ def post_data(username):
 
 
 #if __name__ == "__main__":
-app.run(host = "0.0.0.0", debug = True, port=os.environ.get('PORT', 80))
+app.run(host = "0.0.0.0", debug = True, port=8080)
 #app.run(host = "localhost", port = 8080, debug = True)

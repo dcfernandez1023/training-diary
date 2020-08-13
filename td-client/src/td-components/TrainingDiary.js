@@ -16,6 +16,7 @@ import Calendar from './Calendar.js';
 import Graph from './Graph.js';
 import DataList from './DataList.js';
 import Goals from './Goals.js';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 //import TrackExercises from './TrackExercises.js';
 //PROPS: 
 	//data 
@@ -55,7 +56,7 @@ class TrainingDiary extends Component {
 					</Col>
 					<Col xs = {4}>
 						<Button variant = "primary" onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
-						<Button variant = "primary" className = "td-header-button" href = "/profile"> Profile </Button>
+						<Link to  = "/profile"> <Button variant = "primary" className = "td-header-button"> Profile </Button> </Link>
 					</Col>
 				</Row>
 				

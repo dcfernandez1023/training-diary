@@ -134,5 +134,5 @@ def post_data(username):
     return user.post_data(token, request_body)
 
 
-#app.run(host = "0.0.0.0", debug = True, port=os.environ.get('PORT', 80))
+app.run(host = "0.0.0.0", debug = True, port=os.environ.get('PORT', 80))
 #app.run(host = "localhost", port = 8080, debug = True)

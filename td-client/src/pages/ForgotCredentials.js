@@ -76,6 +76,7 @@ class ForgotCredentials extends Component {
 		if(this.state.newPassword !== this.state.confirmPassword) {
 			alert("Passwords don't match");
 			this.setState({passwordValidated: false});
+			return;
 		}
 		var requestBody = {password: this.state.newPassword};
 		if(this.props.username.toString().length !== 0 && this.props.username !== undefined && this.props.token !== null && this.props.token !== undefined) {

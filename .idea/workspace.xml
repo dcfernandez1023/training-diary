@@ -250,7 +250,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.wsgi">
+  <component name="RunManager" selected="Python.TdApis">
     <configuration name="TdApis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="training-diary-backend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -365,8 +365,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.wsgi" />
         <item itemvalue="Python.TdApis" />
+        <item itemvalue="Python.wsgi" />
         <item itemvalue="Python.TdBot" />
         <item itemvalue="Python.User" />
         <item itemvalue="Python.googleQuickstart" />

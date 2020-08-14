@@ -328,6 +328,7 @@ class Goals extends Component {
 											<ListGroup.Item style = {{width: "50%"}}>
 												<Form.Control
 													as = "input"
+													autoComplete = "off"
 													name = {field}
 													value = {this.state.editingData.Fields[field]}
 													onChange = {(e) => {this.onChangeEdit(e)}}
@@ -415,6 +416,7 @@ class Goals extends Component {
 												<ListGroup.Item style = {{width: "50%"}}>
 													<Form.Control
 														as = "input"
+														autoComplete = "off"
 														name = {field}
 														value = {this.state.editingData.Fields[field]}
 														onChange = {(e) => {this.onChangeEdit(e)}}

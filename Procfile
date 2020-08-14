@@ -1,1 +1,1 @@
-gunicorn "TdApis:app()"
+web: gunicorn -b :$PORT "TdApis:app()"

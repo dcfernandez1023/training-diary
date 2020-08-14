@@ -27,7 +27,6 @@ MAIL = Mail(app)
 ##serving the react app
 
 @app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
 def index():
     return app.send_static_file("index.html")
 

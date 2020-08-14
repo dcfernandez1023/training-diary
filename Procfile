@@ -1,1 +1,1 @@
-web: gunicorn python TdApis.py $PORT
+web: python TdApis.py $PORT

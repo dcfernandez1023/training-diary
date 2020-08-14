@@ -4,17 +4,25 @@ from os import sys, path
 import os
 #sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import flask
+from flask_mail import Mail
 from flask import request
 import flask_apis.User as User
-
 
 
 ##GLOBAL VARIABLES
 app = flask.Flask("__main__", static_folder = "./td-client/build", static_url_path = "/")
 #app = flask.Flask("__main__")
+
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
+app.config["MAIL_SERVER"] = "smtp.googlemail.com"
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'trainingdiary.bot@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'trainingdiary.bot@gmail.com'
+app.config['MAIL_PASSWORD'] = 'thegreendoorhouse1'
 TEMP_USER = "TEMP"
 
+MAIL = Mail(app)
 
 ##serving the react app
 @app.route("/")
@@ -84,7 +92,7 @@ def get_temp_password():
     request_body = request.get_json()
     email = request_body.get("email")
     user = User.User(TEMP_USER, app)
-    return user.generate_temp_credentials(email)
+    return user.generate_temp_credentials(email, MAIL)
 
 @app.route("/postTempPassword", methods = ["POST"])
 def validate_temp_password():

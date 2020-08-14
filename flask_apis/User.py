@@ -1,5 +1,6 @@
 import user_authentication.Authentication as Authentication
 from flask import make_response
+from flask_mail import Message
 import traceback
 import pickle
 import os.path
@@ -173,8 +174,12 @@ class User:
             self.__log_error(traceback.format_exc())
             return make_response({}, 500)
 
+    def create_email_message(self, recipient_email, body):
+        message = Message("Recover Credentials", sender = "trainingdiary.bot@gmail.com", recipients = [recipient_email])
+        message.body = body
+        return message
 
-    def generate_temp_credentials(self, email):
+    def generate_temp_credentials(self, email, mail_obj):
         try:
             db_access = self.__auth.get_db_access()
             if db_access.is_existing_user({"email": email}):
@@ -182,10 +187,12 @@ class User:
                 username = document.get("_id")
                 self.reset_user_attributes(username)
                 temp_password = self.__auth.encode_temp_password(self.__app)
-                msg = "Username: " + username + "\n" + "Temporary Password " + temp_password
-                recovery_email_msg = self.create_recovery_account_message(self.__sender, email, self.__recovery_subject, msg)
-                gmail_service_obj = self.get_service_obj()
-                self.send_recovery_account_message(gmail_service_obj, self.__sender, recovery_email_msg)
+                email_body = "Username: " + username + "\n" + "Temporary Password: " + "\n" + temp_password
+               # recovery_email_msg = self.create_recovery_account_message(self.__sender, email, self.__recovery_subject, msg)
+                #gmail_service_obj = self.get_service_obj()
+                #self.send_recovery_account_message(gmail_service_obj, self.__sender, recovery_email_msg)
+                msg = self.create_email_message(email, email_body)
+                mail_obj.send(msg)
                 return make_response({}, 200)
             return make_response({}, 401)
         except Exception:

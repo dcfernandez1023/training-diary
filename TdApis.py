@@ -10,7 +10,7 @@ import flask_apis.User as User
 
 
 ##GLOBAL VARIABLES
-app = flask.Flask("__main__", static_folder = "./td-client/build", static_url_path = "/")
+app = flask.Flask(__name__, static_folder = "./td-client/build", static_url_path = "/")
 #app = flask.Flask("__main__")
 
 app.config['SECRET_KEY'] = 'Th1s1ss3cr3t'
@@ -26,13 +26,10 @@ MAIL = Mail(app)
 
 ##serving the react app
 
-@app.route("/", defaults={"path": ""})
+@app.route("/")
+@app.route("/index")
 def index():
     return app.send_static_file("index.html")
-
-# @app.route("/")
-# def index():
-#     return app.send_static_file("index.html")
 
 @app.route("/reset")
 def reset():
@@ -138,6 +135,7 @@ def post_data(username):
     user = User.User(username, app)
     return user.post_data(token, request_body)
 
-
+if(__name__ == "__main__"):
+    app.run()
 #app.run(host = "0.0.0.0", debug = True, port=os.environ.get('PORT', 80))
 #app.run(host = "localhost", port = 8080, debug = True)

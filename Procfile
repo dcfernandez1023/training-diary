@@ -1,1 +1,1 @@
-web: gunicorn "TdApis:app()"
+gunicorn "TdApis:app()"

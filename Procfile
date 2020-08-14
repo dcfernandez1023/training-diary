@@ -1,1 +1,1 @@
-web: gunicorn --bind $PORT TdApis:app
+web: gunicorn TdApis:app --bind 0.0.0.0:$PORT

@@ -25,9 +25,15 @@ TEMP_USER = "TEMP"
 MAIL = Mail(app)
 
 ##serving the react app
-@app.route("/")
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
 def index():
     return app.send_static_file("index.html")
+
+# @app.route("/")
+# def index():
+#     return app.send_static_file("index.html")
 
 @app.route("/reset")
 def reset():

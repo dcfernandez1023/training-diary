@@ -13,6 +13,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import uuid from 'react-uuid';
+//import 'react-calendar/dist/Calendar.css';
 
 //PROPS
 	//data 
@@ -445,12 +446,14 @@ class Calendar extends Component {
 					<Col sm = {5}>
 						{this.state.isDataOnDate 
 						?
-						<div className = "calendar-container">
+						<div className = "box-container">
 							<Row>
-								<Col sm = {11}>
-									<h2 className = "date-string"> {this.state.selectedDateString} </h2>
+								<Col>
+									<h4 className = "date-string"> 
+										{this.state.selectedDateString} 
+									</h4>
 								</Col>
-								<Col sm = {1}>
+								<Col>
 									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
 								</Col>
 							</Row>
@@ -461,16 +464,17 @@ class Calendar extends Component {
 							</Row>
 						</div>
 						:
-						<div className = "calendar-container">
+						<div className = "box-container">
 							<Row>
-								<Col sm = {11}>
-									<h2 className = "date-string"> {this.state.selectedDateString} </h2>
+								<Col>
+									<h4 className = "date-string"> 
+										{this.state.selectedDateString} 
+									</h4>
 								</Col>
-								<Col sm = {1}>
+								<Col>
 									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
 								</Col>
 							</Row>
-							<br/>
 							<Row>
 								<Col sm = {6}>
 									<p style = {{marginLeft: "1%"}}> Nothing to see here... </p>

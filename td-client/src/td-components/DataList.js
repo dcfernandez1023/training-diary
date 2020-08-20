@@ -563,7 +563,7 @@ class DataList extends Component {
 				</Row>
 			}
 				<Row>
-					<Col sm = {2}>
+					<Col lg = {2}>
 						<Row>
 							<Col>
 								{optionDropdown}
@@ -643,7 +643,7 @@ class DataList extends Component {
 							</Col>
 						</Row>
 					</Col>
-					<Col sm = {10}>
+					<Col lg = {10}>
 						<div className = "list-container">
 							{this.state.startDate === null || this.state.endDate === null || this.state.startDate.getTime() > this.state.endDate.getTime()
 								?

@@ -313,7 +313,7 @@ class Goals extends Component {
 					?
 						<Modal size = "lg" show = {this.state.editing} onHide = {this.closeEditModal.bind(this)}>
 							<Modal.Header closeButton>
-								<Modal.Title> Edit {this.state.goalEditing} Goal </Modal.Title>
+								<Modal.Title as = "h5"> Edit {this.state.goalEditing} Goal </Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
 							{!this.state.editingData.deletable
@@ -450,7 +450,7 @@ class Goals extends Component {
 					?
 						<Modal size = "lg" show = {this.state.adding} onHide = {this.closeAddModal.bind(this)}>
 							<Modal.Header closeButton>
-								<Modal.Title> Add {this.state.goalAdding} Goal </Modal.Title>
+								<Modal.Title as = "h5"> Add {this.state.goalAdding} Goal </Modal.Title>
 							</Modal.Header>
 							<Modal.Body>
 							{this.state.goalAdding !== "Diet" && this.state.goalAdding !== "Body"

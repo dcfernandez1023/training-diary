@@ -269,8 +269,8 @@ class EditModal extends Component {
 				backdrop = "static"
 			>
 			  <Modal.Header>
-				<h4 className = "modal-header-tag"> Edit Training Data </h4>
-				<h4 className = "modal-header-tag"> {dateString} </h4>
+				<h5 className = "modal-header-tag"> Edit Training Data </h5>
+				<h5 className = "modal-header-tag"> {dateString} </h5>
 			  </Modal.Header>
 			  
 			  <Modal.Body>

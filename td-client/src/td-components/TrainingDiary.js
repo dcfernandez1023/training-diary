@@ -17,6 +17,8 @@ import Graph from './Graph.js';
 import DataList from './DataList.js';
 import Goals from './Goals.js';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 //import TrackExercises from './TrackExercises.js';
 //PROPS: 
 	//data 
@@ -48,97 +50,110 @@ class TrainingDiary extends Component {
 	
 	render() {
 		return (
-			<Container fluid>
-				{/* row 1: header, settings Button, logout Button*/}
-				<Row>
-					<Col xs = {8}>
-						<h1> Training Diary </h1>
-					</Col>
-					<Col xs = {4}>
-						<Button variant = "primary" onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
-						<Button variant = "primary" href = "/profile" className = "td-header-button"> Profile </Button> 
-					</Col>
-				</Row>
-				
-				<br/>
-				
-				{/* row 2: Tabs */}
-				<Row style = {{height: "75vh"}}>
-					<Col>
-						<Tabs activeKey = {this.state.activeTab} onSelect = {(tab) => {this.toggleTabs(tab)}}>
-								<Tab eventKey = "graph" title = "Graph 📉">
-									{this.state.activeTab !== "graph"
-									?
-									<div> </div>
-									:
-									<div>
-										<br/>
-										<Graph data = {this.props.data} />
-									</div>
-									}
-								</Tab>
-								<Tab eventKey = "calendar" title = "Calendar 📅">
-									{this.state.activeTab !== "calendar"
-									?
-									<div> </div>
-									:
-									<div>
-										<br/>
-										<Calendar 
-											data = {this.props.data} 
-											saveData = {this.props.saveData}
-											addModalShow = {this.props.addModalShow}
-											editModalShow = {this.props.editModalShow}
-											isSaving = {this.props.isSaving}
-											toggleAddModal = {this.props.toggleAddModal}
-											toggleEditModal = {this.props.toggleEditModal}
-											toggleSaveBar = {this.props.toggleSaveBar}
-											dataToEdit = {this.props.dataToEdit}
-										/>
-									</div>
-									}
-								</Tab>
-								
-								<Tab eventKey = "dataList" title = "Data-List 📝">
-									{this.state.activeTab !== "dataList"
-									?
-									<div> </div>
-									:
-									<div>
-										<br/> 
-										<DataList 
-											data = {this.props.data} 
-											saveData = {this.props.saveData}
-											addModalShow = {this.props.addModalShow}
-											editModalShow = {this.props.editModalShow}
-											isSaving = {this.props.isSaving}
-											toggleAddModal = {this.props.toggleAddModal}
-											toggleEditModal = {this.props.toggleEditModal}
-											toggleSaveBar = {this.props.toggleSaveBar}
-											dataToEdit = {this.props.dataToEdit}
-										/>
-									</div>
-									}
-								</Tab>
-								
-								<Tab eventKey = "goals" title = "Goals 🎯">
-									{this.state.activeTab !== "goals"
-									?
-									<div> </div>
-									:
-									<div>
-										<br/>
-										<Goals 
-											data = {this.props.data} 
-											saveData = {this.props.saveData}
-										/>
-									</div>
-									}
-								</Tab>
-							</Tabs>
+			<div>
+				<Navbar fluid collapseOnSelect expand = "md" bg = "light" style = {{marginBottom: "1%"}}>
+					<Navbar.Brand href = "/"> Training Diary </Navbar.Brand>
+					<Navbar.Toggle aria-controls = "responsive-navbar-nav" />
+					<Navbar.Collapse id = "responsive-navbar-nav">
+						<Nav className = "mr-auto">
+						</Nav>
+						<Nav className = "justify-content-end">
+							<Button variant = "primary" href = "/profile" className = "td-header-button"> Profile </Button> 
+							<Button onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
+						</Nav>
+					</Navbar.Collapse>
+				</Navbar>
+				<Container fluid>
+					{/* row 1: header, settings Button, logout Button*/}
+
+					{/*
+						<Col xs = {8}>
+							<h3> Training Diary </h3>
 						</Col>
-					</Row>
-			</Container>
+						<Col xs = {4}>
+							<Button variant = "primary" onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
+							<Button variant = "primary" href = "/profile" className = "td-header-button"> Profile </Button> 
+						</Col>
+					*/}
+					
+					{/* row 2: Tabs */}
+					<Row style = {{height: "75vh"}}>
+						<Col>
+							<Tabs activeKey = {this.state.activeTab} onSelect = {(tab) => {this.toggleTabs(tab)}}>
+									<Tab eventKey = "graph" title = "Graph 📉">
+										{this.state.activeTab !== "graph"
+										?
+										<div> </div>
+										:
+										<div>
+											<br/>
+											<Graph data = {this.props.data} />
+										</div>
+										}
+									</Tab>
+									<Tab eventKey = "calendar" title = "Calendar 📅">
+										{this.state.activeTab !== "calendar"
+										?
+										<div> </div>
+										:
+										<div>
+											<br/>
+											<Calendar 
+												data = {this.props.data} 
+												saveData = {this.props.saveData}
+												addModalShow = {this.props.addModalShow}
+												editModalShow = {this.props.editModalShow}
+												isSaving = {this.props.isSaving}
+												toggleAddModal = {this.props.toggleAddModal}
+												toggleEditModal = {this.props.toggleEditModal}
+												toggleSaveBar = {this.props.toggleSaveBar}
+												dataToEdit = {this.props.dataToEdit}
+											/>
+										</div>
+										}
+									</Tab>
+									
+									<Tab eventKey = "dataList" title = "Data-List 📝">
+										{this.state.activeTab !== "dataList"
+										?
+										<div> </div>
+										:
+										<div>
+											<br/> 
+											<DataList 
+												data = {this.props.data} 
+												saveData = {this.props.saveData}
+												addModalShow = {this.props.addModalShow}
+												editModalShow = {this.props.editModalShow}
+												isSaving = {this.props.isSaving}
+												toggleAddModal = {this.props.toggleAddModal}
+												toggleEditModal = {this.props.toggleEditModal}
+												toggleSaveBar = {this.props.toggleSaveBar}
+												dataToEdit = {this.props.dataToEdit}
+											/>
+										</div>
+										}
+									</Tab>
+									
+									<Tab eventKey = "goals" title = "Goals 🎯">
+										{this.state.activeTab !== "goals"
+										?
+										<div> </div>
+										:
+										<div>
+											<br/>
+											<Goals 
+												data = {this.props.data} 
+												saveData = {this.props.saveData}
+											/>
+										</div>
+										}
+									</Tab>
+								</Tabs>
+							</Col>
+						</Row>
+				</Container>
+			</div>
 		);
 	}
 }

@@ -430,7 +430,7 @@ class Graph extends Component {
 		return (
 			<Container fluid> 
 				<Row>
-					<Col sm = {2}>
+					<Col lg = {2}>
 						<Row>
 							<Col>
 								{dropdownOption}
@@ -504,7 +504,7 @@ class Graph extends Component {
 						*/}
 						</Row>
 					</Col>
-					<Col sm = {10}>
+					<Col lg = {10}>
 						<div className = "graph-container">
 						{graphData === null ?
 							<h3> <i> Graph Title </i> </h3>

@@ -408,8 +408,8 @@ class AddModal extends Component {
 				backdrop = "static"
 			>
 			  <Modal.Header>
-				<h4 className = "modal-header-tag"> Add Training Data </h4>
-				<h4 className = "modal-header-tag"> {dateString} </h4>
+				<h5 className = "modal-header-tag"> Add Training Data </h5>
+				<h5 className = "modal-header-tag"> {dateString} </h5>
 				{/*<Button variant = "primary"> Add </Button>*/}
 			  </Modal.Header>
 			  

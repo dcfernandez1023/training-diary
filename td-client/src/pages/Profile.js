@@ -759,7 +759,7 @@ class Profile extends Component {
 				}
 				<Row>
 					<Col>
-						<h1 style = {{margin: "1%"}}> Training Diary </h1>
+						<h3 style = {{margin: "1%"}}> Training Diary </h3>
 					</Col>
 					<Col style = {{textAlign: "right"}}>
 						<Button variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>

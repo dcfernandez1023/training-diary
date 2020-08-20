@@ -58,8 +58,8 @@ class TrainingDiary extends Component {
 						<Nav className = "mr-auto">
 						</Nav>
 						<Nav className = "justify-content-end">
-							<Button variant = "primary" href = "/profile" className = "td-header-button"> Profile </Button> 
-							<Button onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
+							<Button variant = "light" href = "/profile" className = "td-header-button"> Profile </Button> 
+							<Button variant = "light" onClick = {this.props.logout} className = "td-header-button"> Logout </Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>

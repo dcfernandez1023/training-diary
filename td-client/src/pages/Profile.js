@@ -18,6 +18,8 @@ import Modal from "react-bootstrap/Modal";
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Alert from 'react-bootstrap/Alert';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 class Profile extends Component {
 	
@@ -454,8 +456,25 @@ class Profile extends Component {
 							value = {this.state.birthday}
 							autoComplete = "off"
 							/>
+		const tdHeaderButton = {margin: "1%",
+			float: "right",
+			backgroundColor: "#D3D3D3"
+		}
+		
 		return (
 			<div>
+				<Navbar fluid collapseOnSelect expand = "md" bg = "light" style = {{marginBottom: "5%"}}>
+					<Navbar.Brand href = "/"> Training Diary </Navbar.Brand>
+					<Navbar.Toggle aria-controls = "responsive-navbar-nav" />
+					<Navbar.Collapse id = "responsive-navbar-nav">
+						<Nav className = "mr-auto">
+						</Nav>
+						<Nav className = "justify-content-end">
+							<Button variant = "light" href = "/" style = {tdHeaderButton}> Home </Button> 
+							<Button variant = "light" onClick = {this.props.logout} style = {tdHeaderButton}> Logout </Button>
+						</Nav>
+					</Navbar.Collapse>
+				</Navbar>
 				{this.state.showModal
 				?
 					<Modal show = {this.state.showModal} backdrop = "static" onHide = {this.closeAddModal.bind(this)} size = "lg">
@@ -757,19 +776,6 @@ class Profile extends Component {
 				:
 				<div> </div>
 				}
-				<Row>
-					<Col>
-						<h3 style = {{margin: "1%"}}> Training Diary </h3>
-					</Col>
-					<Col style = {{textAlign: "right"}}>
-						<Button variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
-					</Col>
-				</Row>
-				<Container>
-					<Row>
-						<h3 style = {{margin: "1%"}}> Profile </h3>
-					</Row>
-				</Container>
 				<Container style = {{border: "1px solid lightGray"}}>
 					<Tabs variant = "pills" defaultActiveKey = "editProfile" onSelect = {this.resetFields.bind(this)}>
 						<Tab eventKey = "editProfile" title = "Edit Profile ✏️">

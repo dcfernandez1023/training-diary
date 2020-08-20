@@ -8,10 +8,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Tabs from 'react-bootstrap/Tabs';
 import TabContent from 'react-bootstrap/TabContent';
 import Tab from 'react-bootstrap/Tab';
-import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
-
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 class ForgotCredentials extends Component {
 	
@@ -96,14 +96,17 @@ class ForgotCredentials extends Component {
 	render() {
 		return (
 			<div>
-				<Row>
-					<Col>
-						<h1 style = {{margin: "1%"}}> Training Diary </h1>
-					</Col>
-					<Col style = {{textAlign: "right"}}>
-						<Button variant = "success" href = "/" style = {{margin: "1%"}}> Back to Home </Button>
-					</Col>
-				</Row>
+				<Navbar fluid collapseOnSelect expand = "md" bg = "light" style = {{marginBottom: "1%"}}>
+					<Navbar.Brand href = "/"> Training Diary </Navbar.Brand>
+					<Navbar.Toggle aria-controls = "responsive-navbar-nav" />
+					<Navbar.Collapse id = "responsive-navbar-nav">
+						<Nav className = "mr-auto">
+						</Nav>
+						<Nav className = "justify-content-end">
+							<Button variant = "light" href = "/" className = "td-header-button"> Home </Button> 
+						</Nav>
+					</Navbar.Collapse>
+				</Navbar>
 				<Container>
 					<br/>
 					<Row>

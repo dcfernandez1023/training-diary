@@ -409,6 +409,9 @@ class Calendar extends Component {
 				return null;
 			}
 		}
+		
+		const breakpoint = 500;
+		const width = window.innerWidth;
 
 		const displayData = this.displayData();
 		return (
@@ -442,59 +445,143 @@ class Calendar extends Component {
 						editIndex = {this.state.editIndex}
 					/>
 				</Row>
-				<Row>
-					<Col sm = {5}>
-						{this.state.isDataOnDate 
-						?
-						<div className = "box-container">
+				{width < breakpoint
+				?
+					<Row>
+						<Col>
 							<Row>
-								<Col>
-									<h4 className = "date-string"> 
-										{this.state.selectedDateString} 
-									</h4>
-								</Col>
-								<Col>
-									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
-								</Col>
+								<div className = "mobile-calendar-container">
+									<Row style = {{marginBottom: "5%"}}>
+										<Col>
+											<ReactCalendar 
+												minDate = {this.state.minDate}
+												showNeighboringMonth = {false}
+												onClickDay = {this.selectDay}
+												tileContent = {markedCalendar}
+											/>
+										</Col>
+									</Row>
+									<Row>
+										<Col sm = {10}>
+											<h6 className = "date-string"> 
+												{this.state.selectedDateString} 
+											</h6>
+											<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
+										</Col>
+									</Row>
+									<Row>
+										<Col>
+											{this.state.isDataOnDate
+											?
+												<div>
+													{displayData}
+												</div>
+											:
+												<p style = {{marginLeft: "1%"}}> Nothing to see here... </p>
+											}
+										</Col>
+									</Row>
+								</div>
+								{/*
+								<Row>
+									{this.state.isDataOnDate 
+									?
+										<div className = "box-container">
+											<Row>
+												<Col>
+													<h4 className = "date-string"> 
+														{this.state.selectedDateString} 
+													</h4>
+												</Col>
+												<Col>
+													<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
+												</Col>
+											</Row>
+											<Row>
+												<Col>
+													{displayData}
+												</Col>
+											</Row>
+										</div>
+										:
+										<div className = "box-container">
+											<Row>
+												<Col>
+													<h4 className = "date-string"> 
+														{this.state.selectedDateString} 
+													</h4>
+												</Col>
+												<Col>
+													<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
+												</Col>
+											</Row>
+											<Row>
+												<Col sm = {6}>
+													<p style = {{marginLeft: "1%"}}> Nothing to see here... </p>
+												</Col>
+											</Row>
+										</div>
+									}
+								</Row>
+								*/}
 							</Row>
-							<Row>
-								<Col>
-									{displayData}
-								</Col>
-							</Row>
-						</div>
-						:
-						<div className = "box-container">
-							<Row>
-								<Col>
-									<h4 className = "date-string"> 
-										{this.state.selectedDateString} 
-									</h4>
-								</Col>
-								<Col>
-									<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
-								</Col>
-							</Row>
-							<Row>
-								<Col sm = {6}>
-									<p style = {{marginLeft: "1%"}}> Nothing to see here... </p>
-								</Col>
-							</Row>
-						</div>
-						}
-					</Col>
-					
-					<Col sm = {7}>
-						<div className = "calendar-container">
-							<ReactCalendar 
-								minDate = {this.state.minDate}
-								showNeighboringMonth = {false}
-								onClickDay = {this.selectDay}
-								tileContent = {markedCalendar}
-							/>
-						</div>
-					</Col>
-				</Row>
+						</Col>
+					</Row>				
+				:
+					<Row>
+						<Col md = {5}>
+							{this.state.isDataOnDate 
+							?
+							<div className = "box-container">
+								<Row>
+									<Col>
+										<h4 className = "date-string"> 
+											{this.state.selectedDateString} 
+										</h4>
+									</Col>
+									<Col>
+										<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										{displayData}
+									</Col>
+								</Row>
+							</div>
+							:
+							<div className = "box-container">
+								<Row>
+									<Col>
+										<h4 className = "date-string"> 
+											{this.state.selectedDateString} 
+										</h4>
+									</Col>
+									<Col>
+										<Button variant = "primary" className = "add-data-button" onClick = {this.props.toggleAddModal}> + </Button>
+									</Col>
+								</Row>
+								<Row>
+									<Col sm = {6}>
+										<p style = {{marginLeft: "1%"}}> Nothing to see here... </p>
+									</Col>
+								</Row>
+							</div>
+							}
+						</Col>
+						
+						<Col md = {7}>
+							<div className = "calendar-container">
+								<ReactCalendar 
+									minDate = {this.state.minDate}
+									showNeighboringMonth = {false}
+									onClickDay = {this.selectDay}
+									tileContent = {markedCalendar}
+								/>
+							</div>
+						</Col>
+					</Row>
+				}
 			</Container>
 		);
 	}

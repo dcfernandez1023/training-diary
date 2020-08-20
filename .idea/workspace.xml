@@ -58,8 +58,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TdApis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+            <state relative-caret-position="698">
+              <caret line="140" column="1" selection-start-line="140" selection-start-column="1" selection-end-line="140" selection-end-column="1" />
               <folding>
                 <element signature="e#121#145#0" expanded="true" />
               </folding>
@@ -142,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1498" />
     <option name="y" value="353" />
     <option name="width" value="1936" />
@@ -154,7 +154,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -166,6 +165,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -422,7 +422,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49837488" visible="true" weight="0.21443625" />
@@ -433,7 +433,7 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9336143" visible="true" weight="0.40411702" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.9336143" visible="true" weight="0.032502707" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.5016251" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49841937" weight="0.41603467" />
@@ -690,8 +690,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TdApis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+        <state relative-caret-position="698">
+          <caret line="140" column="1" selection-start-line="140" selection-start-column="1" selection-end-line="140" selection-end-column="1" />
           <folding>
             <element signature="e#121#145#0" expanded="true" />
           </folding>

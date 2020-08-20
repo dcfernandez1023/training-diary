@@ -376,6 +376,7 @@ class App extends Component {
 									saving = {this.state.profileAndCredSaving}
 									toggleSaving = {this.toggleProfAndCredLoader}
 									saveData = {this.saveData}
+									logout = {this.logout}
 								/>
 							</div>
 						</Route>

@@ -4,6 +4,12 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+.mobile-calendar-container {
+	border: 1px solid #a0a096;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
 .box-container {
 	border: 1px solid #a0a096;
 	height: 75vh;
@@ -13,6 +19,9 @@
 .add-data-button {
 	float: right;
 	margin: 1%;
+}
+.mobile-add-data-button {
+	float: right;
 }
 .data-inline-buttons {
 	margin: 0.5%;

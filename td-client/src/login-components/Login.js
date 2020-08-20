@@ -147,7 +147,7 @@ class Login extends Component {
 			<Jumbotron>
 				<Container fluid>
 					<Row>
-						<Col>
+						<Col lg = {6}>
 							<Row>
 								<Col>
 									<h1> Training Diary </h1>
@@ -178,7 +178,7 @@ class Login extends Component {
 								</Col>
 							</Row>
 						</Col>
-						<Col>
+						<Col lg = {6}>
 							<Row>
 								<Col>
 									<Tabs defaultActiveKey = "login" onSelect = {this.toggleTab.bind(this)}>

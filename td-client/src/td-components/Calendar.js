@@ -529,7 +529,7 @@ class Calendar extends Component {
 					</Row>				
 				:
 					<Row>
-						<Col md = {5}>
+						<Col sm = {5}>
 							{this.state.isDataOnDate 
 							?
 							<div className = "box-container">
@@ -570,7 +570,7 @@ class Calendar extends Component {
 							}
 						</Col>
 						
-						<Col md = {7}>
+						<Col sm = {7}>
 							<div className = "calendar-container">
 								<ReactCalendar 
 									minDate = {this.state.minDate}

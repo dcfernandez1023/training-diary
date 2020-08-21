@@ -267,130 +267,237 @@ class AddModal extends Component {
 		if(this.props.data === null) {
 			return null;
 		}
+		const breakpoint = 500;
+		const width = window.innerWidth;
 		var inputs;
 		const newDataKeys = Object.keys(this.state.newData);
 		//const newDataKeys = this.state.newData.displayOrder;
-		if(newDataKeys.length === 0) {
-			inputs = <ListGroup horizontal>
-						<ListGroup.Item style = {{width: "50%"}}>
-							Category
-						</ListGroup.Item>
-						<ListGroup.Item style = {{width: "50%"}}>
-							<FormControl as = "select" name = "Category" onChange = {(e) => {this.onChangeNewData(e)}}>
-								<option  value = "" selected disabled hidden> Select </option>
-								{this.props.data.metaData.categories.map((category) => {
-									return (
-										<option key = {uuid()} value = {category}>
-											{category}
-										</option>
-									)
-								})}
-							</FormControl>
-						</ListGroup.Item>
-					</ListGroup>
-			return inputs;
-		}
-		inputs = newDataKeys.map((field) => {
-			if(field === "Category") {
-				return (
-					<ListGroup horizontal> 
-						<ListGroup.Item style = {{width: "50%"}}>
-							{field}
-						</ListGroup.Item>
-						<ListGroup.Item style = {{width: "50%"}}>
-							<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
-								<option  value = "" selected disabled hidden> Select </option>
-								{this.props.data.metaData.categories.map((category) => {
-									return (
-										<option value = {category} key = {uuid()}>
-											{category}
-										</option>
-									)
-								})}
-							</FormControl>
-						</ListGroup.Item>
-					</ListGroup>
-				);
-			}
-			else if(field === "Type") {
-				return (
-					<ListGroup horizontal>
-						<ListGroup.Item style = {{width: "50%"}}>
-							{field}
-						</ListGroup.Item>
-						<ListGroup.Item style = {{width: "50%"}}>
-							<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
-								<option  value = "" selected disabled hidden> Select </option>
-								{this.props.data.metaData.entryTypes.map((entry) => {
-									if(entry.Category === this.state.newData.Category) {
+		if(width < breakpoint) {
+			if(newDataKeys.length === 0) {
+				inputs = <div style = {{marginBottom: "5%"}}>
+							<Form.Label> Category </Form.Label>
+								<FormControl as = "select" name = "Category" onChange = {(e) => {this.onChangeNewData(e)}}>
+									<option  value = "" selected disabled hidden> Select </option>
+									{this.props.data.metaData.categories.map((category) => {
 										return (
-											<option value = {entry.Type} key = {uuid()}>
-												{entry.Type}
+											<option key = {uuid()} value = {category}>
+												{category}
 											</option>
 										)
-									}
-								})}
-							</FormControl>
-						</ListGroup.Item>
-					</ListGroup>
-				);
+									})}
+								</FormControl>
+							</div>
+				return inputs;
 			}
-			else {
-				if(field !== "displayOrder" && field !== "Date" && field !== "calculationType") {
-					if(field === "Name") {
-						var nameList = [];
-						for(var i = 0; i < this.state.data.entryNames.length ; i++) {
-							var nameData = this.state.data.entryNames[i];
-							if(this.state.newData.Category === nameData.Category && this.state.newData.Type === nameData.Type) {
-								nameList.push(nameData.Name);
+			inputs = newDataKeys.map((field) => {
+				if(field === "Category") {
+					return (
+						<div style = {{marginBottom: "5%"}}>
+							<Form.Label> {field} </Form.Label>
+									<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
+										<option  value = "" selected disabled hidden> Select </option>
+										{this.props.data.metaData.categories.map((category) => {
+											return (
+												<option value = {category} key = {uuid()}>
+													{category}
+												</option>
+											)
+										})}
+									</FormControl>
+						</div>
+					);
+				}
+				else if(field === "Type") {
+					return (
+						<div style = {{marginBottom: "5%"}}>
+							<Form.Label> {field} </Form.Label>
+								<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
+									<option  value = "" selected disabled hidden> Select </option>
+									{this.props.data.metaData.entryTypes.map((entry) => {
+										if(entry.Category === this.state.newData.Category) {
+											return (
+												<option value = {entry.Type} key = {uuid()}>
+													{entry.Type}
+												</option>
+											)
+										}
+									})}
+								</FormControl>
+						</div>
+					);
+				}
+				else {
+					if(field !== "displayOrder" && field !== "Date" && field !== "calculationType") {
+						if(field === "Name") {
+							var nameList = [];
+							for(var i = 0; i < this.state.data.entryNames.length ; i++) {
+								var nameData = this.state.data.entryNames[i];
+								if(this.state.newData.Category === nameData.Category && this.state.newData.Type === nameData.Type) {
+									nameList.push(nameData.Name);
+								}
 							}
+							return (
+								<div style = {{marginBottom: "5%"}}>
+									<Form.Label> {field} </Form.Label>
+										<InputGroup>
+											<Form.Control
+												as = "input"
+												autoComplete = "off"
+												name = {field}
+												value = {this.state.newData[field]}
+												onChange = {(e) => {this.onChangeNewData(e)}}
+											/>
+											<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
+												<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
+												<Dropdown.Menu rootCloseEvent = "click">
+													{nameList.map((name) => {
+														return (
+															<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
+																{name}
+															</Dropdown.Item>
+														)
+													})}
+												</Dropdown.Menu>
+											</Dropdown> 
+										</InputGroup> 
+								</div>
+							);
 						}
-						return (
-							<ListGroup horizontal>
-								<ListGroup.Item style = {{width: "50%"}}>
-									{field}
-								</ListGroup.Item>
-								<ListGroup.Item style = {{width: "50%"}}>
-									<InputGroup>
-										<Form.Control
-											as = "input"
-											autoComplete = "off"
-											name = {field}
-											value = {this.state.newData[field]}
-											onChange = {(e) => {this.onChangeNewData(e)}}
-										/>
-										<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
-											<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
-											<Dropdown.Menu rootCloseEvent = "click">
-												{nameList.map((name) => {
-													return (
-														<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
-															{name}
-														</Dropdown.Item>
-													)
-												})}
-											</Dropdown.Menu>
-										</Dropdown> 
-									</InputGroup> 
-								</ListGroup.Item>
-							</ListGroup>
-						);
-					}
-					else {
-						return (
-							<ListGroup horizontal>
-								<ListGroup.Item style = {{width: "50%"}}>
-									{field}
-								</ListGroup.Item>
-								<ListGroup.Item style = {{width: "50%"}}>
-									<FormControl as = "input" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}} />
-								</ListGroup.Item>
-							</ListGroup>
-						);
+						else {
+							return (
+								<div style = {{marginBottom: "5%"}}>
+										<Form.Label> {field} </Form.Label>
+										<FormControl as = "input" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}} />
+								</div>
+							);
+						}
 					}
 				}
+			});
+		}
+		else {
+			if(newDataKeys.length === 0) {
+				inputs = <ListGroup horizontal>
+							<ListGroup.Item style = {{width: "50%"}}>
+								Category
+							</ListGroup.Item>
+							<ListGroup.Item style = {{width: "50%"}}>
+								<FormControl as = "select" name = "Category" onChange = {(e) => {this.onChangeNewData(e)}}>
+									<option  value = "" selected disabled hidden> Select </option>
+									{this.props.data.metaData.categories.map((category) => {
+										return (
+											<option key = {uuid()} value = {category}>
+												{category}
+											</option>
+										)
+									})}
+								</FormControl>
+							</ListGroup.Item>
+						</ListGroup>
+				return inputs;
 			}
-		});
+			inputs = newDataKeys.map((field) => {
+				if(field === "Category") {
+					return (
+						<ListGroup horizontal> 
+							<ListGroup.Item style = {{width: "50%"}}>
+								{field}
+							</ListGroup.Item>
+							<ListGroup.Item style = {{width: "50%"}}>
+								<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
+									<option  value = "" selected disabled hidden> Select </option>
+									{this.props.data.metaData.categories.map((category) => {
+										return (
+											<option value = {category} key = {uuid()}>
+												{category}
+											</option>
+										)
+									})}
+								</FormControl>
+							</ListGroup.Item>
+						</ListGroup>
+					);
+				}
+				else if(field === "Type") {
+					return (
+						<ListGroup horizontal>
+							<ListGroup.Item style = {{width: "50%"}}>
+								{field}
+							</ListGroup.Item>
+							<ListGroup.Item style = {{width: "50%"}}>
+								<FormControl as = "select" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}}>
+									<option  value = "" selected disabled hidden> Select </option>
+									{this.props.data.metaData.entryTypes.map((entry) => {
+										if(entry.Category === this.state.newData.Category) {
+											return (
+												<option value = {entry.Type} key = {uuid()}>
+													{entry.Type}
+												</option>
+											)
+										}
+									})}
+								</FormControl>
+							</ListGroup.Item>
+						</ListGroup>
+					);
+				}
+				else {
+					if(field !== "displayOrder" && field !== "Date" && field !== "calculationType") {
+						if(field === "Name") {
+							var nameList = [];
+							for(var i = 0; i < this.state.data.entryNames.length ; i++) {
+								var nameData = this.state.data.entryNames[i];
+								if(this.state.newData.Category === nameData.Category && this.state.newData.Type === nameData.Type) {
+									nameList.push(nameData.Name);
+								}
+							}
+							return (
+								<ListGroup horizontal>
+									<ListGroup.Item style = {{width: "50%"}}>
+										{field}
+									</ListGroup.Item>
+									<ListGroup.Item style = {{width: "50%"}}>
+										<InputGroup>
+											<Form.Control
+												as = "input"
+												autoComplete = "off"
+												name = {field}
+												value = {this.state.newData[field]}
+												onChange = {(e) => {this.onChangeNewData(e)}}
+											/>
+											<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
+												<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
+												<Dropdown.Menu rootCloseEvent = "click">
+													{nameList.map((name) => {
+														return (
+															<Dropdown.Item onSelect = {this.onSelectName.bind(this, name)} >
+																{name}
+															</Dropdown.Item>
+														)
+													})}
+												</Dropdown.Menu>
+											</Dropdown> 
+										</InputGroup> 
+									</ListGroup.Item>
+								</ListGroup>
+							);
+						}
+						else {
+							return (
+								<ListGroup horizontal>
+									<ListGroup.Item style = {{width: "50%"}}>
+										{field}
+									</ListGroup.Item>
+									<ListGroup.Item style = {{width: "50%"}}>
+										<FormControl as = "input" value = {this.state.newData[field]} name = {field} onChange = {(e) => {this.onChangeNewData(e)}} />
+									</ListGroup.Item>
+								</ListGroup>
+							);
+						}
+					}
+				}
+			});
+		}
 		return <div> {inputs} </div>
 	}
 	

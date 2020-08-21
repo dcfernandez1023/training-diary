@@ -177,8 +177,23 @@ class EditModal extends Component {
 		if(this.state.dataToEdit === null || this.state.dataToEdit == undefined) {
 			return null;
 		}
+		const breakpoint = 500;
+		const width = window.innerWidth;
 		const editFields = this.state.dataToEdit.displayOrder.map((key) => {
 			if(key === "Category" || key === "Type") {
+				if(width < breakpoint) {
+					return (
+						<div> 
+									<Form.Label> {key} </Form.Label> 
+									<FormControl
+										as = "input"
+										name = {key}
+										value = {this.state.dataToEdit[key]}
+										disabled = {true}
+									/>
+						</div>
+					);
+				}
 				return (
 					<ListGroup horizontal>
 						<ListGroup.Item style = {{width: "50%"}}>
@@ -202,6 +217,34 @@ class EditModal extends Component {
 					if(this.state.dataToEdit.Category === nameData.Category && this.state.dataToEdit.Type === nameData.Type) {
 						nameList.push(nameData.Name);
 					}
+				}
+				if(width < breakpoint) {
+					return (
+						<div>
+								<Form.Label> {key} </Form.Label>
+								<InputGroup>
+									<Form.Control
+										as = "input"
+										autoComplete = "off"
+										name = {key}
+										value = {this.state.dataToEdit[key]}
+										onChange = {(e) => {this.onChangeEdit(e)}}
+									/>
+									<Dropdown show = {this.state.nameMenuShow} as = {InputGroup.Prepend} onToggle = {this.onClickRootClose.bind(this)}>
+										<Dropdown.Toggle variant = "outline-secondary" eventkey = "00"> </Dropdown.Toggle>
+										<Dropdown.Menu rootCloseEvent = "click">
+											{nameList.map((name) => {
+												return (
+													<Dropdown.Item key = {uuid()} onSelect = {this.onSelectName.bind(this, name)} >
+														{name}
+													</Dropdown.Item>
+												)
+											})}
+										</Dropdown.Menu>
+									</Dropdown> 
+								</InputGroup> 
+						</div>
+					);
 				}
 				return (
 					<ListGroup horizontal>
@@ -235,6 +278,19 @@ class EditModal extends Component {
 				);
 			}
 			else {
+				if(width < breakpoint) {
+					return (	
+						<div>
+								<Form.Label> {key} </Form.Label>
+								<FormControl
+									as = "input"
+									name = {key}
+									value = {this.state.dataToEdit[key]}
+									onChange = {(e) => {this.onChangeEdit(e)}}
+								/>
+						</div>
+					);
+				}
 				return (
 					<ListGroup horizontal>
 						<ListGroup.Item style = {{width: "50%"}}>

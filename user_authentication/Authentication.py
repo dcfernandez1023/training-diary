@@ -59,7 +59,7 @@ class Authentication:
     #app = flask app
     def encode_api_token(self, app):
         token = jwt.encode(
-            {'username': self.__username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+            {'username': self.__username}, #'exp': datetime.datetime.utcnow() + datetime.timedelta()},
             app.config['SECRET_KEY'])
         return token.decode('UTF-8')
 

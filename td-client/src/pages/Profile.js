@@ -907,7 +907,7 @@ class Profile extends Component {
 							<br/>
 							<Row>
 								<Col>
-									<Card>
+									<Card style = {{height: "100%"}}>
 										<Card.Body>
 											<Card.Title>
 												Goal Statistics 🎯
@@ -933,7 +933,7 @@ class Profile extends Component {
 									</Card>
 								</Col>
 								<Col>
-									<Card>
+									<Card style = {{height: "100%"}}>
 										<Card.Body>
 											<Card.Title>
 												Training Statistics 💪

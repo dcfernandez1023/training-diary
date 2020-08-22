@@ -35,13 +35,15 @@ class Calendar extends Component {
 		eventKey: 0,
 		dataToEdit: null,
 		editIndex: -1,
-		eventKey: -1
+		eventKey: -1,
+		screenWidth: 0
 	}
 	
 	/* COMPONENT MOUNTING AND UPDATING METHODS */ 
 
 	componentDidMount = () => {
-		this.setState({selectedDate: this.formatNewDate(), selectedDateString: this.toDateString(this.formatNewDate())});
+		window.addEventListener("resize", this.updateWidth);
+		this.setState({selectedDate: this.formatNewDate(), selectedDateString: this.toDateString(this.formatNewDate()), screenWidth: window.innerWidth});
 	}
 
 	componentDidUpdate = () => {
@@ -57,6 +59,10 @@ class Calendar extends Component {
 		if(this.state.eventKey > 1000) {
 			this.setState({eventKey: -1});
 		}
+	}
+	
+	updateWidth = () => {
+		this.setState({screenWidth: window.innerWidth});
 	}
 	
 	//onclick event to handle edit button click
@@ -411,7 +417,7 @@ class Calendar extends Component {
 		}
 		
 		const breakpoint = 500;
-		const width = window.innerWidth;
+		const width = this.state.screenWidth;
 
 		const displayData = this.displayData();
 		return (

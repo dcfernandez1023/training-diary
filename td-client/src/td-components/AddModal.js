@@ -342,7 +342,7 @@ class AddModal extends Component {
 										<InputGroup>
 											<Form.Control
 												as = "input"
-												autoComplete = "off"
+												autoComplete = "false"
 												name = {field}
 												value = {this.state.newData[field]}
 												onChange = {(e) => {this.onChangeNewData(e)}}
@@ -460,7 +460,7 @@ class AddModal extends Component {
 										<InputGroup>
 											<Form.Control
 												as = "input"
-												autoComplete = "off"
+												autoComplete = "false"
 												name = {field}
 												value = {this.state.newData[field]}
 												onChange = {(e) => {this.onChangeNewData(e)}}

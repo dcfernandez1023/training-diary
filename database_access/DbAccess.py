@@ -97,7 +97,7 @@ class DbAccess:
 
     #intended to be called only in constructor; gets the database
     def __get_db(self):
-        client = MongoClient("mongodb+srv://bigdom1023:homekeys92@dom-cluster-1numt.mongodb.net/test?retryWrites=true&w=majority")
+        client = MongoClient("mongodb+srv://{username}:{password}@dom-cluster-1numt.mongodb.net/test?retryWrites=true&w=majority")
         db = client.get_database("TrainingDiary")
         return db
 

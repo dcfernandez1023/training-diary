@@ -34,9 +34,9 @@ Create static build folder: `npm run build`
 ### Back-end
 Update python libraries: `pip install -r requirements.txt`
 
-Run server (development): `python app.py`
+Run server (development): `python TdApis.py`
 
-Run server (production): `gunicorn app.py`
+Run server (production): `gunicorn TdApis.py`
 
 
 

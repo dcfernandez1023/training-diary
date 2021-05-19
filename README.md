@@ -19,7 +19,7 @@ A web application that allows you to track and analyze your workout data.  Built
 - Python
 - Flask (https://flask.palletsprojects.com/en/2.0.x/)
 - PyJWT (https://pyjwt.readthedocs.io/en/stable/)
-- pymongo 
+- pymongo (https://pymongo.readthedocs.io/en/stable/)
 
 
 ## Usage
